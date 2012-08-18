@@ -1,0 +1,33 @@
+{block head}
+	<script type="text/javascript" src="{$baseUri}/js/jquery.showpassword.js"></script>
+{/block}
+{block #content}
+
+<h1>Register</h1>
+
+{form formRegister class => "form-horizontal"}
+	<div class="control-group">
+		{label email class => 'control-label'/}
+		<div class="controls">
+		{input email}
+		</div>
+	</div>
+	<div class="control-group">
+		{label password class => 'control-label'/}
+		<div class="controls">
+		{input password 'data-typetoggle' => '#show_password', id => 'password-field'}
+		</div>	
+	</div>
+	<div class="control-group">
+		{label show_password class => 'control-label'/}
+		<div class="controls">
+		{input show_password id => 'show_password', class => 'check'}
+		<script>
+			$('#password-field').showPassword();
+		</script>
+		</div>	
+	</div>
+	<div class="form-actions">
+		{input btnSubmit class => "btn btn-primary"}
+	</div>
+{/form}

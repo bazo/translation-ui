@@ -1,0 +1,106 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+	parameters:
+		app:
+			name: watchdog
+		mail:
+			from: 'postmaster@watchdog.mailgun.org'
+			fromName: Mazagran
+
+		pusher:
+			appId: '19294'
+			apiKey: 'bf1aa9a75ae923eaadbf'
+			secret: 'aa7c879e53c77fa43776'
+
+		ironmq:
+			token: 'R7d3Ti3xJbt13uaBcq-XPyKJyks'
+			projectId: '4f9e9837f0b1990273005e29'
+
+	php:
+		date.timezone: Europe/Bratislava
+		# session.save_path: "%tempDir%/sessions"
+		# zlib.output_compression: yes
+
+	nette:
+		session:
+			autoStart: smart
+			expiration: '+365 days'
+		mailer:
+			smtp: true
+			host: smtp.mailgun.org
+			port: 587
+			secure: tls
+			username: postmaster@mazagran.mailgun.org
+			password: 4cvn7bvdye05
+	documentManagerExtension:
+		documentsDir: %appDir%/models/documents
+		proxyDir: %appDir%/models/proxies
+		hydratorDir: %appDir%/models/hydrators
+		dbname: 'mazagran'
+		uri: 'mongodb://localhost/mazagran'
+		cachePrefix: watchdog
+		metaDataCacheClass: '\Doctrine\Common\Cache\ArrayCache'
+
+	services:
+
+		passwordHasher:
+			class: \Phpass\Hash
+
+		keyGenerator:
+			class: \Services\KeyGenerator
+
+		userService:
+			class: \Services\UserService(@documentManager, @passwordHasher)
+
+		projectFacade:
+			class: \Facades\Project(@documentManager, @keyGenerator)
+
+		translationFacade:
+			class: \Facades\Translation(@documentManager)	
+
+		messageFacade:
+			class: \Facades\Message(@documentManager)		
+      
+		logService:
+			class: \Services\LogService(@documentManager, @pusher)
+      
+		pusher:
+			class: \Pusher(%pusher.apiKey%, %pusher.secret%, %pusher.appId%)  
+
+		ironMQ:
+			class: \Iron\IronMQ(['token' = %ironmq.token%, 'project_id' = '%ironmq.projectId%'])
+
+		authenticator:
+			class: Authenticator(@documentManager::getRepository(User), @passwordHasher)
+
+		adminAuthenticator:
+			class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
+			#autowired: false
+
+		
+	factories:
+
+production < common:
+
+development < common:
+
+local < common:
+
+pagoda < common:
+	documentManagerExtension:
+		documentsDir: %appDir%/models/documents
+		proxyDir: %appDir%/models/proxies
+		hydratorDir: %appDir%/models/hydrators
+		dbname: 'watchdog'
+		uri: 'mongodb://watchdog:kavicka666@ds033067.mongolab.com:33067/watchdog'
+		cachePrefix: watchdog
+		metaDataCacheClass: '\Doctrine\Common\Cache\ApcCache'
+
+	services:
+		cacheStorage:
+			class: \Caching\ApcStorage(%app.name%)

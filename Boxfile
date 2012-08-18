@@ -1,0 +1,28 @@
+web1: #component type & number
+    name: mazagran #component settings
+    shared_writable_dirs:
+        - /temp
+        - /temp/sessions
+        - /temp/cache
+        - /log
+        #- /app/models/proxies
+        #- /app/models/hydrators
+    document_root: /www
+    #extensions:
+    php_extensions:
+    - curl
+    - mongo
+    - apc
+    - pdo_sqlite
+    - gd
+    - mbstring
+    - zip
+
+    # Hooks
+    after_build:
+        - "php composer.phar install"
+        #- "php www/index.php odm:clear-cache:metadata"
+        - "php www/index.php odm:schema:create"
+        - "php www/index.php odm:generate:hydrators"
+        - "php www/index.php odm:generate:proxies"
+        #- "php www/index.php app:admin:create"

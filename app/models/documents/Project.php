@@ -1,0 +1,143 @@
+<?php
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of App
+ *
+ * @author Martin
+ * @ODM\Document
+ */
+class Project
+{
+	private 
+		/** 
+		 * @ODM\Id 
+		 */	
+		$id,
+		
+		/**
+		 * @ODM\String
+		 * @ODM\Index
+		 */	
+		$caption,	
+			
+		/**
+		 * @ODM\String
+		 * @ODM\Index
+		 */	
+		$name,
+		
+		/**
+		 * @ODM\String 
+		 */	
+		$key,
+			
+		/** @ODM\ReferenceOne(targetDocument="User") */	
+		$user,
+			
+		/** 
+		 * @ODM\ReferenceMany(targetDocument="Translation")
+		 *  @ODM\Index
+		 */	
+		$translations,
+			
+		/**
+		 * @ODM\Collection
+		 * @ODM\Index
+		 */	
+		$translationLangs = array(),
+		
+		/**
+		 * @ODM\String
+		 * @ODM\Index
+		 */	
+		$sourceLanguage
+	;
+	
+	public function __construct()
+	{
+		$this->translation = new Doctrine\Common\Collections\ArrayCollection;
+	}
+	
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function getCaption()
+	{
+		return $this->caption;
+	}
+
+	public function setCaption($caption)
+	{
+		$this->caption = $caption;
+		return $this;
+	}
+
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	public function setName($name)
+	{
+		$this->name = $name;
+		return $this;
+	}
+
+	public function getKey()
+	{
+		return $this->key;
+	}
+
+	public function setKey($key)
+	{
+		$this->key = $key;
+		return $this;
+	}
+
+	public function getUser()
+	{
+		return $this->user;
+	}
+
+	public function setUser($user)
+	{
+		$this->user = $user;
+		return $this;
+	}
+	
+	public function getTranslations()
+	{
+		return $this->translations;
+	}
+
+	public function addTranslation(Translation $translation)
+	{
+		if(!in_array($translation->getLang(), $this->translationLangs))
+		{
+			$this->translationLangs[] = $translation->getLang();
+			$this->translations->add($translation);
+		}
+		else
+		{
+			throw new ExistingTranslationException(sprintf('Project %s already has a translation for language: %s.', $this->caption, $translation->getLang()));
+		}
+	}
+	
+	public function getSourceLanguage()
+	{
+		return $this->sourceLanguage;
+	}
+
+	public function setSourceLanguage($sourceLanguage)
+	{
+		$this->sourceLanguage = $sourceLanguage;
+		return $this;
+	}
+}

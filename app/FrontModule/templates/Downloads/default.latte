@@ -1,0 +1,40 @@
+{block aside}
+	<ul class="nav nav-list">
+		<li class="nav-header">
+		Clients
+		</li>
+		
+		<li>
+		<a href="#php">PHP</a>
+		</li>
+	</ul>
+{/block}
+{block content}
+<h2 id="php" name="php">PHP client</h2>
+<br>
+<h3>Usage</h3>
+<pre>
+$client = new \Bazo\Watchdog\Client($appId, $appKey);
+$client->log($message, $level);
+</pre>
+<h3>Download</h3>
+github: <a href="https://github.com/bazo/watchdog-client">https://github.com/bazo/watchdog-client</a><br>
+<br>
+<pre>
+git clone git://github.com/bazo/watchdog-client.git<br>
+</pre>
+<br>
+packagist: <a href="http://packagist.org/packages/bazo/watchdog-client">http://packagist.org/packages/bazo/watchdog-client</a><br>
+composer.json:<br>
+<br>
+<pre class="prettyprint linenums" style="margin-bottom: 9px;">
+{
+    "require": {
+        "bazo/watchdog-client": "*"
+    }
+}
+</pre>
+<br>
+
+latest master in <a href="https://github.com/bazo/watchdog-client/zipball/master">.zip</a>
+

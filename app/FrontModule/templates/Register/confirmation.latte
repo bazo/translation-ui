@@ -1,0 +1,11 @@
+{block content}
+<section>
+	<h2>Registration confirmation</h2>
+	
+	{if $tokenUsed === false}
+	<p>Yout registration has been confirmed. 
+	</p>
+	{else}
+	<p>Token invalid or has been already used.</p>
+	{/if}
+</section>

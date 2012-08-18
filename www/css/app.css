@@ -1,0 +1,75 @@
+html{
+	min-height: 100%;
+}
+body{
+	height: 100%;
+}
+
+#alerts{
+	overflow: auto;
+}
+.form-filter{
+	
+}
+.form-filter label{
+	font-size: 1.5em;
+	margin-right: 10px;
+}
+.form-filter li{
+	font-size: 1.5em;
+}
+.form-filter label input[type="checkbox"]{
+	margin-right: 5px;
+	margin-top: -3px;
+}
+.form-filter li input[type="checkbox"]{
+	margin-right: 5px;
+}
+.form-filter .nav-header{
+	font-size: 1.6em;
+	margin-bottom: 10px;
+}
+.log{
+	padding-bottom: 20px;
+}
+.log, .log h2{
+	font-size: 150%;
+	font-weight: bold;
+}
+.log h2{
+	text-transform: uppercase;
+}
+.log h2 a{
+	color: #fff;
+}
+.log h2 a:hover{
+	text-decoration: none;
+}
+.log.alert .message{
+	font-weight: normal;
+	line-height: 150%;
+}
+#app{
+	width: 400px;
+}
+#app h1{
+	float: left;
+	margin-right: 50px;
+}
+#button-add-app{
+	width: 50%;
+	height: 300px;
+}
+.log .badge{
+	position: relative;
+	top: -5px;
+}
+#nav i{
+	margin-right: 5px;
+}
+
+footer{
+	bottom: 0;
+	clear: both;
+	width: 100%;
+}

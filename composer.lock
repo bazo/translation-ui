@@ -1,0 +1,115 @@
+{
+    "hash": "f0f1965f4f27bc1c3c788819ef5eca7c",
+    "packages": [
+        {
+            "package": "bazo/gridder",
+            "version": "dev-master",
+            "source-reference": "d6bbe3288d9fb985268392b7acf091601f0b0b71",
+            "commit-date": "1342297640"
+        },
+        {
+            "package": "bazo/nette-document-manager-extension",
+            "version": "dev-master",
+            "source-reference": "4a976279dfab789994b2543e8f3829c7e5aea605",
+            "commit-date": "1342272624"
+        },
+        {
+            "package": "bazo/nette-form-controls",
+            "version": "dev-master",
+            "source-reference": "1d493606b2ed99ed821194d3dcb99fa65b75f3ea",
+            "commit-date": "1342292599"
+        },
+        {
+            "package": "bazo/nette-translation",
+            "version": "dev-master",
+            "source-reference": "624685878099a57261e4ce5b51809b3fbb5d231a",
+            "commit-date": "1345320134"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "alias-pretty-version": "2.4.x-dev",
+            "alias-version": "2.4.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "source-reference": "329d90ab8d6ed4c0b422d631caa5594c77c12055",
+            "commit-date": "1345128430"
+        },
+        {
+            "package": "doctrine/mongodb",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/mongodb",
+            "version": "dev-master",
+            "source-reference": "fdf44d850d7482b2cea7a0793d46999641c68e4f",
+            "commit-date": "1344539108"
+        },
+        {
+            "package": "doctrine/mongodb-odm",
+            "version": "dev-master",
+            "source-reference": "70521c1c654ef6a42a7e88ed9bb98f9d3fe9fc0c",
+            "commit-date": "1344881897"
+        },
+        {
+            "package": "genphrase/genphrase",
+            "version": "dev-master",
+            "source-reference": "f80c1b63f8c5cda9e54818b1009813fa51c6e63e",
+            "commit-date": "1344514730"
+        },
+        {
+            "package": "nette/nette",
+            "version": "dev-master",
+            "source-reference": "78511c56ec98e789d5912d76bf50ec4e7119789e",
+            "commit-date": "1345135726"
+        },
+        {
+            "package": "nikic/php-parser",
+            "version": "dev-master",
+            "source-reference": "a590937fdf855169879dac25e9760ff7dd24cfd0",
+            "commit-date": "1344357619"
+        },
+        {
+            "package": "rych/phpass",
+            "version": "dev-master",
+            "source-reference": "1174a7a5b1c95ef8d4b7d861f3bc208913803645",
+            "commit-date": "1344141053"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "source-reference": "3b66f1056f5ac37146d3b755964e8a43a205f2f5",
+            "commit-date": "1344349441"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "dev-master",
+            "source-reference": "6b3eb66a7c4495dcaa35a64dd93c8ba8c29f35d8",
+            "commit-date": "1344325256"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}

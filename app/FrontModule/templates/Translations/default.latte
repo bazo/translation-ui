@@ -1,0 +1,12 @@
+{block content}
+
+{foreach $me->getProjects() as $project}
+	<ul class="nav nav-list">
+		<li class="nav-header">
+			{$project->getCaption()}
+		</li>
+		<li n:foreach="$project->getTranslations() as $translation">
+			<a n:href="translation: id => $translation->getId()">{$translation->getLang()}</a>
+		</li>
+	</ul>
+{/foreach}

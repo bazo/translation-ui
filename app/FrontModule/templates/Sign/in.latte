@@ -1,0 +1,29 @@
+{var $robots = noindex}
+
+{block #content}
+
+<h1>Sign in</h1>
+
+{form signInForm class => "form-horizontal"}
+	<div class="control-group">
+		{label email class => 'control-label'/}
+		<div class="controls">
+		{input email type => 'email'}
+		</div>
+	</div>
+	<div class="control-group">
+		{label password class => 'control-label'/}
+		<div class="controls">
+		{input password}
+		</div>	
+	</div>
+	<div class="control-group">
+		{label remember class => 'control-label'/}
+		<div class="controls">
+		{input remember}
+		</div>	
+	</div>
+	<div class="form-actions">
+		{input btnSubmit class => "btn btn-primary"}
+	</div>
+{/form}

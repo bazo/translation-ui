@@ -1,0 +1,115 @@
+{block aside}
+<ul class="nav nav-list">
+	<li class="nav-header">
+		Messages
+	</li>
+	<li n:foreach="$translation->getMessages() as $message">
+		<a href="#{$message->getId()}">{$message->getSingular()}</a>
+	</li>
+</ul>
+{/block}
+
+{block content}
+<h1>{$translation->getProject()->getCaption()}</h1>
+<h2>Source language: Target language: {$translation->getLang()}</h2>
+
+<a class="btn btn-success" data-toggle="modal" href="#myModal" ><i class="icon-white icon-plus-sign"></i> Add message</a>
+<a class="btn btn-inverse" data-toggle="modal" href="#myModal" ><i class="icon-white icon-download"></i> Download dictionary</a>
+
+<div class="modal hide" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>New message</h3>
+  </div>
+	{snippet formNewMessage}
+	{form formNewMessage}
+  <div class="modal-body">
+	<table>
+		<tr>
+			<th>{label context /}</th>
+			<th>{input context}</th>
+		</tr>
+		<tr>
+			<th>{label singular /}</th>
+			<th>{input singular}</th>
+		</tr>
+		<tr>
+			<th>{label plural /}</th>
+			<th>{input plural}</th>
+		</tr>
+	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-primary"}
+  </div>
+	{/form}
+	{/snippet}
+</div>
+
+
+<br>
+<br>
+Show:
+<span class="label-info label">All</span>
+<span class="label-success label">Translated</span>
+<span class="label-important label">Untranslated</span>
+
+<br><br><br>
+
+<div n:inner-foreach="$translation->getMessages() as $message" id="messages">
+	{form "formTranslate-{$message->getId()}"}	
+	<div id="{$message->getId()}" class="message well">
+		
+		<span n:class="$message->isTranslated() ? label-success : label-important,label">{if $message->isTranslated()}Translated{else}Untranslated{/if}</span><br>
+		{input btnSubmit class => 'btn btn-success btn-large pull-right'}
+		<br>
+		<table>
+			<tr>
+				<th>Context:</th>
+				<td>{$message->getContext()}</td>
+			</tr>
+			
+			<tr>
+				<th>Singular:</th>
+				<td>{$message->getSingular()}</td>
+			</tr>
+			
+			<tr n:if="$message->hasPlural()">
+				<th>Plural:</th>
+				<td>{$message->getPlural()}</td>
+			</tr>
+		</table>
+		
+		<br>
+	<div n:if="$message->hasPlural()" class="tabbable">
+			{var $pluralNumbers = $translation->getPluralNumbers()}
+			<ul n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="nav nav-tabs">
+				<li n:class="$i === 0 ? active"><a href="#tab{$i}" data-toggle="tab">Plural form {$i} (e.g. {$pluralNumbers[$i]})</a></li>
+			</ul>
+		
+			<div n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="tab-content">
+				<div n:class="$i === 0 ? active, tab-pane" id="tab{$i}">
+					<p>{input translations-$i}</p>
+				</div>
+			</div>
+		
+	</div>
+		
+	<div n:if="!$message->hasPlural()" class="tabbable">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#">Translation</a></li>
+			</ul>
+		
+			<div class="tab-content">
+				<div class="active tab-pane">
+					<p>{input translations-0}</p>
+				</div>
+			</div>
+		
+	</div>	
+	
+	</div>
+	{input id}	
+	{/form}	
+</div>

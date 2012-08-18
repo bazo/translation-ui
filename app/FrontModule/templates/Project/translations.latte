@@ -1,0 +1,9 @@
+{block page}
+
+{foreach $project->getTranslations() as $translation}
+	{$translation->getLang()}  <a n:href="translation: id => $translation->getId()">translate</a><br>
+{/foreach}
+
+<a class="btn btn-success btn-large" n:href="addTranslation"><i class="icon-plus-sign icon-white"></i>Add translation</a><br>
+	
+{control formAddTranslation}
