@@ -72,7 +72,7 @@ class TranslationPresenter extends SecuredPresenter
 	{
 		$dictionaryData = $this->context->translationFacade->getDictionaryData($this->translation);
 
-		$builder = new \Translation\Builder;
+		$builder = new \Mazagran\Translation\Builder;
 		$data = $builder->dump($dictionaryData);
 		
 		$name = $this->formatDownloadName($this->translation, 'neon');

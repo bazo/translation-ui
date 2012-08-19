@@ -14,7 +14,7 @@ class HomepagePresenter extends BasePresenter
 		parent::startup();
 		if($this->user->isLoggedIn())
 		{
-			$this->redirect('stream:');
+			$this->redirect('dashboard:');
 		}
 	}
 

@@ -37,14 +37,15 @@ common:
 			secure: tls
 			username: postmaster@mazagran.mailgun.org
 			password: 4cvn7bvdye05
+
 	documentManagerExtension:
 		documentsDir: %appDir%/models/documents
 		proxyDir: %appDir%/models/proxies
 		hydratorDir: %appDir%/models/hydrators
 		dbname: 'mazagran'
-		uri: 'mongodb://localhost/mazagran'
-		cachePrefix: watchdog
-		metaDataCacheClass: '\Doctrine\Common\Cache\ArrayCache'
+		uri: 'mongodb://mazagran:DCQC7kJv25pFeUw@ds037007.mongolab.com:37007/mazagran'
+		cachePrefix: mazagran
+		metaDataCacheClass: '\Doctrine\Common\Cache\ApcCache'
 
 	services:
 

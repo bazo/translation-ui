@@ -9,7 +9,7 @@
 		"nette/nette": "*",
 		"bazo/gridder": "*",
 		"bazo/nette-document-manager-extension": "*",
-		"bazo/nette-translation": "*",
+		"mazagran/translation": "*",
 		"rych/phpass": "*",
 		"genphrase/genphrase": "*"
 	}

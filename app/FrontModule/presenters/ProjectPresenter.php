@@ -2,6 +2,8 @@
 namespace FrontModule;
 use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
+
+use Mazagran\Translation\Langs;
 /**
  * Homepage presenter.
  *
@@ -38,7 +40,7 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		$form = new Form;
 		
-		$locales = \Translation\Langs::getLangs();
+		$locales = Langs::getLangs();
 		$langs = array();
 		foreach($locales as $locale => $plural)
 		{

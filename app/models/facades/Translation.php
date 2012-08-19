@@ -115,7 +115,7 @@ class Translation extends Base
 	{
 		$data = $this->getDictionaryData($translation);
 		
-		return new \Translation\Dictionary($data);
+		return new \Mazagran\Translation\Dictionary($data);
 	}
 	
 	public function importTranslation($data, \Translation $translation)

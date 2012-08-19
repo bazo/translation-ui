@@ -3,6 +3,8 @@ namespace Facades;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Nette\Utils\Strings;
 
+use Mazagran\Translation\Langs;
+
 class Project
 {
 	private
@@ -78,8 +80,8 @@ class Project
 	{
 		$translation = new \Translation;
 		
-		$pluralRule = \Translation\Langs::getPluralRule($lang);
-		$pluralsCount = \Translation\Langs::getPluralsCount($lang);
+		$pluralRule = Langs::getPluralRule($lang);
+		$pluralsCount = Langs::getPluralsCount($lang);
 		
 		$translation->setLang($lang)->setProject($project)->setPluralRule($pluralRule)->setPluralsCount($pluralsCount)
 				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang));
@@ -198,7 +200,7 @@ class Project
 		$singleTranslation = $this->prepareTranslationsArray(1);
 		foreach($project->getTranslations() as $translation)
 		{
-			$pluralsCount = \Translation\Langs::getPluralsCount($translation->getLang());
+			$pluralsCount = Langs::getPluralsCount($translation->getLang());
 			$translations = $this->prepareTranslationsArray($pluralsCount);
 			
 			foreach($data['messages'] as $messageId => $messageData)

@@ -1,5 +1,5 @@
 {
-    "hash": "f0f1965f4f27bc1c3c788819ef5eca7c",
+    "hash": "c9a387b652594b522711e29991613485",
     "packages": [
         {
             "package": "bazo/gridder",
@@ -18,12 +18,6 @@
             "version": "dev-master",
             "source-reference": "1d493606b2ed99ed821194d3dcb99fa65b75f3ea",
             "commit-date": "1342292599"
-        },
-        {
-            "package": "bazo/nette-translation",
-            "version": "dev-master",
-            "source-reference": "9c57f16c3be61ba4d941d992a9fe32814cba47c9",
-            "commit-date": "1345325330"
         },
         {
             "package": "doctrine/common",
@@ -60,6 +54,12 @@
             "version": "dev-master",
             "source-reference": "f80c1b63f8c5cda9e54818b1009813fa51c6e63e",
             "commit-date": "1344514730"
+        },
+        {
+            "package": "mazagran/translation",
+            "version": "dev-master",
+            "source-reference": "d84b59396e4a9121ca4f8692377cdf7411fa3861",
+            "commit-date": "1345371568"
         },
         {
             "package": "nette/nette",
