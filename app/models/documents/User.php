@@ -124,8 +124,8 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	
 	public function removeProject(Project $project)
 	{
-		$appNameKey = array_search($project->getName(), $this->projectNames);
-		unset($this->projectNames[$appNameKey]);
+		$projectNameKey = array_search($project->getName(), $this->projectNames);
+		unset($this->projectNames[$projectNameKey]);
 		$this->projects->removeElement($project);
 		return $this;
 	}

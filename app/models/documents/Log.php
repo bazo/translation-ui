@@ -4,7 +4,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * Log
  *
  * @author martin.bazik
- * @ODM\Document
  */
 class Log
 {
@@ -101,7 +100,7 @@ class Log
 		return $this->app;
 	}
 
-	public function setApp(App $app)
+	public function setApp(Project $app)
 	{
 		$this->app = $app;
 		$this->appName = $app->getName();
