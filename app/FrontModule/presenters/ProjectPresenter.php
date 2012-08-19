@@ -66,6 +66,10 @@ class ProjectPresenter extends SecuredPresenter
 		{
 			$this->flash($e->getMessage(), 'error');
 		}
+		catch(\InvalidPluralRuleException $e)
+		{
+			$this->flash($e->getMessage(), 'error');
+		}
 		
 		$this->redirect('this');
 	}

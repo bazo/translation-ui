@@ -40,6 +40,8 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 			throw new NS\AuthenticationException("Your account hasn't been activated yet.", self::FAILURE);
 		}
 
+		$user->setAccountRule(AccountRules::getRuleForAccount($user->getAccount()));
+		
 		return $user;
 	}
 }

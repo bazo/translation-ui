@@ -56,3 +56,11 @@ footer{
 .features li{
 	margin-top: 10px;
 }
+
+#projects .project{
+	margin-left: 0;
+	margin-right: 2.12766%;
+}
+.alert{
+	//margin-left: 0;
+}

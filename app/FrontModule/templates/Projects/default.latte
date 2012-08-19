@@ -1,10 +1,25 @@
 {block content}
-	{if $me->getProjects()->count() > 0}
-	<div class="alert alert-success">
-    Coming soon!
-    </div>
+	{if $me->getProjects()->count() === 0}
+		You don't have any projects. Please add one now.
+		
 	{else}
-		You don't have any apps. Please add one now.
-		<a class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br>
+		
+		<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br><br>
+		
+		<div n:if="!$user->identity->canAddProject()" class="alert alert-info span9 ">
+			<p><h4 class="alert-heading">Info:</h4>You have reached the maximum number(<strong>{$user->identity->getAccountRule()->getMaximumProjects()}</strong>) of projects allowed for your account type.</p>
+		</div>
+		
+		<div id="projects" n:inner-foreach="$me->getProjects() as $project" class="span11">
+			<div class="project well span3">
+				<a n:href="project: id => $project->getId()"><strong>{$project->getName()}</strong></a> <br><br>
+				
+				translations: <a n:href="project:translations id => $project->getId()"><span class="badge badge-info">{count($project->getTranslations())}</span></a><br>
+				messages: <span class="badge badge-info">{count($project->getTemplateMessages())}</span>
+			</div>
+			
+		
+		</div>
+		
 	{/if}
 {/block}

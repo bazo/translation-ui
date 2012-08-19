@@ -50,7 +50,10 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		 * @ODM\String 
 		 * @ODM\Index
 		 */		
-		$account = 'basic'
+		$account = 'basic',
+		
+		/** @var AccountRule */	
+		$accountRule
 	;
 	
 	public function __construct()
@@ -155,5 +158,26 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	{
 		$this->account = $account;
 		return $this;
+	}
+	
+	public function getAccountRule()
+	{
+		return $this->accountRule;
+	}
+
+	public function setAccountRule($accountRule)
+	{
+		$this->accountRule = $accountRule;
+		return $this;
+	}
+		
+	public function canAddProject()
+	{
+		return $this->accountRule->canAddProject($this);
+	}
+	
+	public function canAddTranslation(\Project $project)
+	{
+		return $this->accountRule->canAddTranslation($this, $project);
 	}
 }

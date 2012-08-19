@@ -144,7 +144,7 @@ class Project
 		
 		if(!$this->arrayFilled($numbers))
 		{
-			throw new \Exception(sprintf('plural rule for lang %s is broken. failed to evaluate the rule: %s', $lang, $rule));
+			throw new \InvalidPluralRuleException(sprintf('plural rule for lang %s is broken. failed to evaluate the rule: %s', $lang, $rule));
 		}
 		return $numbers;
 	}

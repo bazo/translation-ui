@@ -100,8 +100,15 @@ class TranslationPresenter extends SecuredPresenter
 		$values = $form->getValues();
 		
 		$project = $this->translation->getProject();
+		try
+		{
+			$this->context->translationFacade->addMessageToProject($project, $values);
+		}
+		catch(\ExistingMessageException $e)
+		{
+			$this->flash($e->getMessage(), 'error');
+		}
 		
-		$this->context->translationFacade->addMessageToProject($project, $values);
 		
 		$this->redirect('this');
 	}

@@ -90,8 +90,9 @@
         {foreach $flashes as $flash}
 		<div class="alert alert-{$flash->type}">
 			<a class="close" data-dismiss="alert">×</a>
-			<span class="icon icon-{$flash->type}"></span>
-			<strong>{$flash->message}</strong>
+			<h4 style="text-transform: capitalize">{$flash->type}!</h4>
+			
+			{$flash->message}
 		</div>
 		{/foreach}
         {/snippet}
@@ -105,9 +106,12 @@
 				{/if}
 			{/block}
 			</div>  
-		 <div class="span10"> 
-			{include #content}
-		 </div>
+			
+			<div class="span10">
+				<div class="row">
+			   {include #content}
+				</div>
+			</div>
 		</div>
 	  </section>
   </body>

@@ -1,7 +1,7 @@
-<a class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br>
+<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br>
 	<ul class="nav nav-list">
 	<li class="nav-header">
-		YOUR PROJECTS
+		YOUR PROJECTS (max: {!$user->identity->getAccountRule()->getMaximumProjects()})
 	</li>
 	<li n:foreach="$me->getProjects() as $project">
 		<a n:href="project: id => $project->getId()">{$project->getCaption()}</a>
