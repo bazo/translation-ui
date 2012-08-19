@@ -25,4 +25,4 @@ web1: #component type & number
         - "php www/index.php odm:schema:create"
         - "php www/index.php odm:generate:hydrators"
         - "php www/index.php odm:generate:proxies"
-        #- "php www/index.php app:admin:create"
+        - "php www/index.php app:admin:create"
