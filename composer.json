@@ -3,7 +3,7 @@
 	"repositories": [
         {
             "type": "vcs",
-            "url": "git://github.com/bazo/nette-translation.git"
+            "url": "git://github.com/Mazagran/translation.git"
         }
     ],
 	"require": {
