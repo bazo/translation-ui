@@ -10,8 +10,8 @@ class Translation extends Base
 	
 	public function findFilteredMessages($id, $filter = 'all')
 	{
-		$qb = $this->dm->getRepository('Message')->createQueryBuilder();
-				//->field('translation.id')->equals($id);
+		$qb = $this->dm->getRepository('Message')->createQueryBuilder()
+				->field('translation.id')->equals($id);
 		
 		switch($filter)
 		{
