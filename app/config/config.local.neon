@@ -1,8 +1,0 @@
-documentManagerExtension:
-	documentsDir: %appDir%/models/documents
-	proxyDir: %appDir%/models/proxies
-	hydratorDir: %appDir%/models/hydrators
-	dbname: 'mazagran'
-	uri: 'mongodb://localhost/mazagran'
-	cachePrefix: mazagran
-	metaDataCacheClass: '\Doctrine\Common\Cache\ArrayCache'

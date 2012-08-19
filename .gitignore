@@ -1,2 +1,2 @@
-config/config.local.neon
 vendor
+/app/config/config.local.neon
