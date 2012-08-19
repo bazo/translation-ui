@@ -1,5 +1,5 @@
 {block aside}
-<ul class="nav nav-list">
+<ul id="message-list" class="nav nav-list">
 	<li class="nav-header">
 		Messages
 	</li>
@@ -13,10 +13,17 @@
 <h1>{$translation->getProject()->getCaption()}</h1>
 <h2>Source language: Target language: {$translation->getLang()}</h2>
 
-<a class="btn btn-success" data-toggle="modal" href="#myModal" ><i class="icon-white icon-plus-sign"></i> Add message</a>
-<a class="btn btn-inverse" data-toggle="modal" href="#myModal" ><i class="icon-white icon-download"></i> Download dictionary</a>
+<a class="btn btn-success btn-large" data-toggle="modal" href="#newMessage" ><i class="icon-white icon-plus-sign"></i> Add message</a>
+&nbsp;
+<div class="pull-right">
+<a class="btn btn-info" data-toggle="modal" href="#importTranslation" ><i class="icon-white icon-upload"></i> Import translation</a>
+&nbsp;
+<a class="btn btn-primary" n:href="downloadTranslation!"><i class="icon-white icon-download"></i> Download translation</a>
+&nbsp;
+<a class="btn btn-inverse" n:href="download!"><i class="icon-white icon-download"></i> Download dictionary</a>
+</div>
 
-<div class="modal hide" id="myModal">
+<div class="modal hide" id="newMessage">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>New message</h3>
@@ -47,25 +54,45 @@
 	{/snippet}
 </div>
 
+<div class="modal hide" id="importTranslation">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Import translation</h3>
+  </div>
+	{form formImportTranslation}
+  <div class="modal-body">
+	<table>
+		<tr>
+			<th>{label translation /}</th>
+			<th>{input translation}</th>
+		</tr>
+	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-primary"}
+  </div>
+	{/form}
+</div>
+
 
 <br>
 <br>
-Show:
-<span class="label-info label">All</span>
-<span class="label-success label">Translated</span>
-<span class="label-important label">Untranslated</span>
+<ul class="nav nav-pills">
+    <li n:class="$filter == 'all' ? active"><a n:href="filter! filter => 'all'">All</a></li>
+    <li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated'">Translated</a></li>
+    <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated'">Untranslated</a></li>
+</ul>
 
-<br><br><br>
-
-<div n:inner-foreach="$translation->getMessages() as $message" id="messages">
+<div n:inner-foreach="$messages as $message" id="messages" >
 	{form "formTranslate-{$message->getId()}"}	
 	<div id="{$message->getId()}" class="message well">
 		
 		<span n:class="$message->isTranslated() ? label-success : label-important,label">{if $message->isTranslated()}Translated{else}Untranslated{/if}</span><br>
 		{input btnSubmit class => 'btn btn-success btn-large pull-right'}
 		<br>
-		<table>
-			<tr>
+		<table class="table-condensed">
+			<tr n:if="$message->getContext()">
 				<th>Context:</th>
 				<td>{$message->getContext()}</td>
 			</tr>
@@ -85,12 +112,12 @@ Show:
 	<div n:if="$message->hasPlural()" class="tabbable">
 			{var $pluralNumbers = $translation->getPluralNumbers()}
 			<ul n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="nav nav-tabs">
-				<li n:class="$i === 0 ? active"><a href="#tab{$i}" data-toggle="tab">Plural form {$i} (e.g. {$pluralNumbers[$i]})</a></li>
+				<li n:class="$i === 0 ? active"><a href="#tab-{$message->getId()}-{$i}" data-toggle="tab">Plural form {$i} (e.g. {$pluralNumbers[$i]})</a></li>
 			</ul>
 		
 			<div n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="tab-content">
-				<div n:class="$i === 0 ? active, tab-pane" id="tab{$i}">
-					<p>{input translations-$i}</p>
+				<div n:class="$i === 0 ? active, tab-pane" id="tab-{$message->getId()}-{$i}">
+					<p>{input translations-$i class => 'translation'}</p>
 				</div>
 			</div>
 		
@@ -103,7 +130,7 @@ Show:
 		
 			<div class="tab-content">
 				<div class="active tab-pane">
-					<p>{input translations-0}</p>
+					<p>{input translations-0 class => 'translation'}</p>
 				</div>
 			</div>
 		

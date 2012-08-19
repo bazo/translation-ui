@@ -55,7 +55,13 @@ class Project
 		 * @ODM\String
 		 * @ODM\Index
 		 */	
-		$sourceLanguage
+		$sourceLanguage,
+			
+		/**
+		 * @ODM\Hash
+		 * @ODM\Index
+		 */	
+		$templateMessages = array()
 	;
 	
 	public function __construct()
@@ -138,6 +144,17 @@ class Project
 	public function setSourceLanguage($sourceLanguage)
 	{
 		$this->sourceLanguage = $sourceLanguage;
+		return $this;
+	}
+	
+	public function getTemplateMessages()
+	{
+		return $this->templateMessages;
+	}
+
+	public function addTemplateMessages($templateMessages)
+	{
+		$this->templateMessages = array_merge($this->templateMessages, $templateMessages);
 		return $this;
 	}
 }

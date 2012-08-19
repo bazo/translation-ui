@@ -68,6 +68,32 @@ class ProjectPresenter extends SecuredPresenter
 		$this->redirect('this');
 	}
 	
+	protected function createComponentFormImportTemplate()
+	{
+		$form = new Form;
+		
+		$form->addUpload('template', 'template')->setRequired();
+		$form->addSubmit('btnSubmit', 'Import');
+
+		$form->onSuccess[] = callback($this, 'formImportTemplateSubmitted');
+		
+		return $form;
+	}
+
+	public function formImportTemplateSubmitted(Form $form)
+	{
+		$values = $form->getValues();
+		
+		if($values->template->isOk())
+		{
+			$neon = file_get_contents($values->template->getTemporaryFile());
+			$data = \Nette\Utils\Neon::decode($neon);
+			$this->context->projectFacade->importTemplate($data, $this->project);
+			
+			$this->redirect('this');
+		}
+	}
+
 	public function handleDelete($id)
 	{
 		$this->context->appService->delete($id);

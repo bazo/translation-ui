@@ -74,9 +74,9 @@
           <nav  class="nav-collapse">
             <ul id="nav" class="nav">
 				{if $user->isLoggedIn()}
-					<li ><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
-					<li><a n:href="projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
-					<li><a n:href="translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
+					<li {ifCurrent dashboard:}class="active"{/ifCurrent}}><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
+					<li {ifCurrent projects:}class="active"{/ifCurrent}}><a n:href="projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
+					<li {ifCurrent translations:}class="active"{/ifCurrent}}><a n:href="translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
 				{/if}
 				<li><a n:href="downloads:"><i class="icon-white icon-download"></i>Downloads</a></li>	
             </ul>

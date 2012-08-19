@@ -138,7 +138,7 @@ class Message
 		
 		foreach($translations as $translation)
 		{
-			if($translation === '')
+			if($translation === '' or $translation === null)
 			{
 				$translated = false;
 				break;

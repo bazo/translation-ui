@@ -84,6 +84,18 @@ class Project
 		$translation->setLang($lang)->setProject($project)->setPluralRule($pluralRule)->setPluralsCount($pluralsCount)
 				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang));
 		
+		$singleTranslation = $this->prepareTranslationsArray(1);
+		$translations = $this->prepareTranslationsArray($pluralsCount);
+		
+		foreach($project->getTemplateMessages() as $messageData)
+		{
+			$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
+			$translation->addMessage($message);
+			$message->setTranslation($translation);
+				
+			$this->dm->persist($message);
+		}
+		
 		$project->addTranslation($translation);
 		
 		$this->dm->persist($translation);
@@ -143,6 +155,76 @@ class Project
 			throw new \Nette\Security\AuthenticationException('Bad authentication credentials.');
 		}
 		return $project;
+	}
+	
+	/**
+	 * @param int $count
+	 * @return array
+	 */
+	private function prepareTranslationsArray($count)
+	{
+		return array_fill(0, $count, '');
+	}
+	
+	/**
+	 * @param array $messageData
+	 * @return \Message
+	 */
+	private function prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount)
+	{
+		$message = new \Message;
+		$message->setSingular($messageData['singular'])->setPluralsCount($pluralsCount);
+
+		if(isset($messageData['context']))
+		{
+			$message->setContext($messageData['context']);
+		}
+
+		if(isset($messageData['plural']))
+		{
+			$message->setPlural($messageData['plural']);
+			$message->setTranslations($translations);
+		}
+		else
+		{
+			$message->setTranslations($singleTranslation);
+		}
+		
+		return $message;
+	}
+	
+	public function importTemplate($data, \Project $project)
+	{
+		$singleTranslation = $this->prepareTranslationsArray(1);
+		foreach($project->getTranslations() as $translation)
+		{
+			$pluralsCount = \Translation\Langs::getPluralsCount($translation->getLang());
+			$translations = $this->prepareTranslationsArray($pluralsCount);
+			
+			foreach($data['messages'] as $messageId => $messageData)
+			{
+				$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
+				
+				try
+				{
+					$translation->addMessage($message);
+				}
+				catch(\ExistingMessageException $e)
+				{
+					//ignore
+				}
+
+				$message->setTranslation($translation);
+				
+				$this->dm->persist($message);
+			}
+			$this->dm->persist($translation);
+			$this->dm->flush();
+		}
+		
+		$project->addTemplateMessages($data['messages']);
+		$this->dm->persist($project);
+		$this->dm->flush();
 	}
 	
 }

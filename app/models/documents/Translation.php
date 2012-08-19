@@ -75,6 +75,7 @@ class Translation
 	public function __construct()
 	{
 		$this->created = new DateTime;
+		$this->messages = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 	
 	public function getId()
@@ -160,6 +161,10 @@ class Translation
 			$this->messages->add($message);
 			$this->messageIds[] = $message->getSingular();
 			return $this;
+		}
+		else
+		{
+			throw new \ExistingMessageException(sprintf('Translation already contains message %s', $message->getSingular()));
 		}
 	}
 

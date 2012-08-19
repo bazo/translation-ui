@@ -22,8 +22,8 @@
         {
             "package": "bazo/nette-translation",
             "version": "dev-master",
-            "source-reference": "624685878099a57261e4ce5b51809b3fbb5d231a",
-            "commit-date": "1345320134"
+            "source-reference": "9c57f16c3be61ba4d941d992a9fe32814cba47c9",
+            "commit-date": "1345325330"
         },
         {
             "package": "doctrine/common",

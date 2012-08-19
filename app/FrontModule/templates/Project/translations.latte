@@ -4,6 +4,27 @@
 	{$translation->getLang()}  <a n:href="translation: id => $translation->getId()">translate</a><br>
 {/foreach}
 
-<a class="btn btn-success btn-large" n:href="addTranslation"><i class="icon-plus-sign icon-white"></i>Add translation</a><br>
+<a class="btn btn-success btn-large" data-toggle="modal" href="#newTranslation" ><i class="icon-white icon-plus-sign"></i> Add translation</a>
 	
-{control formAddTranslation}
+<div class="modal hide" id="newTranslation">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>New translation</h3>
+  </div>
+	{form formAddTranslation}
+  <div class="modal-body">
+	<table>
+		<tr>
+			<th>{label lang /}</th>
+			<th>{input lang}</th>
+		</tr>
+	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-primary"}
+  </div>
+	{/form}
+</div>
+
+<br>

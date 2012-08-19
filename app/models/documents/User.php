@@ -44,7 +44,13 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		/**
 		 * @ODM\Boolean 
 		 */	
-		$active = false
+		$active = false,
+		
+		/**
+		 * @ODM\String 
+		 * @ODM\Index
+		 */		
+		$account = 'basic'
 	;
 	
 	public function __construct()
@@ -137,6 +143,17 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	public function setActive($active)
 	{
 		$this->active = $active;
+		return $this;
+	}
+	
+	public function getAccount()
+	{
+		return $this->account;
+	}
+
+	public function setAccount($account)
+	{
+		$this->account = $account;
 		return $this;
 	}
 }

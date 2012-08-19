@@ -30,16 +30,56 @@ class TranslationPresenter extends SecuredPresenter
 		$this->translation = $this->context->translationFacade->find($this->id);
 	}
 
-	public function handleDownload()
+	public function handleFilter($filter)
 	{
-		
+		$this->filter = $filter;
+		$this->redirect('this');
 	}
 	
-	protected function beforeRender()
+	public function renderDefault($filter)
 	{
 		parent::beforeRender();
-		
+		$this->template->filter = $filter;
 		$this->template->translation = $this->translation;
+		
+		$this->template->messages = $this->context->translationFacade->findFilteredMessages($this->id, $filter);
+	}
+	
+	private function formatDownloadName(\Translation $translation, $ext)
+	{
+		return $translation->getProject()->getCaption().'-'.$translation->getLang().'.'.$ext;
+	}
+	
+	public function handleDownload()
+	{
+		$dictionary = $this->context->translationFacade->getDictionary($this->translation);
+		$data = serialize($dictionary);
+		$name = $this->translation->getProject()->getCaption().'-'.$this->translation->getLang().'.dict';
+		
+		$fileName = $this->context->parameters['tempDir'].'/'.$this->translation->getId().'-'.$name;
+		
+		file_put_contents($fileName, $data);
+		
+		$response = new \Nette\Application\Responses\FileResponse($fileName, $name, 'text/plain');
+		
+		//$response = new \Responses\TextDownloadResponse(chr(239) . chr(187) . chr(191).$data, $name, 'text/x-neon', 'UTF-8');
+		
+		$this->sendResponse($response);
+		$this->terminate();
+	}
+	
+	public function handleDownloadTranslation()
+	{
+		$dictionaryData = $this->context->translationFacade->getDictionaryData($this->translation);
+
+		$builder = new \Translation\Builder;
+		$data = $builder->dump($dictionaryData);
+		
+		$name = $this->formatDownloadName($this->translation, 'neon');
+		$response = new \Responses\TextDownloadResponse($data, $name, 'text/x-neon', 'UTF-8');
+		
+		$this->sendResponse($response);
+		$this->terminate();
 	}
 	
 	protected function createComponentFormNewMessage()
@@ -59,18 +99,36 @@ class TranslationPresenter extends SecuredPresenter
 	{
 		$values = $form->getValues();
 		
-		$message = new \Message;
-		$message->setContext($values->context)->setSingular($values->singular);
-		
-		if($values->plural !== '')
-		{	
-			$message->setPlural($values->plural);
-		}
 		$project = $this->translation->getProject();
 		
-		$this->context->translationFacade->addMessageToProject($project, $message);
+		$this->context->translationFacade->addMessageToProject($project, $values);
 		
 		$this->redirect('this');
+	}
+	
+	protected function createComponentFormImportTranslation()
+	{
+		$form = new Form;
+		
+		$form->addUpload('translation', 'Translation');
+		$form->addSubmit('btnSubmit', 'Import');
+		
+		$form->onSuccess[] = callback($this, 'formImportTranslationSubmitted');
+		
+		return $form;
+	}
+	
+	public function formImportTranslationSubmitted(Form $form)
+	{
+		$values = $form->getValues();
+		
+		if($values->translation->isOk())
+		{
+			$neon = file_get_contents($values->translation->getTemporaryFile());
+			$data = \Nette\Utils\Neon::decode($neon);
+			
+			$this->context->translationFacade->importTranslation($data, $this->translation);
+		}
 	}
 	
 	protected function createComponentFormTranslate()
@@ -94,7 +152,7 @@ class TranslationPresenter extends SecuredPresenter
 			}
 			else
 			{
-				$translations->addTextArea('0', 'Translation');
+				$translations->addTextArea(0, 'Translation');
 			}
 			
 			$form->addSubmit('btnSubmit', 'Save');
@@ -116,9 +174,16 @@ class TranslationPresenter extends SecuredPresenter
 		$message = $this->context->messageFacade->find($values->id);
 		
 		$translations = array();
-		for($i = 0; $i < $message->getPluralsCount(); $i++)
+		if($message->hasPlural())
 		{
-			$translations[$i] = $values->translations->{$i};
+			for($i = 0; $i < $message->getPluralsCount(); $i++)
+			{
+				$translations[$i] = $values->translations->{$i};
+			}
+		}
+		else
+		{
+			$translations[0] = $values->translations->{0};
 		}
 		
 		$this->context->messageFacade->translateMessage($message, $translations);
