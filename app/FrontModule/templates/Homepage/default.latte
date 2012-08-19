@@ -2,27 +2,39 @@
 
 {block content}
 <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div>
+	<h1>Web application translation kit.</h1>
+	<p>
+		Mazagran is a translation solution for your <a href="http://nette.org/en/">Nette Framework</a> applications.<br>
+		<strong>Has all the features of gettext and more!</strong>
+	</p>
+<p><a n:href="register:" class="btn btn-primary btn-large">Register &raquo;</a></p>
+</div>
 
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-      </div>
+<div class="row features">
+	<div class="span4">
+		<h2>Translations management</h2>
+		<p>
+		<ul>
+			<li>Context, singular and multiple plural messages</li>
+			<li>Automatic plural rule generation for selected language</li>
+			<li>Invite translators foy projects</li>
+			<li>Import templates, translations</li>
+			<li>Download translations or compiled dictionaries</li>
+		</ul>
+		<p>
+		{*<p><a class="btn" href="#">View details &raquo;</a></p>*}
+	</div>
+	<div class="span4">
+		<h2>Mazagran client & translator</h2>
+		<ul>
+			<li>Automatically extract messages from your source codes and upload to your Mazagran account</li>
+			<li>Translator can pull the translations directly from Mazagran, cached of course :) </li>
+		</ul>
+	</div>
+	<div class="span4">
+		<h2>Stream</h2>
+		<p>Have detailed overview of what is happenning with your translations. See who created new translations, invited collaborators, translated which messages, etc...</p>
+	</div>
+</div>
 {/block}

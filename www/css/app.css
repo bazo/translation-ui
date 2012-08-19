@@ -44,3 +44,15 @@ footer{
 	clear: both;
 	width: 100%;
 }
+
+.hero-unit{
+	margin-left: -25px;
+}
+
+.features{
+	font-size: 130%;
+	line-height: 150%;
+}
+.features li{
+	margin-top: 10px;
+}

@@ -1,6 +1,8 @@
 {block content}
 	{if $me->getProjects()->count() > 0}
-	
+	<div class="alert alert-success">
+    Coming soon!
+    </div>
 	{else}
 		You don't have any apps. Please add one now.
 		<a class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br>
