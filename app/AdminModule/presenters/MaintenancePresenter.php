@@ -110,7 +110,7 @@ class MaintenancePresenter extends SecuredPresenter
 			'apc_enabled' => extension_loaded('apc') && ini_get('apc.enabled'),
 			'xcache_enabled' => extension_loaded('xcache') && ini_get('xcache.cacher'),
 		);
-		$this->template->revision = $this->getGitCommit();
+		$this->template->revision = 'N/A';//$this->getGitCommit();
 	}
 
 	private function generateCronCommand($command)
