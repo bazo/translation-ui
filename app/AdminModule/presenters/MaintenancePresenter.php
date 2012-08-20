@@ -94,6 +94,10 @@ class MaintenancePresenter extends SecuredPresenter
 		{
 			return 'N/A';
 		}
+		catch (\InvalidGitRepositoryDirectoryException $e)
+		{
+			return 'N/A';
+		}
 	}
 
 	public function renderDefault()
