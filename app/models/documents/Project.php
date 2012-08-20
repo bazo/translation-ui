@@ -58,6 +58,12 @@ class Project
 		$sourceLanguage,
 			
 		/**
+		 * @ODM\String
+		 * @ODM\Index
+		 */	
+		$link,	
+			
+		/**
 		 * @ODM\Hash
 		 * @ODM\Index
 		 */	
@@ -147,6 +153,17 @@ class Project
 		return $this;
 	}
 	
+	public function getLink()
+	{
+		return $this->link;
+	}
+
+	public function setLink($link)
+	{
+		$this->link = $link;
+		return $this;
+	}
+
 	public function getTemplateMessages()
 	{
 		return $this->templateMessages;
@@ -155,6 +172,12 @@ class Project
 	public function addTemplateMessages($templateMessages)
 	{
 		$this->templateMessages = array_merge($this->templateMessages, $templateMessages);
+		return $this;
+	}
+	
+	public function removeTemplateMessage($singular)
+	{
+		unset($this->templateMessages[$singular]);
 		return $this;
 	}
 }

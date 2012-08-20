@@ -22,5 +22,9 @@ class AppCommandsExtension extends \Nette\Config\CompilerExtension
 		$container->addDefinition($this->prefix('consoleCommandAppCreateAdmin'))
 			->setClass('Console\Command\CreateAdmin')
 			->addTag('consoleCommand');
+		
+		$container->addDefinition($this->prefix('consoleCommandAppDeleteCache'))
+			->setClass('Console\Command\DeleteCache')
+			->addTag('consoleCommand');
 	}
 }

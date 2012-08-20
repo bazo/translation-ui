@@ -52,7 +52,7 @@ class Translation
 		$messages,	
 			
 		/**
-		 * @ODM\Collection
+		 * @ODM\Hash
 		 * @ODM\Index
 		 */	
 		$messageIds = array(),	
@@ -138,7 +138,7 @@ class Translation
 		return $this;
 	}
 
-	public function getTranslated()
+	public function getTranslatedCount()
 	{
 		return $this->translated;
 	}
@@ -148,7 +148,7 @@ class Translation
 		$this->translated = $translated;
 		return $this;
 	}
-		
+	
 	public function getMessages()
 	{
 		return $this->messages;
@@ -159,7 +159,8 @@ class Translation
 		if(!in_array($message->getSingular(), $this->messageIds))
 		{
 			$this->messages->add($message);
-			$this->messageIds[] = $message->getSingular();
+			$this->messageIds[$message->getSingular()] = $message->getSingular();
+			$this->messagesCount++;
 			return $this;
 		}
 		else
@@ -168,6 +169,17 @@ class Translation
 		}
 	}
 
+	public function hasMessage(\Message $message)
+	{
+		return $this->messages->contains($message);
+	}
+	
+	public function removeMessage(\Message $message)
+	{
+		$this->messages->removeElement($message);
+		return $this;
+	}
+	
 	public function getProject()
 	{
 		return $this->project;
@@ -212,5 +224,28 @@ class Translation
 	public function getCreated()
 	{
 		return $this->created;
+	}
+	
+	public function getTranslatedMessages()
+	{
+		$translatedMessages = $this->messages->filter(function(\Message $message){
+			if($message->isTranslated())
+			{
+				return true;
+			}
+		});
+		return $translatedMessages;
+	}
+	
+	public function getTranslatedMessagesCount()
+	{
+		
+		return count($this->getTranslatedMessages());
+	}
+	
+	public function getCompletionPercentage($decimals = 2)
+	{
+		return round(($this->getTranslatedMessagesCount() / $this->getMessagesCount()) * 100, $decimals);
+				
 	}
 }

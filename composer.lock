@@ -1,5 +1,5 @@
 {
-    "hash": "c812ccdeeada9ae2e90f39f4a39a68f7",
+    "hash": "3ed0814744acfaa97473d3116a993435",
     "packages": [
         {
             "package": "bazo/gridder",
@@ -58,8 +58,8 @@
         {
             "package": "mazagran/translation",
             "version": "dev-master",
-            "source-reference": "d84b59396e4a9121ca4f8692377cdf7411fa3861",
-            "commit-date": "1345371568"
+            "source-reference": "6372e5c853764ed2af013afb63b1e71ce076c3b7",
+            "commit-date": "1345384132"
         },
         {
             "package": "nette/nette",

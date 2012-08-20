@@ -75,6 +75,21 @@
 	{/form}
 </div>
 
+<div class="modal hide" id="deleteMessage">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Really delete message?</h3>
+  </div>
+	{form formDeleteMessage}
+  <div class="modal-body">
+	  Message will be deleted from all translations.
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-danger"}
+  </div>
+	{/form}
+</div>
 
 <br>
 <br>
@@ -84,12 +99,17 @@
     <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated'">Untranslated</a></li>
 </ul>
 
+{snippet messages}
 <div n:inner-foreach="$messages as $message" id="messages" >
 	{form "formTranslate-{$message->getId()}"}	
 	<div id="{$message->getId()}" class="message well">
 		
+		<button data-id="{$message->getId()}" class="close">&times;</button>
+		
 		<span n:class="$message->isTranslated() ? label-success : label-important,label">{if $message->isTranslated()}Translated{else}Untranslated{/if}</span><br>
-		{input btnSubmit class => 'btn btn-success btn-large pull-right'}
+		<div class="pull-right">
+			{input btnSubmit class => 'btn btn-success btn-large'}<br><br>
+		</div>
 		<br>
 		<table class="table-condensed">
 			<tr n:if="$message->getContext()">
@@ -140,3 +160,17 @@
 	{input id}	
 	{/form}	
 </div>
+
+<script>
+	$('.close').on('click', function(event){
+		event.preventDefault();
+		var modal = $('#deleteMessage');
+		var form = modal.find('form').first();
+		var id = $(this).data('id');
+		
+		form.find('input[name="id"]').val(id);
+		modal.modal('show')
+	});
+</script>
+
+{/snippet}

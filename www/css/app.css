@@ -23,6 +23,12 @@ a i{
 	padding-left: 10px;
 }
 
+.message .close{
+	position: relative;
+	top: -10px;
+	left: 10px;
+}
+
 .message .nav-tabs{
 	margin-bottom: 0px;
 	border-bottom: none;
@@ -62,5 +68,5 @@ footer{
 	margin-right: 2.12766%;
 }
 .alert{
-	//margin-left: 0;
+	margin-left: 0;
 }

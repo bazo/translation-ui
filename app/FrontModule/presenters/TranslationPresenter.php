@@ -200,5 +200,31 @@ class TranslationPresenter extends SecuredPresenter
 			$this->redirect('this');
 		}
 	}
+	
+	protected function createComponentFormDeleteMessage()
+	{
+		$form = new Form;
+		
+		$form->addSubmit('btnSubmit', 'Delete');
+		$form->addHidden('id');
+		
+		$form->onSuccess[] = callback($this, 'formDeleteMessageSubmitted');
+		
+		return $form;
+	}
+	
+	public function formDeleteMessageSubmitted(Form $form)
+	{
+		$values = $form->getValues();
+		$message = $this->context->messageFacade->find($values->id);
+		
+		if($this->translation->hasMessage($message))
+		{
+			$this->context->messageFacade->delete($message);
+			$this->flash(sprintf('Message "%s" has been deleted.', $message->getSingular()));
+		}
+		
+		$this->redirect('this');
+	}
 
 }

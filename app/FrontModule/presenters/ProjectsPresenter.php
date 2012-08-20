@@ -2,6 +2,7 @@
 namespace FrontModule;
 use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
+use Mazagran\Translation\Langs;
 /**
  * Homepage presenter.
  *
@@ -14,7 +15,17 @@ class ProjectsPresenter extends SecuredPresenter
 	protected function createComponentFormNewProject()
 	{
 		$form = new Form;
+		
+		$locales = Langs::getLangs();
+		$langs = array();
+		foreach($locales as $locale => $plural)
+		{
+			$langs[$locale] = $locale;
+		}
+		
 		$form->addText('caption', 'Name')->setRequired();
+		$form->addSelect('sourceLang', 'Source language', $langs)->setRequired();
+		$form->addText('link', 'Link to web');
 		$form->addSubmit('btnSubmit', 'Create');
 		$form->onSuccess[] = callback($this, 'formNewProjectSubmitted');
 		return $form;

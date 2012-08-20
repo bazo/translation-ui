@@ -95,7 +95,7 @@ class TranslationHydrator implements HydratorInterface
         $this->class->reflFields['messages']->setValue($document, $return);
         $hydratedData['messages'] = $return;
 
-        /** @Field(type="collection") */
+        /** @Field(type="hash") */
         if (isset($data['messageIds'])) {
             $value = $data['messageIds'];
             $return = $value;

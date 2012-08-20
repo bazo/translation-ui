@@ -104,6 +104,14 @@ class ProjectHydrator implements HydratorInterface
             $hydratedData['sourceLanguage'] = $return;
         }
 
+        /** @Field(type="string") */
+        if (isset($data['link'])) {
+            $value = $data['link'];
+            $return = (string) $value;
+            $this->class->reflFields['link']->setValue($document, $return);
+            $hydratedData['link'] = $return;
+        }
+
         /** @Field(type="hash") */
         if (isset($data['templateMessages'])) {
             $value = $data['templateMessages'];

@@ -11,4 +11,7 @@ $(document).ready(function(){
 		return false;
 	});
     
+	$('.popover-enabled').popover();
+	$('[rel="tooltip"]').tooltip();
+	
 });

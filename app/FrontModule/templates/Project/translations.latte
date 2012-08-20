@@ -1,10 +1,28 @@
 {block page}
 
-{foreach $project->getTranslations() as $translation}
-	{$translation->getLang()}  <a n:href="translation: id => $translation->getId()">translate</a><br>
-{/foreach}
-
 <a class="btn btn-success btn-large" data-toggle="modal" href="#newTranslation" ><i class="icon-white icon-plus-sign"></i> Add translation</a>
+
+<br><br>
+
+{foreach $project->getTranslations() as $translation}
+	<div class="row">
+		<div class="span1">
+			<strong class="pull-left">{$translation->getLang()}</strong>&nbsp;
+		</div>
+
+		<div class="span2 pull-left">
+				{var $completion = $translation->getCompletionPercentage()}
+				<div title="{$translation->getTranslatedMessagesCount()}/{$translation->getMessages()->count()} = {$completion}%" rel="tooltip" style="margin-bottom: 9px;" 
+					 n:class="$completion < 33 ? progress-danger : (($completion > 33 and $completion < 66) ? progress-warning : ($completion < 100 ? progress-info : progress-success)) ,progress">
+					<div style="width: {!$completion}%" class="bar"></div>
+				</div>
+		</div>
+
+		<div class="span4">	
+			<a n:href="translation: id => $translation->getId()">translate</a>
+		</div>
+	</div>
+{/foreach}
 	
 <div class="modal hide" id="newTranslation">
   <div class="modal-header">

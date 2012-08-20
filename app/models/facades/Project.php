@@ -190,6 +190,9 @@ class Project extends Base
 	public function importTemplate($data, \Project $project)
 	{
 		$singleTranslation = $this->prepareTranslationsArray(1);
+		
+		$importedMessages = $project->getTemplateMessages();
+		
 		foreach($project->getTranslations() as $translation)
 		{
 			$pluralsCount = Langs::getPluralsCount($translation->getLang());
@@ -197,20 +200,23 @@ class Project extends Base
 			
 			foreach($data['messages'] as $messageId => $messageData)
 			{
-				$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
-				
-				try
+				if(!isset($importedMessages[$messageId]))
 				{
-					$translation->addMessage($message);
-				}
-				catch(\ExistingMessageException $e)
-				{
-					//ignore
-				}
+					$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
 
-				$message->setTranslation($translation);
-				
-				$this->dm->persist($message);
+					try
+					{
+						$translation->addMessage($message);
+					}
+					catch(\ExistingMessageException $e)
+					{
+						//ignore
+					}
+
+					$message->setTranslation($translation);
+
+					$this->dm->persist($message);
+				}
 			}
 			$this->dm->persist($translation);
 			$this->dm->flush();
