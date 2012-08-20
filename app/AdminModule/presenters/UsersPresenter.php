@@ -29,6 +29,7 @@ class UsersPresenter extends SecuredPresenter
 
 		//$dg->addColumn('id')->setCaption('id');
 		$dg->addColumn('email')->setSortable(true)->setFilter('text');
+		$dg->addColumn('account')->setSortable(true)->setFilter('text');
 
 		$dg->addColumn('active')->setCaption('active')->setSortable(true)->valueModifier[] = function($boolean){
 			return $boolean === true ? 'yes' : 'no';

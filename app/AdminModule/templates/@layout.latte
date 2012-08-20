@@ -45,9 +45,8 @@
           <a class="brand" href="#">Watchdog admin</a>
           <div class="nav-collapse">
             <ul n:if="$user->isLoggedIn()" class="nav">
-              <li class="active"><a n:href="dashboard:">Dashboared</a></li>
-              <li><a n:href="users:">Users</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li {ifCurrent dashboard:}class="active"{/ifCurrent}><a n:href="dashboard:">Dashboard</a></li>
+              <li {ifCurrent users:}class="active"{/ifCurrent}><a n:href="users:">Users</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
