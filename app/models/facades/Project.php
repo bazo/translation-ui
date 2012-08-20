@@ -5,29 +5,21 @@ use Nette\Utils\Strings;
 
 use Mazagran\Translation\Langs;
 
-class Project
+class Project extends Base
 {
 	private
-		/** @var DocumentManager */	
-		$dm,
-		
 		/** @var KeyGenerator */	
 		$keyGenerator
 	;
 	
+	protected
+		$documentClass = 'Project'
+	;
+	
 	public function __construct(DocumentManager $dm, \Services\KeyGenerator $keyGenerator)
 	{
-		$this->dm = $dm;
+		parent::__construct($dm);
 		$this->keyGenerator = $keyGenerator;
-	}
-	
-	/**
-	 * @param type $id
-	 * @return \Project
-	 */
-	public function find($id)
-	{
-		return $this->dm->getRepository('Project')->find($id);
 	}
 	
 	public function delete($id)

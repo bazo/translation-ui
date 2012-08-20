@@ -19,7 +19,7 @@ abstract class BasePresenter extends \Base\BasePresenter
 		$this->user->getStorage()->setNamespace('user');
 		if($this->user->isLoggedIn())
 		{
-			$this->me = $this->context->userService->find($this->user->getId());
+			$this->me = $this->context->userFacade->find($this->user->getId());
 		}
 	}
 	

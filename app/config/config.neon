@@ -55,8 +55,8 @@ common:
 		keyGenerator:
 			class: \Services\KeyGenerator
 
-		userService:
-			class: \Services\UserService(@documentManager, @passwordHasher)
+		userFacade:
+			class: \Facades\User(@documentManager, @passwordHasher)
 
 		projectFacade:
 			class: \Facades\Project(@documentManager, @keyGenerator)

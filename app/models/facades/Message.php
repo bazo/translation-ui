@@ -3,26 +3,11 @@ namespace Facades;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Nette\Utils\Strings;
 
-class Message
+class Message extends Base
 {
-	private
-		/** @var DocumentManager */	
-		$dm
+	protected
+		$documentClass = 'Message'
 	;
-	
-	public function __construct(DocumentManager $dm)
-	{
-		$this->dm = $dm;
-	}
-	
-	/**
-	 * @param type $id
-	 * @return \Message
-	 */
-	public function find($id)
-	{
-		return $this->dm->getRepository('Message')->find($id);
-	}
 	
 	public function translateMessage(\Message $message, $translations)
 	{

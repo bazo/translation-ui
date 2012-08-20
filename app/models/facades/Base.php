@@ -17,6 +17,11 @@ abstract class Base
 		$this->dm = $dm;
 	}
 	
+	public function getCount()
+	{
+		return $this->dm->getRepository($this->documentClass)->createQueryBuilder()->getQuery()->execute()->count(true);
+	}
+	
 	public function find($id)
 	{
 		return $this->dm->getRepository($this->documentClass)->find($id);

@@ -32,11 +32,11 @@ class RegisterPresenter extends BasePresenter
 		
 		try
 		{
-			$this->context->userService->setPresenter($this);
-			$this->context->userService->createUser($values->email, $values->password);
+			$this->context->userFacade->setPresenter($this);
+			$this->context->userFacade->createUser($values->email, $values->password);
 			$this->flash('You have been successfully registered. A confirmation email to activate your account has been sent to you.');
 		}
-		catch(ExistingUserException $e)
+		catch(\ExistingUserException $e)
 		{
 			$this->flash($e->getMessage(), 'error');
 		}
