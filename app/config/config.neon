@@ -57,7 +57,7 @@ common:
 	redis:
 		storage: on # nutné pro překrytí storage
 		journal: on # nutné pro překrytí journalu
-		#session: on # nutné pro nastavení session handleru
+		session: on # nutné pro nastavení session handleru
 
 	services:
 
@@ -99,21 +99,10 @@ common:
 	factories:
 
 production < common:
-
+	redis:
+		storage: on # nutné pro překrytí storage
+		journal: on # nutné pro překrytí journalu
+		session: on # nutné pro nastavení session handleru
+		host: tunnel.pagodabox.com
+		port: 6379
 development < common:
-
-local < common:
-
-pagoda < common:
-	documentManagerExtension:
-		documentsDir: %appDir%/models/documents
-		proxyDir: %appDir%/models/proxies
-		hydratorDir: %appDir%/models/hydrators
-		dbname: 'watchdog'
-		uri: 'mongodb://watchdog:kavicka666@ds033067.mongolab.com:33067/watchdog'
-		cachePrefix: watchdog
-		metaDataCacheClass: '\Doctrine\Common\Cache\ApcCache'
-
-	services:
-		cacheStorage:
-			class: \Caching\ApcStorage(%app.name%)
