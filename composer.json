@@ -8,6 +8,8 @@
 		"bazo/nette-document-manager-extension": "*",
 		"mazagran/translation": "*",
 		"rych/phpass": "*",
-		"genphrase/genphrase": "*"
+		"genphrase/genphrase": "*",
+		"kdyby/redis-extension": "@dev",
+		"predis/predis": "*"
 	}
 }

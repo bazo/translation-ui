@@ -1,5 +1,5 @@
 {
-    "hash": "3ed0814744acfaa97473d3116a993435",
+    "hash": "70f1531dc1f4ab2e754f493e8e75d46c",
     "packages": [
         {
             "package": "bazo/gridder",
@@ -56,6 +56,12 @@
             "commit-date": "1344514730"
         },
         {
+            "package": "kdyby/redis-extension",
+            "version": "dev-master",
+            "source-reference": "bdf2ab3d403cb11030cf9dc2110a15223979271c",
+            "commit-date": "1345131561"
+        },
+        {
             "package": "mazagran/translation",
             "version": "dev-master",
             "source-reference": "6372e5c853764ed2af013afb63b1e71ce076c3b7",
@@ -63,15 +69,19 @@
         },
         {
             "package": "nette/nette",
-            "version": "dev-master",
-            "source-reference": "78511c56ec98e789d5912d76bf50ec4e7119789e",
-            "commit-date": "1345135726"
+            "version": "v2.0.4"
         },
         {
             "package": "nikic/php-parser",
             "version": "dev-master",
             "source-reference": "a590937fdf855169879dac25e9760ff7dd24cfd0",
             "commit-date": "1344357619"
+        },
+        {
+            "package": "predis/predis",
+            "version": "dev-master",
+            "source-reference": "e8daf452694d3141d8aeca41f50d6af94b0b6f70",
+            "commit-date": "1345381245"
         },
         {
             "package": "rych/phpass",
@@ -109,7 +119,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "kdyby/redis-extension": 20
+    }
 }

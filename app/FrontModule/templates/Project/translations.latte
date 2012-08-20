@@ -4,10 +4,14 @@
 
 <br><br>
 
+<div n:if="$project->getTranslations()->count() === 0" class="alert alert-info">
+	You don't have any translations. Please add one now.
+</div>
+
 {foreach $project->getTranslations() as $translation}
 	<div class="row">
 		<div class="span1">
-			<strong class="pull-left">{$translation->getLang()}</strong>&nbsp;
+			<strong class="pull-left">{\AllowedLangs::getLangCaption($translation->getLang())}</strong>&nbsp;
 		</div>
 
 		<div class="span2 pull-left">

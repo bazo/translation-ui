@@ -23,7 +23,7 @@ class Translation
 		/**
 		 * @ODM\Int
 		 */		
-		$pluralsCount,
+		$pluralsCount = 1,
 		
 		/**
 		 * @ODM\String
@@ -33,17 +33,17 @@ class Translation
 		/**
 		 * @ODM\Hash
 		 */		
-		$pluralNumbers,	
+		$pluralNumbers = array(),	
 			
 		/**
 		 * @ODM\Int
 		 */	
-		$messagesCount,
+		$messagesCount = 0,
 			
 		/**
 		 * @ODM\Int
 		 */	
-		$translated,	
+		$translated = 0,	
 			
 		/** 
 		 * @ODM\ReferenceMany(targetDocument="Message") 
@@ -245,6 +245,10 @@ class Translation
 	
 	public function getCompletionPercentage($decimals = 2)
 	{
+		if($this->getMessagesCount() === 0)
+		{
+			return 0;
+		}
 		return round(($this->getTranslatedMessagesCount() / $this->getMessagesCount()) * 100, $decimals);
 				
 	}

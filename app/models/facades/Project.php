@@ -45,15 +45,15 @@ class Project extends Base
 	 * @return \Project
 	 * @throws \ExistingProjectException 
 	 */
-	public function createProject($caption, \User $user)
+	public function createProject($values, \User $user)
 	{
 		$project = new \Project;
 		
 		$key = $this->keyGenerator->generateKey();
 		
-		$name = Strings::webalize(Strings::lower(Strings::toAscii($caption)));
+		$name = Strings::webalize(Strings::lower(Strings::toAscii($values->caption)));
 		$name = str_replace('-', '_', $name);
-		$project->setCaption($caption)->setName($name)->setKey($key);
+		$project->setCaption($values->caption)->setName($name)->setSourceLanguage($values->sourceLang)->setLink($values->link)->setKey($key);
 		
 		$project->setUser($user);
 		
@@ -189,6 +189,7 @@ class Project extends Base
 	
 	public function importTemplate($data, \Project $project)
 	{
+		$imported = 0;
 		$singleTranslation = $this->prepareTranslationsArray(1);
 		
 		$importedMessages = $project->getTemplateMessages();
@@ -216,6 +217,8 @@ class Project extends Base
 					$message->setTranslation($translation);
 
 					$this->dm->persist($message);
+					
+					$imported++;
 				}
 			}
 			$this->dm->persist($translation);
@@ -225,6 +228,13 @@ class Project extends Base
 		$project->addTemplateMessages($data['messages']);
 		$this->dm->persist($project);
 		$this->dm->flush();
+		return $imported;
+	}
+	
+	public function addMessage($messageData, \Project $project)
+	{
+		$data = array('messages' => array($messageData));
+		$this->importTemplate($data, $project);
 	}
 	
 }

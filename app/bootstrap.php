@@ -54,7 +54,7 @@ $configurator->onCompile[] = function($configurator, $compiler) {
         $compiler->addExtension('doctrineODMCommands', new \Bazo\Extensions\DoctrineODMCommands);
 		$compiler->addExtension('consoleApp', new \Extensions\ConsoleExtension);
 };
-
+Kdyby\Extension\Redis\DI\RedisExtension::register($configurator);
 $container = $configurator->createContainer();
 
 if(PHP_SAPI === 'cli')

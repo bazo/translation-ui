@@ -1,5 +1,6 @@
 <?php
 namespace AdminModule;
+use Gridder\Gridder;
 /**
  * Homepage presenter.
  *
@@ -11,7 +12,7 @@ class UsersPresenter extends SecuredPresenter
 
 	protected function createComponentGrid()
 	{
-		$dg = new \Gridder\Gridder;
+		$dg = new Gridder;
 		$dg->setClass('users');
 		$repository = $this->context->documentManager->getRepository('User');
 		$source = new \Gridder\Sources\MongoRepositorySource($repository);

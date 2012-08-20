@@ -41,14 +41,24 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
+			
+		{*	
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+			<span class="{ifCurrent dashboard:}active{/ifCurrent} icon-bar"><a n:href="dashboard:">Dashboard</a></span>
+			<span class="{ifCurrent projects:}active{/ifCurrent} icon-bar"><a n:href="projects:">Projects</a></span>
+			<span class="{ifCurrent translations:}active{/ifCurrent}" icon-bar"><a n:href="translations:">Translations</a></span>  
           </a>
+		*}
+			
+		<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>	
+			
           <a class="brand" href="{link homepage:}">Mazagran</a>
 		  
-		  <div n:if="$user->isLoggedIn()" class="btn-group pull-right">
+		   <div n:if="$user->isLoggedIn()" class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user"></i>{$me->getEmail()}
               <span class="caret"></span>
@@ -71,7 +81,7 @@
 			 </a> 
           </div>
 		  
-          <nav  class="nav-collapse">
+		  <nav  class="nav-collapse">
             <ul id="nav" class="nav">
 				{if $user->isLoggedIn()}
 					<li {ifCurrent dashboard:}class="active"{/ifCurrent}}><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
@@ -86,16 +96,6 @@
     </div>
 
     <div class="container-fluid">
-	  {snippet flash}
-        {foreach $flashes as $flash}
-		<div class="alert alert-{$flash->type}">
-			<a class="close" data-dismiss="alert">×</a>
-			<h4 style="text-transform: capitalize">{$flash->type}!</h4>
-			
-			{$flash->message}
-		</div>
-		{/foreach}
-        {/snippet}
 	  <section>
 		  
 		<div class="row-fluid">
@@ -108,6 +108,18 @@
 			</div>  
 			
 			<div class="span10">
+				<div class="row">
+					{snippet flash}
+						{foreach $flashes as $flash}
+						<div class="alert alert-{$flash->type}">
+							<a class="close" data-dismiss="alert">×</a>
+							<h4 style="text-transform: capitalize">{$flash->type}!</h4>
+
+							{$flash->message}
+						</div>
+						{/foreach}
+					{/snippet}
+				</div>
 				<div class="row">
 			   {include #content}
 				</div>

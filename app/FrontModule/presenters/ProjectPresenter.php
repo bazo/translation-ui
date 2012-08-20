@@ -1,9 +1,8 @@
 <?php
 namespace FrontModule;
 use Nette\Application\UI\Form;
-use Nette\Utils\Strings;
 
-use Mazagran\Translation\Langs;
+use \AllowedLangs;
 /**
  * Homepage presenter.
  *
@@ -40,12 +39,7 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		$form = new Form;
 		
-		$locales = Langs::getLangs();
-		$langs = array();
-		foreach($locales as $locale => $plural)
-		{
-			$langs[$locale] = $locale;
-		}
+		$langs = AllowedLangs::getLangs();
 		
 		$form->addSelect('lang', 'Language', $langs);
 		$form->addSubmit('btnSubmit', 'Create');
@@ -78,7 +72,7 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		$form = new Form;
 		
-		$form->addUpload('template', 'template')->setRequired();
+		$form->addUpload('template', 'Template file')->setRequired();
 		$form->addSubmit('btnSubmit', 'Import');
 
 		$form->onSuccess[] = callback($this, 'formImportTemplateSubmitted');
@@ -94,8 +88,8 @@ class ProjectPresenter extends SecuredPresenter
 		{
 			$neon = file_get_contents($values->template->getTemporaryFile());
 			$data = \Nette\Utils\Neon::decode($neon);
-			$this->context->projectFacade->importTemplate($data, $this->project);
-			
+			$imported = $this->context->projectFacade->importTemplate($data, $this->project);
+			$this->flash(sprintf('%d messages imported.', $imported));
 			$this->redirect('this');
 		}
 	}

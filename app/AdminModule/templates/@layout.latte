@@ -29,7 +29,7 @@
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="/favicon.ico">
-   
+   {block head}{/block}
   </head>
 
   <body>
@@ -47,6 +47,7 @@
             <ul n:if="$user->isLoggedIn()" class="nav">
               <li {ifCurrent dashboard:}class="active"{/ifCurrent}><a n:href="dashboard:">Dashboard</a></li>
               <li {ifCurrent users:}class="active"{/ifCurrent}><a n:href="users:">Users</a></li>
+			  <li {ifCurrent maintenance:}class="active"{/ifCurrent}><a n:href="maintenance:">Maintenance</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

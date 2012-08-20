@@ -1,10 +1,11 @@
 {block content}
 	{if $me->getProjects()->count() === 0}
-		You don't have any projects. Please add one now.
-		
+		<div class="alert alert-info">
+			You don't have any projects. Please add one now.
+		</div>
 	{else}
 		
-		<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br><br>
+		<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" data-toggle="modal" href="#newProject"><i class="icon-plus-sign icon-white"></i>Add</a><br><br>
 		
 		<div n:if="!$user->identity->canAddProject()" class="alert alert-info span9 ">
 			<p><h4 class="alert-heading">Info:</h4>You have reached the maximum number(<strong>{$user->identity->getAccountRule()->getMaximumProjects()}</strong>) of projects allowed for your account type.</p>

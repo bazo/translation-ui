@@ -39,6 +39,7 @@ class Translation extends Base
 		return array_fill(0, $count, '');
 	}
 	
+	
 	public function addMessageToProject(\Project $project, $values)
 	{
 		foreach($project->getTranslations() as $translation)
@@ -63,6 +64,7 @@ class Translation extends Base
 			$this->dm->flush();
 		}
 	}
+	
 	
 	private function formatDictionaryMessages(\Translation $translation)
 	{

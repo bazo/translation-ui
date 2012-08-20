@@ -7,12 +7,12 @@
   </div>
 	{form formImportTemplate}
   <div class="modal-body">
-	<table>
-		<tr>
-			<th>{label template /}</th>
-			<th>{input template}</th>
-		</tr>
-	</table>
+	<div class="control-group">
+		{label template class => 'control-label'/}
+		<div class="controls">
+		{input template class => 'span5'}
+		</div>
+	</div>  
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -38,6 +38,9 @@
 		</tr>
 		<tr>
 			<th>Messages:</th> <td>{count($project->getTemplateMessages())}</td>
+		</tr>
+		<tr>
+			<th>Link:</th> <td><a target="_blank" href="http://{$project->getLink()}">{$project->getLink()}</a></td>
 		</tr>
 	</tbody>
 </table>

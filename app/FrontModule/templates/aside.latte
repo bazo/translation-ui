@@ -1,9 +1,47 @@
-<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" n:href="add"><i class="icon-plus-sign icon-white"></i>Add</a><br>
-	<ul class="nav nav-list">
+<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" data-toggle="modal" href="#newProject"><i class="icon-plus-sign icon-white"></i>Add</a><br>
+<ul class="nav nav-list">
 	<li class="nav-header">
 		YOUR PROJECTS (max: {!$user->identity->getAccountRule()->getMaximumProjects()})
 	</li>
 	<li n:foreach="$me->getProjects() as $project">
 		<a n:href="project: id => $project->getId()">{$project->getCaption()}</a>
 	</li>
-	</ul>
+</ul>
+
+<div n:if="$user->identity->canAddProject()" class="modal hide" id="newProject">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>New project</h3>
+  </div>
+	{form formNewProject class => 'form-horizontal'}
+  <div class="modal-body">
+	  <div class="control-group">
+		{label caption class => 'control-label'/}
+		<div class="controls">
+		{input caption class => "span7"}
+		</div>
+	</div>
+
+	<div class="control-group">
+		{label sourceLang class => 'control-label'/}
+		<div class="controls">
+			{input sourceLang class => "span7"}
+		</div>
+	</div>
+
+	<div class="control-group">
+		{label link class => 'control-label'/}
+		<div class="controls">
+			<div class="input-prepend">
+				<span class="add-on pull-left">http://</span>	
+				{input link class => "span9"}
+			</div>
+		</div>
+	</div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-primary"}
+  </div>
+	{/form}
+</div>

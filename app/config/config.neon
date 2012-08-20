@@ -8,8 +8,15 @@ common:
 	parameters:
 		app:
 			name: watchdog
+
+		admin:
+			scriptFolder: %appDir%/AdminModule/scripts
+
+		database:
+			dbname: mazagran
+
 		mail:
-			from: 'postmaster@watchdog.mailgun.org'
+			from: 'postmaster@mazagran.mailgun.org'
 			fromName: Mazagran
 
 		pusher:
@@ -46,6 +53,11 @@ common:
 		uri: 'mongodb://mazagran:DCQC7kJv25pFeUw@ds037007.mongolab.com:37007/mazagran'
 		cachePrefix: mazagran
 		metaDataCacheClass: '\Doctrine\Common\Cache\ApcCache'
+
+	redis:
+		storage: on # nutné pro překrytí storage
+		journal: on # nutné pro překrytí journalu
+		session: on # nutné pro nastavení session handleru
 
 	services:
 
