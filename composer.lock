@@ -4,8 +4,8 @@
         {
             "package": "bazo/gridder",
             "version": "dev-master",
-            "source-reference": "d6bbe3288d9fb985268392b7acf091601f0b0b71",
-            "commit-date": "1342297640"
+            "source-reference": "5b27bcd202c271c05f0961dbcf5fc0c8ea910330",
+            "commit-date": "1345495962"
         },
         {
             "package": "bazo/nette-document-manager-extension",

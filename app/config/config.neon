@@ -106,3 +106,5 @@ production < common:
 		host: tunnel.pagodabox.com
 		port: 6379
 development < common:
+
+local < common:
