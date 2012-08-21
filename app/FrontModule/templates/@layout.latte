@@ -18,22 +18,9 @@
     <link href="{$baseUri}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="{$baseUri}/css/app.css" rel="stylesheet">
 
-	<script type="text/javascript" src="{$baseUri}/js/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="{$baseUri}/js/jquery.nette.js"></script>
-	<script type="text/javascript" src="{$baseUri}/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="{$baseUri}/js/jquery.ajaxform.js"></script>
-	<script type="text/javascript" src="{$baseUri}/js/app.js"></script>
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <!-- Le fav and touch icons -->
 	{block #head}{/block}
     <link rel="shortcut icon" href="/favicon.png">
-   
-	
-	
   </head>
 
   <body>
@@ -126,5 +113,16 @@
 			</div>
 		</div>
 	  </section>
+		
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="{$baseUri}/js/jquery.nette.js"></script>
+	<script type="text/javascript" src="{$baseUri}/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{$baseUri}/js/jquery.ajaxform.js"></script>
+	<script type="text/javascript" src="{$baseUri}/js/app.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->	
+	{block script}{/block}
   </body>
 </html>

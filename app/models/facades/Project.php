@@ -188,17 +188,28 @@ class Project extends Base
 		
 		$importedMessages = $project->getTemplateMessages();
 		
-		foreach($project->getTranslations() as $translation)
+		$translations = $project->getTranslations();
+		
+		$translationsData = array();
+		
+		foreach($translations as $translation)
 		{
-			$pluralsCount = Langs::getPluralsCount($translation->getLang());
-			$translations = $this->prepareTranslationsArray($pluralsCount);
-			
-			foreach($data['messages'] as $messageId => $messageData)
+			$translationsData[$translation->getLang()] = array(
+				'pluralsCount' => Langs::getPluralsCount($translation->getLang()),
+				'translations' => $this->prepareTranslationsArray($pluralsCount)
+			);
+		}
+		
+		foreach($data['messages'] as $messageId => $messageData)
+		{
+			if(!isset($importedMessages[base64_encode($messageId)]))
 			{
-				if(!isset($importedMessages[$messageId]))
+				$project->addTemplateMessages(array($messageId => $messageData));
+				$this->dm->persist($project);
+				$this->dm->flush();
+				foreach($translations as $translation)
 				{
-					$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
-
+					$message = $this->prepareMessage($messageData, $translationsData['translations'], $singleTranslation, $translationsData['pluralsCount']);
 					try
 					{
 						$translation->addMessage($message);
@@ -211,20 +222,77 @@ class Project extends Base
 					$message->setTranslation($translation);
 
 					$this->dm->persist($message);
-					
-					$imported++;
+					$this->dm->flush();
 				}
+				$imported++;
 			}
-			$this->dm->persist($translation);
-			$this->dm->flush();
 		}
 		
-		$project->addTemplateMessages($data['messages']);
-		$this->dm->persist($project);
-		$this->dm->flush();
 		return $imported;
 	}
 	
+	/*
+	public function importTemplate($data, \Project $project)
+	{
+		$imported = 0;
+		$singleTranslation = $this->prepareTranslationsArray(1);
+		
+		$importedMessages = $project->getTemplateMessages();
+		
+		$translations = $project->getTranslations();
+		
+		if($translations->count() > 0)
+		{
+		
+			foreach($translations as $translation)
+			{
+				$pluralsCount = Langs::getPluralsCount($translation->getLang());
+				$translations = $this->prepareTranslationsArray($pluralsCount);
+
+				var_dump($data['messages']);exit;
+
+				foreach($data['messages'] as $messageId => $messageData)
+				{
+					if(!isset($importedMessages[$messageId]))
+					{
+						$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
+
+						try
+						{
+							$translation->addMessage($message);
+						}
+						catch(\ExistingMessageException $e)
+						{
+							//ignore
+						}
+
+						$message->setTranslation($translation);
+
+						$this->dm->persist($message);
+
+						$imported++;
+
+						$project->addTemplateMessages(array($messageId => $messageData));
+						$this->dm->persist($project);
+						$this->dm->flush();
+					}
+				}
+				$this->dm->persist($translation);
+				$this->dm->flush();
+			}
+		}
+		else
+		{
+			$project->addTemplateMessages($data['messages']);
+			$this->dm->persist($project);
+			$this->dm->flush();
+			
+			$imported = count($data['messages']);
+		}
+		
+		return $imported;
+	}
+	*/
 	public function addMessage($messageData, \Project $project)
 	{
 		$data = array('messages' => array($messageData));

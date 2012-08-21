@@ -171,7 +171,17 @@ class Project
 
 	public function addTemplateMessages($templateMessages)
 	{
-		$this->templateMessages = array_merge($this->templateMessages, $templateMessages);
+		foreach($templateMessages as $messageId => $templateMessage)
+		{
+			$this->addTemplateMessage($messageId, $templateMessage);
+		}
+		return $this;
+	}
+	
+	public function addTemplateMessage($messageId, $templateMessage)
+	{
+		unset($templateMessage['files']);
+		$this->templateMessages[base64_encode($messageId)] = $templateMessage;
 		return $this;
 	}
 	

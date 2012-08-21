@@ -86,12 +86,29 @@ class ProjectPresenter extends SecuredPresenter
 		
 		if($values->template->isOk())
 		{
-			$neon = file_get_contents($values->template->getTemporaryFile());
-			$data = \Nette\Utils\Neon::decode($neon);
-			$imported = $this->context->projectFacade->importTemplate($data, $this->project);
-			$this->flash(sprintf('%d messages imported.', $imported));
-			$this->redirect('this');
+			try
+			{
+				$neon = file_get_contents($values->template->getTemporaryFile());
+				$data = \Nette\Utils\Neon::decode($neon);
+				$imported = $this->context->projectFacade->importTemplate($data, $this->project);
+				$status = $imported > 0 ? 'success' : 'error';
+				$this->flash(sprintf('%d messages imported.', $imported), $status);
+			}
+			catch(\Nette\Utils\NeonException $e)
+			{
+				$this->flash(sprintf('Template contains illegal characters: %s', $e->getMessage()), 'error');
+			}
+			catch(\Nette\Utils\TokenizerException $e)
+			{
+				$this->flash('Uploaded file is not a valid template. Please upload a valid template.', 'error');
+			}
 		}
+		else
+		{
+			$this->flash('Template file has not uploaded succesfully. Please try again.', 'error');
+			
+		}
+		$this->redirect('this');
 	}
 
 	public function handleDelete($id)

@@ -11,7 +11,7 @@
 
 {block content}
 <h1>{$translation->getProject()->getCaption()}</h1>
-<h2>Source language: Target language: {$translation->getLang()}</h2>
+<h2>Source language: {$translation->getProject()->getSourceLanguage()} Target language: {$translation->getLang()}</h2>
 
 <a class="btn btn-success btn-large" data-toggle="modal" href="#newMessage" ><i class="icon-white icon-plus-sign"></i> Add message</a>
 &nbsp;
@@ -107,6 +107,10 @@
 	</ul>
 </div>
 
+<div n:if="$messages->count(true) === 0" class="alert alert-info">
+	No messages.
+</div>
+
 {snippet messages}
 <div n:inner-foreach="$messages as $message" id="messages" >
 	{form "formTranslate-{$message->getId()}"}	
@@ -168,8 +172,11 @@
 	{input id}	
 	{/form}	
 </div>
+{/snippet}
+{/block}
 
-<script>
+{block script}
+	<script>
 	$('.close').on('click', function(event){
 		event.preventDefault();
 		var modal = $('#deleteMessage');
@@ -180,5 +187,4 @@
 		modal.modal('show')
 	});
 </script>
-
-{/snippet}
+{/block}

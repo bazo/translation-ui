@@ -64,8 +64,8 @@
         {
             "package": "mazagran/translation",
             "version": "dev-master",
-            "source-reference": "6372e5c853764ed2af013afb63b1e71ce076c3b7",
-            "commit-date": "1345384132"
+            "source-reference": "cc539a4a8c8d55e60587d5e4f20aec340f1d56f4",
+            "commit-date": "1345559837"
         },
         {
             "package": "nette/nette",
@@ -80,8 +80,8 @@
         {
             "package": "predis/predis",
             "version": "dev-master",
-            "source-reference": "e8daf452694d3141d8aeca41f50d6af94b0b6f70",
-            "commit-date": "1345381245"
+            "source-reference": "9df9dbdedcf3076cb3da3bbdb7e89819ffac54a5",
+            "commit-date": "1345562114"
         },
         {
             "package": "rych/phpass",
