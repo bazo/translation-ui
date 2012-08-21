@@ -11,7 +11,7 @@
 
 {block content}
 <h1>{$translation->getProject()->getCaption()}</h1>
-<h2>Source language: {$translation->getProject()->getSourceLanguage()} Target language: {$translation->getLang()}</h2>
+<p class="lead">{$translation->getProject()->getSourceLanguage()} --> {$translation->getLang()}</p>
 
 <a class="btn btn-success btn-large" data-toggle="modal" href="#newMessage" ><i class="icon-white icon-plus-sign"></i> Add message</a>
 &nbsp;
@@ -102,7 +102,11 @@
 <div n:if="$pagesCount > 1" class="pagination">
 	<ul>
 		<li n:class="$page === 1 ? disabled"><a n:href="changePage! page => $page - 1">«</a></li>
-		<li n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++"><a n:href="changePage! page => $i">{$i}</a></li>
+		
+		<li n:if="$pagesCount < 20" n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
+			<a n:href="changePage! page => $i">{$i}</a>
+		</li>
+		
 		<li n:class="$page === $pagesCount ? disabled"><a n:href="changePage! page => $page + 1">»</a></li>
 	</ul>
 </div>

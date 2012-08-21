@@ -25,7 +25,7 @@ class TranslationPresenter extends SecuredPresenter
 		/** @var \Translation */	
 		$translation,
 			
-		$maxItems = 5
+		$maxItems = 10
 	;
 
 	protected function startup()

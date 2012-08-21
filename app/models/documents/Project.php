@@ -1,5 +1,6 @@
 <?php
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Nette\Utils\Strings;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -173,21 +174,32 @@ class Project
 	{
 		foreach($templateMessages as $messageId => $templateMessage)
 		{
-			$this->addTemplateMessage($messageId, $templateMessage);
+			$this->addTemplateMessage($this->encodeMessageId($messageId), $templateMessage);
 		}
 		return $this;
+	}
+	
+	private function encodeMessageId($messageId)
+	{
+		return Strings::replace($messageId, '/\./', 'DOT');
+	}
+	
+	public function hasTemplateMessage($messageId)
+	{
+		return isset($this->templateMessages[$this->encodeMessageId($messageId)]);
 	}
 	
 	public function addTemplateMessage($messageId, $templateMessage)
 	{
 		unset($templateMessage['files']);
-		$this->templateMessages[base64_encode($messageId)] = $templateMessage;
+		$this->templateMessages[$messageId] = $templateMessage;
 		return $this;
 	}
 	
 	public function removeTemplateMessage($singular)
 	{
-		unset($this->templateMessages[$singular]);
+		$id = $this->encodeMessageId($singular);
+		unset($this->templateMessages[$id]);
 		return $this;
 	}
 }

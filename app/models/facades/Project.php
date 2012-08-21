@@ -186,30 +186,29 @@ class Project extends Base
 		$imported = 0;
 		$singleTranslation = $this->prepareTranslationsArray(1);
 		
-		$importedMessages = $project->getTemplateMessages();
-		
 		$translations = $project->getTranslations();
 		
 		$translationsData = array();
 		
 		foreach($translations as $translation)
 		{
+			$pluralsCount = Langs::getPluralsCount($translation->getLang());
 			$translationsData[$translation->getLang()] = array(
-				'pluralsCount' => Langs::getPluralsCount($translation->getLang()),
+				'pluralsCount' => $pluralsCount,
 				'translations' => $this->prepareTranslationsArray($pluralsCount)
 			);
 		}
 		
 		foreach($data['messages'] as $messageId => $messageData)
 		{
-			if(!isset($importedMessages[base64_encode($messageId)]))
+			if(!$project->hasTemplateMessage($messageId))
 			{
-				$project->addTemplateMessages(array($messageId => $messageData));
-				$this->dm->persist($project);
-				$this->dm->flush();
+				$project->addTemplateMessage($messageId, $messageData);
+				
 				foreach($translations as $translation)
 				{
-					$message = $this->prepareMessage($messageData, $translationsData['translations'], $singleTranslation, $translationsData['pluralsCount']);
+					$translationData = $translationsData[$translation->getLang()];
+					$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
 					try
 					{
 						$translation->addMessage($message);
@@ -222,11 +221,14 @@ class Project extends Base
 					$message->setTranslation($translation);
 
 					$this->dm->persist($message);
-					$this->dm->flush();
+					//$this->dm->flush();
 				}
 				$imported++;
 			}
 		}
+		
+		$this->dm->persist($project);
+		$this->dm->flush();
 		
 		return $imported;
 	}
