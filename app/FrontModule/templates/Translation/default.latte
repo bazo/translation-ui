@@ -3,7 +3,7 @@
 	<li class="nav-header">
 		Messages
 	</li>
-	<li n:foreach="$translation->getMessages() as $message">
+	<li n:foreach="$messages as $message">
 		<a href="#{$message->getId()}">{$message->getSingular()}</a>
 	</li>
 </ul>
@@ -29,7 +29,7 @@
     <h3>New message</h3>
   </div>
 	{snippet formNewMessage}
-	{form formNewMessage}
+	<form n:form="formNewMessage">
   <div class="modal-body">
 	<table>
 		<tr>
@@ -50,7 +50,7 @@
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     {input btnSubmit class => "btn btn-primary"}
   </div>
-	{/form}
+	</form>
 	{/snippet}
 </div>
 
@@ -59,7 +59,7 @@
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Import translation</h3>
   </div>
-	{form formImportTranslation}
+	<form n:form="formImportTranslation">
   <div class="modal-body">
 	<table>
 		<tr>
@@ -72,7 +72,7 @@
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     {input btnSubmit class => "btn btn-primary"}
   </div>
-	{/form}
+	</form>
 </div>
 
 <div class="modal hide" id="deleteMessage">
@@ -80,7 +80,7 @@
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Really delete message?</h3>
   </div>
-	{form formDeleteMessage}
+	<form n:form="formDeleteMessage">
   <div class="modal-body">
 	  Message will be deleted from all translations.
   </div>
@@ -88,7 +88,7 @@
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     {input btnSubmit class => "btn btn-danger"}
   </div>
-	{/form}
+	</form>
 </div>
 
 <br>
@@ -98,6 +98,14 @@
     <li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated'">Translated</a></li>
     <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated'">Untranslated</a></li>
 </ul>
+
+<div n:if="$pagesCount > 1" class="pagination">
+	<ul>
+		<li n:class="$page === 1 ? disabled"><a n:href="changePage! page => $page - 1">«</a></li>
+		<li n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++"><a n:href="changePage! page => $i">{$i}</a></li>
+		<li n:class="$page === $pagesCount ? disabled"><a n:href="changePage! page => $page + 1">»</a></li>
+	</ul>
+</div>
 
 {snippet messages}
 <div n:inner-foreach="$messages as $message" id="messages" >

@@ -15,12 +15,17 @@ class TranslationPresenter extends SecuredPresenter
 		$id,
 		
 		/** @persistent */	
-		$filter = 'all'
+		$filter = 'all',
+		
+		/** @persistent */	
+		$page = 1
 	;
 	
 	private 
 		/** @var \Translation */	
-		$translation
+		$translation,
+			
+		$maxItems = 5
 	;
 
 	protected function startup()
@@ -36,13 +41,27 @@ class TranslationPresenter extends SecuredPresenter
 		$this->redirect('this');
 	}
 	
+	public function handleChangePage($page)
+	{
+		$this->page = $page;
+		$this->redirect('this');
+	}
+	
 	public function renderDefault($filter)
 	{
 		parent::beforeRender();
 		$this->template->filter = $filter;
 		$this->template->translation = $this->translation;
 		
-		$this->template->messages = $this->context->translationFacade->findFilteredMessages($this->id, $filter);
+		$messages = $this->context->translationFacade->findFilteredMessages($this->id, $filter, $this->page, $this->maxItems);
+		
+		$totalCount = $messages->count();
+		
+		$pagesCount = (int)round($totalCount / $this->maxItems);
+		
+		$this->template->pagesCount = $pagesCount;
+		$this->template->page = $this->page;
+		$this->template->messages = $messages;
 	}
 	
 	private function formatDownloadName(\Translation $translation, $ext)

@@ -8,7 +8,7 @@ class Translation extends Base
 		$documentClass = 'Translation'
 	;
 	
-	public function findFilteredMessages($id, $filter = 'all')
+	public function findFilteredMessages($id, $filter = 'all', $page = 1, $maxItems = 5)
 	{
 		$qb = $this->dm->getRepository('Message')->createQueryBuilder()
 				->field('translation.id')->equals($id);
@@ -23,6 +23,11 @@ class Translation extends Base
 				$qb->field('translated')->equals(false);
 				break;
 		}
+		
+		$offset = ($page - 1) * $maxItems;
+		
+		$qb->skip($offset)->limit($maxItems);
+		
 		
 		return $qb->getQuery()->execute();
 	}
