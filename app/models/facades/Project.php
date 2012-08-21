@@ -22,14 +22,8 @@ class Project extends Base
 		$this->keyGenerator = $keyGenerator;
 	}
 	
-	public function delete($id)
+	public function delete(\Project $project)
 	{
-		$project = $this->dm->getRepository('Project')->find($id);
-		/*
-		$this->dm->getRepository('Log')->createQueryBuilder()
-				->remove()->field('app')->references($project)
-				->getQuery()->execute();
-		*/
 		$user = $project->getUser();
 		$user->removeProject($project);
 		

@@ -46,7 +46,7 @@ class Translation
 		$translated = 0,	
 			
 		/** 
-		 * @ODM\ReferenceMany(targetDocument="Message") 
+		 * @ODM\ReferenceMany(targetDocument="Message", cascade={"persist", "remove"}) 
 		 * @ODM\Index
 		 */		
 		$messages,	

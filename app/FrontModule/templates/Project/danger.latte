@@ -2,5 +2,25 @@
 <a class="btn btn-danger btn-large popover-enabled" rel="popover" data-original-title="Warning" data-content="All messages and translations will be removed" href="">
 	<i class="icon-white icon-remove"></i>&nbsp;Empty messages</a>
 	
-<a class="btn btn-danger btn-large popover-enabled" rel="popover" data-original-title="Warning" data-content="Project and all related messages and translations will be removed" href="">
+<a class="btn btn-danger btn-large popover-enabled" data-toggle="modal" href="#deleteProject">
 	<i class="icon-white icon-remove"></i>&nbsp;Delete project</a>	
+	
+
+
+<div class="modal hide" id="deleteProject">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Delete project</h3>
+  </div>
+	{form formDelete}
+  <div class="modal-body">
+	Are you sure you want to delete this project?
+	
+	<p>Project and all related messages and translations will be removed</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {input btnSubmit class => "btn btn-danger"}
+  </div>
+	{/form}
+</div>	

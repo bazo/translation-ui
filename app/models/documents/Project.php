@@ -40,8 +40,8 @@ class Project
 		$user,
 			
 		/** 
-		 * @ODM\ReferenceMany(targetDocument="Translation")
-		 *  @ODM\Index
+		 * @ODM\ReferenceMany(targetDocument="Translation", cascade={"persist", "remove"})
+		 * @ODM\Index
 		 */	
 		$translations,
 			

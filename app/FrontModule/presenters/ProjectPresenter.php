@@ -100,5 +100,27 @@ class ProjectPresenter extends SecuredPresenter
 		$this->flash('App sucessfully removed', 'success');
 		$this->redirect('apps:');
 	}
+	
+	public function createComponentFormDelete()
+	{
+		$form = new Form;
+		
+		$form->addSubmit('btnSubmit', 'Delete');
+
+		$form->onSuccess[] = callback($this, 'formDeleteSubmitted');
+		
+		return $form;
+	}
+	
+	public function formDeleteSubmitted(Form $form)
+	{
+		//$values = $form->getValues();
+		
+		$this->context->projectFacade->delete($this->project);
+		$this->flash(sprintf('Project %s was successfully deleted', $this->project->getName()));
+		
+		
+		$this->redirect('projects:');
+	}
 
 }
