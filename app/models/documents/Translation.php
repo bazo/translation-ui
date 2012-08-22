@@ -1,5 +1,6 @@
 <?php
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Helpers\Message;
 /**
  * Log
  *
@@ -159,7 +160,7 @@ class Translation
 		if(!in_array($message->getSingular(), $this->messageIds))
 		{
 			$this->messages->add($message);
-			$this->messageIds[$message->getSingular()] = $message->getSingular();
+			$this->messageIds[Message::encodeMessageId($message->getSingular())] = $message->getSingular();
 			$this->messagesCount++;
 			return $this;
 		}
@@ -177,6 +178,7 @@ class Translation
 	public function removeMessage(\Message $message)
 	{
 		$this->messages->removeElement($message);
+		unset($this->messageIds[\Helpers\Message::encodeMessageId($message->getId())]);
 		return $this;
 	}
 	
