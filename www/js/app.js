@@ -11,7 +11,7 @@ $(document).ready(function(){
 		return false;
 	});
     
-	$('.popover-enabled').popover();
+	$('[rel="popover"]').popover();
 	$('[rel="tooltip"]').tooltip();
 	
 });

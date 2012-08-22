@@ -15,6 +15,18 @@ a i{
 
 #message-list{
 	position: fixed;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+#message-list li a{
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+}
+#message-list li a:hover{
+	padding-right: 0;
+	background-color: inherit;
+	width: 100%;
 }
 
 .message{

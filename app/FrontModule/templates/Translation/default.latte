@@ -1,10 +1,10 @@
 {block aside}
-<ul id="message-list" class="nav nav-list">
+<ul id="message-list" class="nav nav-list affix span2" data-spy="affix" data-offset-top="200">
 	<li class="nav-header">
 		Messages
 	</li>
 	<li n:foreach="$messages as $message">
-		<a href="#{$message->getId()}">{$message->getSingular()}</a>
+		<a href="#{$message->getId()}" data-content="{$message->getSingular()}" rel="popover" data-placement="bottom" title="Full text" >{$message->getSingular()}</a>
 	</li>
 </ul>
 {/block}
@@ -103,7 +103,11 @@
 	<ul>
 		<li n:class="$page === 1 ? disabled"><a n:href="changePage! page => $page - 1">«</a></li>
 		
-		<li n:if="$pagesCount < 20" n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
+		<li n:if="$pagesCount < 20"  n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
+			<a n:href="changePage! page => $i">{$i}</a>
+		</li>
+		
+		<li n:if="$pagesCount > 20"  n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
 			<a n:href="changePage! page => $i">{$i}</a>
 		</li>
 		
