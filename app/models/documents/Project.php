@@ -174,7 +174,7 @@ class Project
 	{
 		foreach($templateMessages as $messageId => $templateMessage)
 		{
-			$this->addTemplateMessage($this->encodeMessageId($messageId), $templateMessage);
+			$this->addTemplateMessage($messageId, $templateMessage);
 		}
 		return $this;
 	}
@@ -192,7 +192,7 @@ class Project
 	public function addTemplateMessage($messageId, $templateMessage)
 	{
 		unset($templateMessage['files']);
-		$this->templateMessages[$messageId] = $templateMessage;
+		$this->templateMessages[$this->encodeMessageId($messageId)] = $templateMessage;
 		return $this;
 	}
 	
