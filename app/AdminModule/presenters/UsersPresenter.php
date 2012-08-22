@@ -28,7 +28,11 @@ class UsersPresenter extends SecuredPresenter
 		$dg->setPrimaryKey('id');
 
 		//$dg->addColumn('id')->setCaption('id');
+		$dg->addColumn('nick')->setSortable(true)->setFilter('text');
 		$dg->addColumn('email')->setSortable(true)->setFilter('text');
+		
+		$dg->addColumn('projectCount')->setCaption('project count')->setSortable(true);
+		
 		$dg->addColumn('account')->setSortable(true)->setFilter('text');
 
 		$dg->addColumn('active')->setCaption('active')->setSortable(true)->valueModifier[] = function($boolean){

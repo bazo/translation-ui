@@ -40,6 +40,12 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		 * @ODM\Index 
 		 */	
 		$projectNames = array(),
+			
+		/**
+		 * @ODM\Increment
+		 * @ODM\Index 
+		 */	
+		$projectCount = 0,	
 		
 		/**
 		 * @ODM\Boolean 
@@ -117,6 +123,7 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		{
 			$this->projectNames[] = $project->getName();
 			$this->projects->add($project);
+			$this->projectCount++;
 			return $this;
 		}
 		else
@@ -127,15 +134,24 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	
 	public function removeProject(Project $project)
 	{
-		$projectNameKey = array_search($project->getName(), $this->projectNames);
-		unset($this->projectNames[$projectNameKey]);
-		$this->projects->removeElement($project);
+		if($this->projects->contains($project))
+		{
+			$projectNameKey = array_search($project->getName(), $this->projectNames);
+			unset($this->projectNames[$projectNameKey]);
+			$this->projects->removeElement($project);
+			$this->projectCount--;
+		}
 		return $this;
 	}
 	
 	public function getProjectNames()
 	{
 		return $this->projectNames;
+	}
+
+	public function getProjectCount()
+	{
+		return $this->projectCount;
 	}
 
 	public function isActive()
