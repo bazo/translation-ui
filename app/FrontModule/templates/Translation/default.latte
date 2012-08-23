@@ -107,9 +107,54 @@
 			<a n:href="changePage! page => $i">{$i}</a>
 		</li>
 		
-		<li n:if="$pagesCount > 20"  n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
-			<a n:href="changePage! page => $i">{$i}</a>
-		</li>
+		{var $maxPages = 5}
+		{if $pagesCount > $maxPages}
+			
+			{var $delta = $maxPages % 2 === 0 ? ($maxPages - 2) / 2 : ($maxPages - 1) / 2}
+		
+			{var $excess =  $page - $delta > 0 ? 0}
+		
+			{*var $toExcess = $page - $delta < 0 ? 0 : $page - $delta*}
+		
+			{var $from = $page - $delta < 2 ? 2 : $page - $delta - $excess + 1}
+		
+			{var $to = $page + $delta > $pagesCount ? $pagesCount : $page + $delta + $excess}
+
+		
+		
+			{="delta:".$delta},{="excess:".$excess},{="from:".$from},{="to:".$to},{="page:".$page}
+			<li n:if="$from !== 1" n:class="$page === 1 ? active">
+				<a n:href="changePage! page => 1">1</a>
+			</li>
+		
+			<li n:if="$from > 2" class="disabled">
+				<a href="#">...</a>
+			</li>
+			
+			<li n:class="$page === $i ? active" n:for="$i = $from; $i < $page; $i++">
+				{$page === $i}
+				<a n:href="changePage! page => $i">{$i}</a>
+			</li>
+			
+			<li n:class="$page === $i ? active">
+				<a n:href="changePage! page => $page">{$page}</a>
+			</li>
+			
+			<li n:class="$page === $i ? active" n:for="$i = $page + 1; $i <= $to; $i++">
+				<a n:href="changePage! page => $i">{$i}</a>
+			</li>
+			
+			<li class="disabled">
+				<a href="#">...</a>
+			</li>
+			
+			<li n:if="$page !== $pagesCount" n:class="$page === $pagesCount ? active">
+				<a n:href="changePage! page => $pagesCount">{$pagesCount}</a>
+			</li>
+		
+		{/if}
+		
+		
 		
 		<li n:class="$page === $pagesCount ? disabled"><a n:href="changePage! page => $page + 1">»</a></li>
 	</ul>
