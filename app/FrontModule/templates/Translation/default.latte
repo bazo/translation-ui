@@ -16,78 +16,78 @@
 <a class="btn btn-success btn-large" data-toggle="modal" href="#newMessage" ><i class="icon-white icon-plus-sign"></i> Add message</a>
 &nbsp;
 <div class="pull-right">
-<a class="btn btn-info" data-toggle="modal" href="#importTranslation" ><i class="icon-white icon-upload"></i> Import translation</a>
-&nbsp;
-<a class="btn btn-primary" n:href="downloadTranslation!"><i class="icon-white icon-download"></i> Download translation</a>
-&nbsp;
-<a class="btn btn-inverse" n:href="download!"><i class="icon-white icon-download"></i> Download dictionary</a>
+	<a class="btn btn-info" data-toggle="modal" href="#importTranslation" ><i class="icon-white icon-upload"></i> Import translation</a>
+	&nbsp;
+	<a class="btn btn-primary" n:href="downloadTranslation!"><i class="icon-white icon-download"></i> Download translation</a>
+	&nbsp;
+	<a class="btn btn-inverse" n:href="download!"><i class="icon-white icon-download"></i> Download dictionary</a>
 </div>
 
 <div class="modal hide" id="newMessage">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>New message</h3>
-  </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>New message</h3>
+	</div>
 	{snippet formNewMessage}
 	<form n:form="formNewMessage">
-  <div class="modal-body">
-	<table>
-		<tr>
-			<th>{label context /}</th>
-			<th>{input context}</th>
-		</tr>
-		<tr>
-			<th>{label singular /}</th>
-			<th>{input singular}</th>
-		</tr>
-		<tr>
-			<th>{label plural /}</th>
-			<th>{input plural}</th>
-		</tr>
-	</table>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
+		<div class="modal-body">
+			<table>
+				<tr>
+					<th>{label context /}</th>
+					<th>{input context}</th>
+				</tr>
+				<tr>
+					<th>{label singular /}</th>
+					<th>{input singular}</th>
+				</tr>
+				<tr>
+					<th>{label plural /}</th>
+					<th>{input plural}</th>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
     {input btnSubmit class => "btn btn-primary"}
-  </div>
+		</div>
 	</form>
 	{/snippet}
 </div>
 
 <div class="modal hide" id="importTranslation">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Import translation</h3>
-  </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Import translation</h3>
+	</div>
 	<form n:form="formImportTranslation">
-  <div class="modal-body">
-	<table>
-		<tr>
-			<th>{label translation /}</th>
-			<th>{input translation}</th>
-		</tr>
-	</table>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
+		<div class="modal-body">
+			<table>
+				<tr>
+					<th>{label translation /}</th>
+					<th>{input translation}</th>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
     {input btnSubmit class => "btn btn-primary"}
-  </div>
+		</div>
 	</form>
 </div>
 
 <div class="modal hide" id="deleteMessage">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Really delete message?</h3>
-  </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Really delete message?</h3>
+	</div>
 	<form n:form="formDeleteMessage">
-  <div class="modal-body">
-	  Message will be deleted from all translations.
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    {input btnSubmit class => "btn btn-danger"}
-  </div>
+		<div class="modal-body">
+			Message will be deleted from all translations.
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			{input btnSubmit class => "btn btn-danger"}
+		</div>
 	</form>
 </div>
 
@@ -102,60 +102,55 @@
 <div n:if="$pagesCount > 1" class="pagination">
 	<ul>
 		<li n:class="$page === 1 ? disabled"><a n:href="changePage! page => $page - 1">«</a></li>
-		
+
 		<li n:if="$pagesCount < 20"  n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
 			<a n:href="changePage! page => $i">{$i}</a>
 		</li>
-		
-		{var $maxPages = 5}
-		{if $pagesCount > $maxPages}
-			
-			{var $delta = $maxPages % 2 === 0 ? ($maxPages - 2) / 2 : ($maxPages - 1) / 2}
-		
-			{var $excess =  $page - $delta > 0 ? 0}
-		
-			{*var $toExcess = $page - $delta < 0 ? 0 : $page - $delta*}
-		
-			{var $from = $page - $delta < 2 ? 2 : $page - $delta - $excess + 1}
-		
-			{var $to = $page + $delta > $pagesCount ? $pagesCount : $page + $delta + $excess}
 
+		{var $maxPages = 20}
+		{if $pagesCount > $maxPages}
+
+			{var $toExcess = 0}
+			{var $fromExcess = 0}
+
+			{var $delta = $maxPages % 2 === 0 ? ($maxPages - 2) / 2 : ($maxPages - 1) / 2}
+
+			{if ($page - $delta) < 1 }
+				{var $toExcess =  $delta - $page + 1}
+			{/if}
 		
+			{if ($page + $delta) > $pagesCount }
+				{var $fromExcess = ($page + $delta) - $pagesCount}
+			{/if}
+
+			{var $from = $page - $delta < 1 ? 1 : $page - $delta - $fromExcess}
 		
-			{="delta:".$delta},{="excess:".$excess},{="from:".$from},{="to:".$to},{="page:".$page}
-			<li n:if="$from !== 1" n:class="$page === 1 ? active">
+			{var $to = $page + $delta > $pagesCount ? $pagesCount : $page + $delta + $toExcess}
+		
+			<li n:if="$from > 1" n:class="$page === 1 ? active">
 				<a n:href="changePage! page => 1">1</a>
 			</li>
-		
-			<li n:if="$from > 2" class="disabled">
+
+			<li n:if="$from - 1 > 1" class="disabled">
 				<a href="#">...</a>
 			</li>
-			
-			<li n:class="$page === $i ? active" n:for="$i = $from; $i < $page; $i++">
-				{$page === $i}
+
+			<li n:class="$page === $i ? active" n:for="$i = $from; $i <= $to; $i++">
 				<a n:href="changePage! page => $i">{$i}</a>
 			</li>
-			
-			<li n:class="$page === $i ? active">
-				<a n:href="changePage! page => $page">{$page}</a>
-			</li>
-			
-			<li n:class="$page === $i ? active" n:for="$i = $page + 1; $i <= $to; $i++">
-				<a n:href="changePage! page => $i">{$i}</a>
-			</li>
-			
-			<li class="disabled">
+
+			<li n:if="$to + 1 < $pagesCount" class="disabled">
 				<a href="#">...</a>
 			</li>
-			
-			<li n:if="$page !== $pagesCount" n:class="$page === $pagesCount ? active">
+
+			<li n:if="$to < $pagesCount" n:class="$page === $pagesCount ? active">
 				<a n:href="changePage! page => $pagesCount">{$pagesCount}</a>
 			</li>
-		
+			
 		{/if}
-		
-		
-		
+
+
+
 		<li n:class="$page === $pagesCount ? disabled"><a n:href="changePage! page => $page + 1">»</a></li>
 	</ul>
 </div>
@@ -168,9 +163,9 @@
 <div n:inner-foreach="$messages as $message" id="messages" >
 	{form "formTranslate-{$message->getId()}"}	
 	<div id="{$message->getId()}" class="message well">
-		
+
 		<button data-id="{$message->getId()}" class="close">&times;</button>
-		
+
 		<span n:class="$message->isTranslated() ? label-success : label-important,label">{if $message->isTranslated()}Translated{else}Untranslated{/if}</span><br>
 		<div class="pull-right">
 			{input btnSubmit class => 'btn btn-success btn-large'}<br><br>
@@ -181,46 +176,46 @@
 				<th>Context:</th>
 				<td>{$message->getContext()}</td>
 			</tr>
-			
+
 			<tr>
 				<th>Singular:</th>
 				<td>{$message->getSingular()}</td>
 			</tr>
-			
+
 			<tr n:if="$message->hasPlural()">
 				<th>Plural:</th>
 				<td>{$message->getPlural()}</td>
 			</tr>
 		</table>
-		
+
 		<br>
-	<div n:if="$message->hasPlural()" class="tabbable">
+		<div n:if="$message->hasPlural()" class="tabbable">
 			{var $pluralNumbers = $translation->getPluralNumbers()}
 			<ul n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="nav nav-tabs">
 				<li n:class="$i === 0 ? active"><a href="#tab-{$message->getId()}-{$i}" data-toggle="tab">Plural form {$i} (e.g. {$pluralNumbers[$i]})</a></li>
 			</ul>
-		
+
 			<div n:inner-for="$i = 0; $i < $message->getPluralsCount(); $i++" class="tab-content">
 				<div n:class="$i === 0 ? active, tab-pane" id="tab-{$message->getId()}-{$i}">
 					<p>{input translations-$i class => 'translation'}</p>
 				</div>
 			</div>
-		
-	</div>
-		
-	<div n:if="!$message->hasPlural()" class="tabbable">
+
+		</div>
+
+		<div n:if="!$message->hasPlural()" class="tabbable">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#">Translation</a></li>
 			</ul>
-		
+
 			<div class="tab-content">
 				<div class="active tab-pane">
 					<p>{input translations-0 class => 'translation'}</p>
 				</div>
 			</div>
-		
-	</div>	
-	
+
+		</div>	
+
 	</div>
 	{input id}	
 	{/form}	
@@ -229,15 +224,15 @@
 {/block}
 
 {block script}
-	<script>
-	$('.close').on('click', function(event){
-		event.preventDefault();
-		var modal = $('#deleteMessage');
-		var form = modal.find('form').first();
-		var id = $(this).data('id');
+<script>
+$('.close').on('click', function(event){
+	event.preventDefault();
+	var modal = $('#deleteMessage');
+	var form = modal.find('form').first();
+	var id = $(this).data('id');
 		
-		form.find('input[name="id"]').val(id);
-		modal.modal('show')
-	});
+	form.find('input[name="id"]').val(id);
+	modal.modal('show')
+});
 </script>
 {/block}
