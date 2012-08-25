@@ -18,6 +18,7 @@ class RegisterPresenter extends BasePresenter
 	protected function createComponentFormRegister()
 	{
 		$form = new Form;
+		$form->addText('nick', 'Nick')->setRequired()->addRule(Form::MIN_LENGTH, 'Nick must be at least %d characters long', 4);
 		$form->addText('email', 'Email')->setRequired()->addRule(Form::EMAIL);
 		$form->addPassword('password', 'Password')->setRequired();
 		$form->addCheckbox('show_password', 'Show password');
@@ -33,14 +34,14 @@ class RegisterPresenter extends BasePresenter
 		try
 		{
 			$this->context->userFacade->setPresenter($this);
-			$this->context->userFacade->createUser($values->email, $values->password);
+			$this->context->userFacade->createUser($values->nick, $values->email, $values->password);
 			$this->flash('You have been successfully registered. A confirmation email to activate your account has been sent to you.');
 		}
 		catch(\ExistingUserException $e)
 		{
 			$this->flash($e->getMessage(), 'error');
 		}
-		
+			
 		$this->redirect('this');
 	}
 

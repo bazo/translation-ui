@@ -11,13 +11,13 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 {
 	private 
 		/** 
-		 * @ODM\Id 
+		 * @ODM\Id
 		 */	
 		$id,
 		
 		/**
 		 * @ODM\String
-		 * @ODM\Index
+		 * @ODM\Index(unique=true)
 		 */	
 		$nick,	
 			

@@ -26,19 +26,18 @@ class User extends Base
 		$this->presenter = $presenter;
 	}
 	
-	public function createUser($email, $password)
+	public function createUser($nick, $email, $password)
 	{
 		$user = new \User;
 		
 		$hash = $this->passwordHasher->hashPassword($password);
 		
-		$user->setEmail($email)->setPassword($hash);
+		$user->setNick($nick)->setEmail($email)->setPassword($hash);
 		$this->dm->persist($user);
 		
 		$token = new \RegistrationToken(sha1($user->getEmail().time()));
 		$token->setUser($user);
 		$this->dm->persist($token);
-		
 		
 		try
 		{
@@ -49,7 +48,14 @@ class User extends Base
 		}
 		catch(\MongoCursorException $e)
 		{
-			throw new \ExistingUserException(sprintf('User with email %s already exists ', $email));
+			if(strpos($e->getMessage(), $nick) !== false)
+			{
+				throw new \ExistingUserException(sprintf('User with nick %s already exists ', $nick));
+			}
+			elseif(strpos($e->getMessage(), $email) !== false)
+			{
+				throw new \ExistingUserException(sprintf('User with email %s already exists ', $email));
+			}
 		}
 	}
 }

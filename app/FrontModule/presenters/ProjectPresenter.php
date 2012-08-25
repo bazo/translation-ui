@@ -139,5 +139,12 @@ class ProjectPresenter extends SecuredPresenter
 		
 		$this->redirect('projects:');
 	}
+	
+	protected function createComponentFormInviteCollaborator()
+	{
+		$form = new Form;
+		
+		return $form;
+	}
 
 }
