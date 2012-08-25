@@ -1,5 +1,6 @@
 <?php
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Nette\Utils\Strings;
 /**
  * Description of User
  *
@@ -195,5 +196,10 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	public function canAddTranslation(\Project $project)
 	{
 		return $this->accountRule->canAddTranslation($this, $project);
+	}
+	
+	public function getGravatar()
+	{
+		return md5(Strings::lower(Strings::trim($this->email)));
 	}
 }

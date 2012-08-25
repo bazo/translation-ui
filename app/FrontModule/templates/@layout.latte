@@ -47,7 +47,8 @@
 		  
 		   <div n:if="$user->isLoggedIn()" class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user"></i>{$me->getEmail()}
+				<img src="http://www.gravatar.com/avatar/{$me->getGravatar()}?s=20" style="position:relative; top: -1px; left: -5px" />&nbsp;
+				{if $me->getNick() !== null and $me->getNick() !== '' }{$me->getNick()}{else}{$me->getEmail()}{/if}
               <span class="caret"></span>
             </a>
             <ul  class="dropdown-menu">
