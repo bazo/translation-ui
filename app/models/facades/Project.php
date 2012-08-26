@@ -63,10 +63,6 @@ class Project extends Base
 		
 		$this->addCollaboratorToProject($user, $project, \Access::OWNER);
 		
-		$this->dm->persist($project);
-		$this->dm->persist($user);
-		$this->dm->flush();
-		
 		return $project;
 	}
 	
@@ -254,8 +250,10 @@ class Project extends Base
 		$access = new \ProjectAccess;
 		$access->setUser($user)->setProject($project)->setLevel($level);
 		
-		$this->dm->persist($access);
 		
+		$this->dm->persist($project);
+		$this->dm->persist($user);
+		$this->dm->persist($access);
 		$this->dm->flush();
 		
 		return $access;
