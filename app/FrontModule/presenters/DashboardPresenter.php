@@ -25,22 +25,8 @@ class DashboardPresenter extends SecuredPresenter
 	
 	public function renderDefault()
 	{
-		/*
-		$qb = $this->context->documentManager->getRepository('Log')->createQueryBuilder();
-		
-		$appNames = array_keys(array_filter($filters));
-		
-		$logLevels = array_keys(array_filter($levels));
-		
-		$indexes = array_merge($appNames, $logLevels);
-		$indexes[] = $this->user->getId();
-		$qb->field('level')->in($logLevels)->field('appName')->in($appNames)->field('user')->references($this->me);
-		
-		$logs = $qb->sort('added', 'desc')->limit(20)->getQuery()->execute();
-		
+		$logs = $this->context->documentManager->getRepository('ActivityLog')->getUserLogs($this->me, 20);
 		$this->template->logs = $logs;
-		 * 
-		 */
 	}
 
 }

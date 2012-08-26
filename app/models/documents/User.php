@@ -65,7 +65,12 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		$account = 'basic',
 		
 		/** @var AccountRule */	
-		$accountRule
+		$accountRule,
+		
+		/**
+		 * @ODM\ReferenceMany(targetDocument="ActivityLog", repositoryMethod="getUserLogs")
+		 */	
+		$logs
 	;
 	
 	public function __construct()
@@ -165,12 +170,6 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		return $this->accesses;
 	}
 
-	public function addAccess(\ProjectAccess $access)
-	{
-		$this->accesses->add($access);
-		return $this;
-	}
-	
 	public function getProjectNames()
 	{
 		return $this->projectNames;
@@ -227,5 +226,10 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	public function getGravatar()
 	{
 		return md5(Strings::lower(Strings::trim($this->email)));
+	}
+	
+	public function getLogs()
+	{
+		return $this->logs;
 	}
 }

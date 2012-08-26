@@ -40,7 +40,7 @@ class Project
 		/** @ODM\ReferenceOne(targetDocument="User") */	
 		$owner,
 			
-		/** @ODM\ReferenceMany(targetDocument="ProjectAccess") */	
+		/** @ODM\ReferenceMany(targetDocument="ProjectAccess", repositoryMethod="getAccessesProject") */	
 		$accesses,
 			
 		/** 
@@ -134,12 +134,6 @@ class Project
 		return $this->accesses;
 	}
 
-	public function addAccess(\ProjectAccess $access)
-	{
-		$this->accesses->add($access);
-		return $this;
-	}
-		
 	public function getTranslations()
 	{
 		return $this->translations;

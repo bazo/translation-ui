@@ -4,7 +4,7 @@
 		YOUR PROJECTS (max: {!$user->identity->getAccountRule()->getMaximumProjects()})
 	</li>
 	<li n:foreach="$me->getAccesses(array('owner')) as $access">
-		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()} <span class="muted">({$access->getLevel()})</span></a>
+		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()}</a>
 	</li>
 	
 	<li class="nav-header">

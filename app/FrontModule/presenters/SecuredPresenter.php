@@ -64,8 +64,9 @@ abstract class SecuredPresenter extends BasePresenter
 		{
 			try
 			{
-				$app = $this->context->projectFacade->createProject($values, $this->me);
-				$this->redirect('project:', array('id' => $app->getId()));
+				$project = $this->context->projectFacade->createProject($values, $this->me);
+				$this->log($project, \Activity::CREATE_PROJECT);
+				$this->redirect('project:', array('id' => $project->getId()));
 			}
 			catch(\ExistingProjectException $e)
 			{
@@ -77,6 +78,11 @@ abstract class SecuredPresenter extends BasePresenter
 			$this->flash('You cannot add more projects.', 'error');
 			$this->redirect('this');
 		}
+	}
+	
+	protected function log(\Project $project, $activity, $object = null)
+	{
+		$this->context->activityLogger->log($this->me, $project, $activity, $object);
 	}
 
 }

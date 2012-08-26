@@ -23,4 +23,11 @@ class AccessRepository extends DocumentRepository
 				->field('user.id')->equals($user->getId())
 				->getQuery()->execute();
 	}
+	
+	public function getAccessesProject(\Project $project)
+	{
+		return $this->createQueryBuilder()
+				->field('project.id')->equals($project->getId())
+				->getQuery()->execute();
+	}
 }

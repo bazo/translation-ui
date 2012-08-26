@@ -1,7 +1,7 @@
 {block content}
 	{if $me->getAccesses()->count() === 0}
 		<div class="alert alert-info">
-			You don't have any projects. Please add one now.
+			You don't have any projects. Please <a data-toggle="modal" href="#newProject">add</a> one now.
 		</div>
 	{else}
 		

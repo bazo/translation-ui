@@ -53,8 +53,9 @@ class ProjectPresenter extends SecuredPresenter
 		$values = $form->getValues();
 		try
 		{
-			$this->context->projectFacade->createTranslation($this->project, $values->lang);
-			$this->flash(sprintf('Translation for language %s created', $values->lang));
+			$translation = $this->context->projectFacade->createTranslation($this->project, $values->lang);
+			$this->log($this->project, \Activity::CREATE_TRANSLATION, $translation);
+			$this->flash(sprintf('Translation for language %s created', AllowedLangs::getLangCaption($values->lang)));
 		}
 		catch(\ExistingTranslationException $e)
 		{
@@ -96,6 +97,10 @@ class ProjectPresenter extends SecuredPresenter
 				$imported = $this->context->projectFacade->importTemplate($data, $this->project);
 				$status = $imported > 0 ? 'success' : 'error';
 				$this->flash(sprintf('%d messages imported.', $imported), $status);
+				if($imported > 0)
+				{
+					$this->log($this->project, \Activity::IMPORT_TEMPLATE, $imported);
+				}
 			}
 			catch(\Nette\Utils\NeonException $e)
 			{
@@ -114,32 +119,29 @@ class ProjectPresenter extends SecuredPresenter
 		$this->redirect('this');
 	}
 
-	public function handleDelete($id)
-	{
-		$this->context->appService->delete($id);
-		$this->flash('App sucessfully removed', 'success');
-		$this->redirect('apps:');
-	}
-	
 	public function createComponentFormDelete()
 	{
-		$form = new Form;
-		
-		$form->addSubmit('btnSubmit', 'Delete');
+		if($this->acl->isAllowed($this->me, $this->project, 'danger'))
+		{
+			$form = new Form;
 
-		$form->onSuccess[] = callback($this, 'formDeleteSubmitted');
-		
-		return $form;
+			$form->addSubmit('btnSubmit', 'Delete');
+
+			$form->onSuccess[] = callback($this, 'formDeleteSubmitted');
+
+			return $form;
+		}
 	}
 	
 	public function formDeleteSubmitted(Form $form)
 	{
-		//$values = $form->getValues();
-		
-		$this->context->projectFacade->delete($this->project);
-		$this->flash(sprintf('Project %s was successfully deleted', $this->project->getName()));
-		
-		
+		if($this->me === $this->project->getOwner())
+		{
+			$this->context->projectFacade->delete($this->project);
+			$this->flash(sprintf('Project %s was successfully deleted', $this->project->getCaption()));
+
+			$this->log($this->project, \Activity::DELETE_PROJECT);
+		}
 		$this->redirect('projects:');
 	}
 	
@@ -182,7 +184,8 @@ class ProjectPresenter extends SecuredPresenter
 		
 		$level = \Access::TRANSLATOR;
 		
-		$this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		$access = $this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		$this->log($this->project, \Activity::ADD_COLLABORATOR, $access);
 		
 		$this->flash(sprintf('User <strong>%s</strong> has been added to project <strong>%s</strong> as %s', $user->getNick(), $this->project->getCaption(), $level));
 		$this->redirect('this');
@@ -197,7 +200,8 @@ class ProjectPresenter extends SecuredPresenter
 		
 		$level = \Access::ADMIN;
 		
-		$this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		$access = $this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		$this->log($this->project, \Activity::ADD_COLLABORATOR, $access);
 		
 		$this->flash(sprintf('User <strong>%s</strong> has been added to project %s as %s', $user->getNick(), $this->project->getCaption(), $level));
 		$this->redirect('this');

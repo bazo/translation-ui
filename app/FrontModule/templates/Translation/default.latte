@@ -88,15 +88,16 @@
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
 			{input btnSubmit class => "btn btn-danger"}
 		</div>
+		<input n:input="id">
 	</form>
 </div>
 
 <br>
 <br>
 <ul class="nav nav-pills">
-    <li n:class="$filter == 'all' ? active"><a n:href="filter! filter => 'all'">All</a></li>
-    <li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated'">Translated</a></li>
-    <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated'">Untranslated</a></li>
+    <li n:class="$filter == 'all' ? active"><a n:href="filter! filter => 'all', page => 1">All</a></li>
+    <li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated', page => 1">Translated</a></li>
+    <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated', page => 1">Untranslated</a></li>
 </ul>
 
 <div n:if="$pagesCount > 1" class="pagination">
@@ -228,6 +229,10 @@ $('.close').on('click', function(event){
 	var modal = $('#deleteMessage');
 	var form = modal.find('form').first();
 	var id = $(this).data('id');
+		
+	console.log(form);	
+		
+	console.log(form.find('input[name="id"]'));	
 		
 	form.find('input[name="id"]').val(id);
 	modal.modal('show')

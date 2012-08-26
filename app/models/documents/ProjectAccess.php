@@ -10,6 +10,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @author Martin
  * @ODM\Document(repositoryClass="Repositories\AccessRepository")
+ * @ODM\UniqueIndex(keys={"project"="asc", "user"="asc"})
  */
 class ProjectAccess
 {

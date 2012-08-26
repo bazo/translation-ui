@@ -5,7 +5,22 @@
 {/block}
 
 {block content}
-    <div class="alert alert-success">
-    Coming soon!
-    </div>
+    
+
+	<div class="row" id="feed">
+		<div class="span6">
+		<div class="alert alert-{\Activity::getClass($log->getActivity())}" n:foreach="$logs as $log">
+			<p><i class="icon {\Activity::getIcon($log->getActivity())}"></i> <strong>{$log->getActorNick()}</strong> <time class="timeago pull-right" datetime="{$log->getAdded()|date:DATE_ISO8601}" title="{$log->getAdded()|date:'H:i:s d.m.Y'}">{*$log->getAdded()|date:'H:i:s d.m.Y'*}</time> </p>
+			
+			<p>{!$log->getMessage()}</p>
+		</div>
+		</div>
+	</div>
+
+{/block}
+
+{block script}
+<script>
+	$('#feed').timeago();
+</script>
 {/block}

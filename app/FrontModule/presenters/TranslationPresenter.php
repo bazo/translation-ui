@@ -121,7 +121,8 @@ class TranslationPresenter extends SecuredPresenter
 		$project = $this->translation->getProject();
 		try
 		{
-			$this->context->translationFacade->addMessageToProject($project, $values);
+			$message = $this->context->translationFacade->addMessageToProject($project, $values);
+			$this->log($project, \Activity::ADD_MESSAGE, $message);
 		}
 		catch(\ExistingMessageException $e)
 		{
@@ -202,6 +203,7 @@ class TranslationPresenter extends SecuredPresenter
 		$translations = array();
 		if($message->hasPlural())
 		{
+			$activity = \Activity::TRANSLATE_PLURAL;
 			for($i = 0; $i < $message->getPluralsCount(); $i++)
 			{
 				$translations[$i] = $values->translations->{$i};
@@ -209,10 +211,13 @@ class TranslationPresenter extends SecuredPresenter
 		}
 		else
 		{
+			$activity = \Activity::TRANSLATE_SINGULAR;
 			$translations[0] = $values->translations->{0};
 		}
 		
 		$this->context->messageFacade->translateMessage($message, $translations);
+		
+		$this->log($this->translation->getProject(), $activity, $message);
 		
 		if(!$this->isAjax())
 		{
@@ -235,11 +240,13 @@ class TranslationPresenter extends SecuredPresenter
 	public function formDeleteMessageSubmitted(Form $form)
 	{
 		$values = $form->getValues();
+		
 		$message = $this->context->messageFacade->find($values->id);
 		
 		if($this->translation->hasMessage($message))
 		{
 			$this->context->messageFacade->delete($message);
+			$this->log($this->translation->getProject(), \Activity::DELETE_MESSAGE, $message);
 			$this->flash(sprintf('Message "%s" has been deleted.', $message->getSingular()));
 		}
 		

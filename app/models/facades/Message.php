@@ -16,6 +16,8 @@ class Message extends Base
 		$this->dm->persist($message);
 		
 		$this->dm->flush();
+		
+		return $message;
 	}
 	
 	public function delete(\Message $originalMessage)
