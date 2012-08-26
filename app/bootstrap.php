@@ -63,8 +63,10 @@ if(PHP_SAPI === 'cli')
 }
 else
 {
-	// Setup router
-	//$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
+	$container->router[] = $apiRouter = new RouteList('Api');
+	$apiRouter[] = new Routes\RestRoute('api/<presenter>/[/<id>]', array(
+	), Routes\RestRoute::RESTFUL);
+	
 	
 	$container->router[] = $adminRouter = new RouteList('Admin');
 	$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', array(

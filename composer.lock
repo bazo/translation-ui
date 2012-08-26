@@ -1,5 +1,5 @@
 {
-    "hash": "316554dd89f3c423eb5db7567aa6a4e4",
+    "hash": "70f1531dc1f4ab2e754f493e8e75d46c",
     "packages": [
         {
             "package": "bazo/gridder",
@@ -46,8 +46,14 @@
         {
             "package": "doctrine/mongodb-odm",
             "version": "dev-master",
-            "source-reference": "70521c1c654ef6a42a7e88ed9bb98f9d3fe9fc0c",
-            "commit-date": "1344881897"
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/mongodb-odm",
+            "version": "dev-master",
+            "source-reference": "43f678b345a46d8399d86305a3d6947b3d19cfca",
+            "commit-date": "1345760269"
         },
         {
             "package": "genphrase/genphrase",
@@ -58,18 +64,26 @@
         {
             "package": "kdyby/redis-extension",
             "version": "dev-master",
-            "source-reference": "bdf2ab3d403cb11030cf9dc2110a15223979271c",
-            "commit-date": "1345131561"
+            "source-reference": "fdf25aa8337b411a68430dc15ccd88eef1c5e55f",
+            "commit-date": "1345980054"
         },
         {
             "package": "mazagran/translation",
             "version": "dev-master",
-            "source-reference": "cc539a4a8c8d55e60587d5e4f20aec340f1d56f4",
-            "commit-date": "1345559837"
+            "source-reference": "48996c07cefac138ecf552640010a0d36b78c502",
+            "commit-date": "1345994675"
         },
         {
             "package": "nette/nette",
-            "version": "v2.0.4"
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "nette/nette",
+            "version": "dev-master",
+            "source-reference": "e325438fdf7f33f73cf26fb9588f333f24413964",
+            "commit-date": "1345770228"
         },
         {
             "package": "nikic/php-parser",
@@ -80,8 +94,8 @@
         {
             "package": "predis/predis",
             "version": "dev-master",
-            "source-reference": "9df9dbdedcf3076cb3da3bbdb7e89819ffac54a5",
-            "commit-date": "1345562114"
+            "source-reference": "003b3d180d1ae825c6cca3ab1478b6c3b1b53f3a",
+            "commit-date": "1345803217"
         },
         {
             "package": "rych/phpass",
@@ -98,8 +112,8 @@
         {
             "package": "symfony/console",
             "version": "dev-master",
-            "source-reference": "3b66f1056f5ac37146d3b755964e8a43a205f2f5",
-            "commit-date": "1344349441"
+            "source-reference": "4d463e30faf03f793c7b7184d7482ccdf71e1a05",
+            "commit-date": "1345643321"
         },
         {
             "package": "symfony/yaml",
@@ -110,8 +124,8 @@
         {
             "package": "symfony/yaml",
             "version": "dev-master",
-            "source-reference": "6b3eb66a7c4495dcaa35a64dd93c8ba8c29f35d8",
-            "commit-date": "1344325256"
+            "source-reference": "f18e004fc975707bb4695df1dbbe9b0d8c8b7715",
+            "commit-date": "1345643321"
         }
     ],
     "packages-dev": null,
