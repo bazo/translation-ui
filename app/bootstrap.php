@@ -55,6 +55,7 @@ $configurator->onCompile[] = function($configurator, $compiler) {
 		$compiler->addExtension('consoleApp', new \Extensions\ConsoleExtension);
 };
 Kdyby\Extension\Redis\DI\RedisExtension::register($configurator);
+\Mazagran\Translation\DI\Extension::register($configurator);
 $container = $configurator->createContainer();
 
 if(PHP_SAPI === 'cli')
@@ -64,7 +65,7 @@ if(PHP_SAPI === 'cli')
 else
 {
 	$container->router[] = $apiRouter = new RouteList('Api');
-	$apiRouter[] = new Routes\RestRoute('api/<presenter>/[/<id>]', array(
+	$apiRouter[] = new Routes\RestRoute('api/<presenter>/<id>', array(
 	), Routes\RestRoute::RESTFUL);
 	
 	

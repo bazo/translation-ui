@@ -46,12 +46,6 @@
         {
             "package": "doctrine/mongodb-odm",
             "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
-        },
-        {
-            "package": "doctrine/mongodb-odm",
-            "version": "dev-master",
             "source-reference": "43f678b345a46d8399d86305a3d6947b3d19cfca",
             "commit-date": "1345760269"
         },
@@ -70,14 +64,8 @@
         {
             "package": "mazagran/translation",
             "version": "dev-master",
-            "source-reference": "48996c07cefac138ecf552640010a0d36b78c502",
-            "commit-date": "1345994675"
-        },
-        {
-            "package": "nette/nette",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "7abd1176c5404d5f963f72a98dd69c2cfd8c5e2e",
+            "commit-date": "1346000232"
         },
         {
             "package": "nette/nette",
