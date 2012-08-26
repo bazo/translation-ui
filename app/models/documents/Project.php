@@ -38,7 +38,10 @@ class Project
 		$key,
 			
 		/** @ODM\ReferenceOne(targetDocument="User") */	
-		$user,
+		$owner,
+			
+		/** @ODM\ReferenceMany(targetDocument="ProjectAccess") */	
+		$accesses,
 			
 		/** 
 		 * @ODM\ReferenceMany(targetDocument="Translation", cascade={"persist", "remove"})
@@ -74,6 +77,7 @@ class Project
 	public function __construct()
 	{
 		$this->translation = new Doctrine\Common\Collections\ArrayCollection;
+		$this->accesses = new Doctrine\Common\Collections\ArrayCollection;
 	}
 	
 	public function getId()
@@ -114,17 +118,28 @@ class Project
 		return $this;
 	}
 
-	public function getUser()
+	public function getOwner()
 	{
-		return $this->user;
+		return $this->owner;
 	}
 
-	public function setUser($user)
+	public function setOwner(\User $owner)
 	{
-		$this->user = $user;
+		$this->owner = $owner;
 		return $this;
 	}
 	
+	public function getAccesses()
+	{
+		return $this->accesses;
+	}
+
+	public function addAccess(\ProjectAccess $access)
+	{
+		$this->accesses->add($access);
+		return $this;
+	}
+		
 	public function getTranslations()
 	{
 		return $this->translations;

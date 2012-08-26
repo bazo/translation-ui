@@ -1,6 +1,6 @@
 {block page}
 
-<div class="modal hide" id="importTemplate">
+<div n:if="$acl->isAllowed($me, $project, 'importTemplate')" class="modal hide" id="importTemplate">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Import template</h3>
@@ -25,16 +25,16 @@
 
 <table class="table table-bordered table-striped">
 	<tbody>
-		<tr>
+		<tr n:if="$acl->isAllowed($me, $project, 'viewKeys')">
 			<th>ID:</th><td>{$project->getId()}</td>
 		</tr>
 
-		<tr>
+		<tr n:if="$acl->isAllowed($me, $project, 'viewKeys')">
 			<th>key:</th><td>{$project->getkey()}</td>
 		</tr>
 
 		<tr>
-			<th>Source language:</th> <td>{$project->getSourceLanguage()}</td>
+			<th>Source language:</th> <td>{\AllowedLangs::getLangCaption($project->getSourceLanguage())}</td>
 		</tr>
 		<tr>
 			<th>Messages:</th> <td>{count($project->getTemplateMessages())}</td>
@@ -47,5 +47,7 @@
 
 <br>
 
+<div n:if="$acl->isAllowed($me, $project, 'importTemplate')">
 <a class="btn btn-info btn-large" data-toggle="modal" href="#importTemplate">
 	<i class="icon-white icon-upload"></i> Import template</a>&nbsp;&nbsp; existing messages will not be overwritten
+</div>

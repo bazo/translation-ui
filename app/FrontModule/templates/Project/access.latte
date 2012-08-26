@@ -1,3 +1,75 @@
 {block page}
 
 Invite to project
+
+<form n:form="formInviteCollaborator" class="form-search">
+	<input n:input="search" type="text" class="input-medium search-query" autocomplete="off" data-provide="typeahead" data-items="8" data-link="{link search!}">
+	<input n:input="id" id="collaboratorId">
+	<button n:input="btnTranslate" type="submit" class="btn">Translate</button>
+	<button n:input="btnAdmin" type="submit" class="btn">Admin</button>
+</form>
+
+{foreach $project->getAccesses() as $access}
+	{$access->getUser()->getNick()} {$access->getLevel()}<br>
+{/foreach}
+
+{/block}
+
+{block script}
+<script>
+	
+	var mapped, ids, xhr = null;
+	$('.search-query').typeahead({
+		
+		highlighter: function(label){
+			var user = mapped[label];
+			
+			//var label = user.nick + ' - ' + user.email;
+			var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+
+            var highlighted_label = label.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
+              return '<strong>' + match + '</strong>'
+            });
+			
+			return '<img src="http://www.gravatar.com/avatar/'+ user.gravatar +'?s=20" style="position: relative; top: -1px; left: -15px;">' + highlighted_label;
+		
+		},
+		
+		render: function(){
+			console.log('render');
+		},
+		
+		source: function(query, process){
+			var link = $('.search-query').attr('data-link');
+			if(xhr !== null)
+			{
+				xhr.abort();
+			}
+			if(query.length > 2)
+			{
+				xhr = $.get(link, { query: query }, function (data) {
+
+					mapped = [];
+					ids = [];
+
+					$.each(data, function(id, data){
+						var label = data.nick + ' - ' + data.email
+						mapped[label] = data;
+						ids.push(label);
+					});
+					xhr = null;
+					process(ids);
+				});
+			}
+		},
+		
+		updater: function (label) {
+			var user = mapped[label];
+			
+			$('#collaboratorId').val(user.id);
+			return user.nick;
+		  }
+	});
+
+</script>
+{/block}

@@ -3,9 +3,17 @@
 	<li class="nav-header">
 		YOUR PROJECTS (max: {!$user->identity->getAccountRule()->getMaximumProjects()})
 	</li>
-	<li n:foreach="$me->getProjects() as $project">
-		<a n:href="project: id => $project->getId()">{$project->getCaption()}</a>
+	<li n:foreach="$me->getAccesses(array('owner')) as $access">
+		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()} <span class="muted">({$access->getLevel()})</span></a>
 	</li>
+	
+	<li class="nav-header">
+		OTHER PROJECTS 
+	</li>
+	<li n:foreach="$me->getAccesses(array('translator', 'admin')) as $access">
+		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()} <span class="muted">({$access->getLevel()})</span></a>
+	</li>
+	
 </ul>
 
 <div n:if="$user->identity->canAddProject()" class="modal hide" id="newProject">

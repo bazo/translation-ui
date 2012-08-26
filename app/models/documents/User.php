@@ -36,6 +36,11 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		/** @ODM\ReferenceMany(targetDocument="Project") */	
 		$projects,
 			
+		/** 
+		 * @ODM\ReferenceMany(targetDocument="ProjectAccess", repositoryMethod="getAccesses") 
+		 */	
+		$accesses,	
+			
 		/**
 		 * @ODM\Collection
 		 * @ODM\Index 
@@ -66,6 +71,7 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	public function __construct()
 	{
 		$this->projects = new \Doctrine\Common\Collections\ArrayCollection;
+		$this->accesses = new Doctrine\Common\Collections\ArrayCollection;
 	}
 	
 	public function getId()
@@ -142,6 +148,26 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 			$this->projects->removeElement($project);
 			$this->projectCount--;
 		}
+		return $this;
+	}
+	
+	public function getAccesses($levels = array())
+	{
+		if(!empty($levels))
+		{
+			return $this->accesses->filter(function(\ProjectAccess $access) use($levels){
+				if(in_array($access->getLevel(), $levels))
+				{
+					return true;
+				}
+			});
+		}
+		return $this->accesses;
+	}
+
+	public function addAccess(\ProjectAccess $access)
+	{
+		$this->accesses->add($access);
 		return $this;
 	}
 	

@@ -1,5 +1,5 @@
 {block content}
-	{if $me->getProjects()->count() === 0}
+	{if $me->getAccesses()->count() === 0}
 		<div class="alert alert-info">
 			You don't have any projects. Please add one now.
 		</div>
@@ -11,12 +11,12 @@
 			<p><h4 class="alert-heading">Info:</h4>You have reached the maximum number(<strong>{$user->identity->getAccountRule()->getMaximumProjects()}</strong>) of projects allowed for your account type.</p>
 		</div>
 		
-		<div id="projects" n:inner-foreach="$me->getProjects() as $project" class="span11">
+		<div id="projects" n:inner-foreach="$me->getAccesses() as $access" class="span11">
 			<div class="project well span3">
-				<a n:href="project: id => $project->getId()"><strong>{$project->getName()}</strong></a> <br><br>
+				<a n:href="project: id => $access->getProject()->getId()"><strong>{$access->getProject()->getCaption()}</strong> <span class="muted">({$access->getLevel()})</span></a> <br><br>
 				
-				translations: <a n:href="project:translations id => $project->getId()"><span class="badge badge-info">{count($project->getTranslations())}</span></a><br>
-				messages: <span class="badge badge-info">{count($project->getTemplateMessages())}</span>
+				translations: <a n:href="project:translations id => $access->getProject()->getId()"><span class="badge badge-info">{count($access->getProject()->getTranslations())}</span></a><br>
+				messages: <span class="badge badge-info">{count($access->getProject()->getTemplateMessages())}</span>
 			</div>
 			
 		

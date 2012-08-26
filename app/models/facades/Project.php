@@ -49,16 +49,20 @@ class Project extends Base
 		$name = str_replace('-', '_', $name);
 		$project->setCaption($values->caption)->setName($name)->setSourceLanguage($values->sourceLang)->setLink($values->link)->setKey($key);
 		
-		$project->setUser($user);
+		$project->setOwner($user);
 		
 		if($user->addProject($project) === false)
 		{
 			throw new \ExistingProjectException(sprintf('Project with name %s already exists ', $name));
 		}
 		
+		$this->addCollaboratorToProject($user, $project, \Access::OWNER);
+		/*
 		$this->dm->persist($project);
 		$this->dm->persist($user);
 		$this->dm->flush();
+		 * 
+		 */
 		return $project;
 	}
 	
@@ -299,6 +303,21 @@ class Project extends Base
 	{
 		$data = array('messages' => array($messageData));
 		$this->importTemplate($data, $project);
+	}
+	
+	public function addCollaboratorToProject(\User $user, \Project $project, $level)
+	{
+		$access = new \ProjectAccess;
+		$access->setUser($user)->setProject($project)->setLevel($level);
+		
+		$user->addAccess($access);
+		$project->addAccess($access);
+		
+		$this->dm->persist($access);
+		$this->dm->persist($user);
+		$this->dm->persist($project);
+		
+		$this->dm->flush();
 	}
 	
 }

@@ -70,14 +70,17 @@ class ProjectPresenter extends SecuredPresenter
 	
 	protected function createComponentFormImportTemplate()
 	{
-		$form = new Form;
-		
-		$form->addUpload('template', 'Template file')->setRequired();
-		$form->addSubmit('btnSubmit', 'Import');
+		if($this->acl->isAllowed($this->me, $this->project, 'importTemplate'))
+		{
+			$form = new Form;
 
-		$form->onSuccess[] = callback($this, 'formImportTemplateSubmitted');
-		
-		return $form;
+			$form->addUpload('template', 'Template file')->setRequired();
+			$form->addSubmit('btnSubmit', 'Import');
+
+			$form->onSuccess[] = callback($this, 'formImportTemplateSubmitted');
+
+			return $form;
+		}
 	}
 
 	public function formImportTemplateSubmitted(Form $form)
@@ -143,8 +146,61 @@ class ProjectPresenter extends SecuredPresenter
 	protected function createComponentFormInviteCollaborator()
 	{
 		$form = new Form;
+		$form->addText('search', 'Search');
+		$form->addHidden('id');
+		
+		$form->addSubmit('btnTranslate', 'Translate')->onClick[] = callback($this, 'formInviteCollaboratorBtnTranslateClicked');
+		$form->addSubmit('btnAdmin', 'Admin')->onClick[] = callback($this, 'formInviteCollaboratorBtnAdminClicked');
 		
 		return $form;
+	}
+	
+	public function handleSearch($query)
+	{
+		$result = array();
+		$users = $this->context->userFacade->search($query, array($this->me->getId()));
+		
+		foreach($users as $user)
+		{
+			$result[$user->getId()] = array(
+				'id' => $user->getId(),
+				'nick' => $user->getNick(),
+				'email' => $user->getEmail(),
+				'gravatar' => $user->getGravatar()
+			);
+		}
+		
+		$this->sendResponse(new \Nette\Application\Responses\JsonResponse($result));
+	}
+	
+	public function formInviteCollaboratorBtnTranslateClicked(\Nette\Forms\Controls\Button $button)
+	{
+		$values = $button->getForm()->getValues();
+		$id = $values->id;
+		
+		$user = $this->context->userFacade->find($id);
+		
+		$level = \Access::TRANSLATOR;
+		
+		$this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		
+		$this->flash(sprintf('User <strong>%s</strong> has been added to project <strong>%s</strong> as %s', $user->getNick(), $this->project->getCaption(), $level));
+		$this->redirect('this');
+	}
+	
+	public function formInviteCollaboratorBtnAdminClicked(\Nette\Forms\Controls\Button $button)
+	{
+		$values = $button->getForm()->getValues();
+		$id = $values->id;
+		
+		$user = $this->context->userFacade->find($id);
+		
+		$level = \Access::ADMIN;
+		
+		$this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
+		
+		$this->flash(sprintf('User <strong>%s</strong> has been added to project %s as %s', $user->getNick(), $this->project->getCaption(), $level));
+		$this->redirect('this');
 	}
 
 }

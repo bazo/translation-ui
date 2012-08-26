@@ -7,11 +7,11 @@
 		<a n:href="translations">Translations</a>
 	</li>
 	
-	<li {ifCurrent access}class="active"{/ifCurrent}>
+	<li n:if="$acl->isAllowed($me, $project, 'accessManagement')" {ifCurrent access}class="active"{/ifCurrent}>
 		<a n:href="access">Access management</a>
 	</li>
 	
-	<li class="{ifCurrent danger}active{/ifCurrent} pull-right">
+	<li n:if="$acl->isAllowed($me, $project, 'danger')" class="{ifCurrent danger}active{/ifCurrent} pull-right">
 		<a n:href="danger">Danger</a>
 	</li>
 </ul>

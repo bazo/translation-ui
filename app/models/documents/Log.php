@@ -1,5 +1,5 @@
 <?php
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\ODM\MongoDB\Mprojecting\Annotations as ODM;
 /**
  * Log
  *
@@ -21,42 +21,37 @@ class Log
 		$id,
 		
 		/**
-		 * @ODM\String
-		 * @ODM\Index
-		 */	
-		$level,
-		
-		/**
 		 * @ODM\String 
 		 * @ODM\Index
 		 */	
 		$message,
 			
 		/** @ODM\ReferenceOne(targetDocument="Project") */	
-		$app,
-			
-		/** @ODM\ReferenceOne(targetDocument="User") @ODM\Index */	
-		$user,	
+		$project,
+
+		/**
+		 * @ODM\String 
+		 * @ODM\Index
+		 */		
+		$actorNick,
 		
 		/**
 		 * @ODM\String 
 		 * @ODM\Index
-		 */	
-		$appName,	
+		 */		
+		$actorId,
 			
-		/** @ODM\Date  @ODM\Index */	
-		$added,
-		
 		/**
-		 * @ODM\Collection
-		 * @ODM\Index(order="desc")
+		 * @ODM\String 
+		 * @ODM\Index
 		 */	
-		$index,
-		
-		/**
-		 * @ODM\Increment 
+		$projectName,	
+			
+		/** 
+		 * @ODM\Date  
+		 * @ODM\Index(sort="desc") 
 		 */	
-		$count = 1
+		$added		
 	;
 	
 	public function __construct()
@@ -67,21 +62,6 @@ class Log
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	public function getLevel()
-	{
-		return $this->level;
-	}
-
-	public function setLevel($level = 'notice')
-	{
-		if($level === '')
-		{
-			$level = 'notice';
-		}
-		$this->level = $level;
-		return $this;
 	}
 
 	public function getMessage()
@@ -95,48 +75,42 @@ class Log
 		return $this;
 	}
 
-	public function getApp()
+	public function getProject()
 	{
-		return $this->app;
+		return $this->project;
 	}
 
-	public function setApp(Project $app)
+	public function setProject(Project $project)
 	{
-		$this->app = $app;
-		$this->appName = $app->getName();
+		$this->project = $project;
+		$this->projectName = $project->getName();
 		return $this;
 	}
 
-	public function addIndex($indexExpression)
+	public function getActorNick()
 	{
-		$this->index[] = $indexExpression;
-		return $this;
-	}
-	
-	public function getUser()
-	{
-		return $this->user;
+		return $this->actorNick;
 	}
 
-	public function setUser(User $user)
+	public function setActorNick($actorNick)
 	{
-		$this->user = $user;
+		$this->actorNick = $actorNick;
 		return $this;
 	}
-	
+
+	public function getActorId()
+	{
+		return $this->actorId;
+	}
+
+	public function setActorId($actorId)
+	{
+		$this->actorId = $actorId;
+		return $this;
+	}
+		
 	public function getAdded()
 	{
 		return $this->added;
-	}
-	
-	public function getCount()
-	{
-		return $this->count;
-	}
-
-	public function addCount()
-	{
-		$this->count++;
-		return $this;
 	}
 }

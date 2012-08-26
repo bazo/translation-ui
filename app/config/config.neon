@@ -95,6 +95,8 @@ common:
 			class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
 			#autowired: false
 
+		authorizator:
+			class: \Services\Authorizator(@documentManager)
 		
 	factories:
 

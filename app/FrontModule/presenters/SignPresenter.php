@@ -42,9 +42,9 @@ class SignPresenter extends BasePresenter
 		try {
 			$values = $form->getValues();
 			if ($values->remember) {
-				$this->getUser()->setExpiration('+ 14 days', FALSE);
+				$this->getUser()->setExpiration('+ 365 days', FALSE);
 			} else {
-				$this->getUser()->setExpiration('+ 20 minutes', TRUE);
+				$this->getUser()->setExpiration('+ 60 minutes', TRUE);
 			}
 			$this->getUser()->onLoggedIn[] = callback($this, 'userLoggedIn');
 			$this->getUser()->setAuthenticator($this->getService('authenticator'));

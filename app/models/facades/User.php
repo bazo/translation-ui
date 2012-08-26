@@ -58,4 +58,26 @@ class User extends Base
 			}
 		}
 	}
+	
+	public function search($query, $excludeIds = null)
+	{
+		$query = \Nette\Utils\Strings::toAscii($query);
+		$regex = new \MongoRegex('/.*'.$query.'.*/i');
+		
+		$qb = $this->dm->getRepository('User')->createQueryBuilder()
+				->field('nick')->equals($regex);
+				//->field('email')->equals($regex);
+		
+		//$qb->addOr($qb->field('nick')->equals($regex));
+		$qb->addOr($qb->expr()->field('email')->equals($regex));
+
+		if($excludeIds !== null)
+		{
+			$qb->field('id')->notIn($excludeIds);
+		}
+		
+		$qb->sort('nick', 'desc');
+		
+		return $qb->getQuery()->execute();
+	}
 }

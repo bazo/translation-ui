@@ -13,7 +13,10 @@ abstract class SecuredPresenter extends BasePresenter
 
 	protected
 		$subTabs = array(
-		)
+		),
+		
+		/** @var Services\Authorizator */	
+		$acl
 	;		
 	
 	protected function startup()
@@ -23,12 +26,14 @@ abstract class SecuredPresenter extends BasePresenter
 		{
 			$this->redirect('sign:in');
 		}
+		$this->acl = $this->context->authorizator;
 	}
 
 	protected function beforeRender()
 	{
 		parent::beforeRender();
 		$this->template->parameters = $this->context->parameters;
+		$this->template->acl = $this->acl;
 	}
 	
 	public function handleLogout()

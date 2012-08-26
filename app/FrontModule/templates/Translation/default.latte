@@ -10,9 +10,9 @@
 {/block}
 
 {block content}
-<h1>{$translation->getProject()->getCaption()}</h1>
-<p class="lead">{$translation->getProject()->getSourceLanguage()} --> {$translation->getLang()}</p>
-
+<h1>{$translation->getProject()->getCaption()}
+<span class="lead muted">({\AllowedLangs::getLangCaption($translation->getProject()->getSourceLanguage())} --> {\AllowedLangs::getLangCaption($translation->getLang())})</span>
+</h1>
 <a class="btn btn-success btn-large" data-toggle="modal" href="#newMessage" ><i class="icon-white icon-plus-sign"></i> Add message</a>
 &nbsp;
 <div class="pull-right">
