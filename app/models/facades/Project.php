@@ -62,12 +62,11 @@ class Project extends Base
 		}
 		
 		$this->addCollaboratorToProject($user, $project, \Access::OWNER);
-		/*
+		
 		$this->dm->persist($project);
 		$this->dm->persist($user);
 		$this->dm->flush();
-		 * 
-		 */
+		
 		return $project;
 	}
 	
