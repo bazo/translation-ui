@@ -255,12 +255,7 @@ class Project extends Base
 		$access = new \ProjectAccess;
 		$access->setUser($user)->setProject($project)->setLevel($level);
 		
-		$user->addAccess($access);
-		$project->addAccess($access);
-		
 		$this->dm->persist($access);
-		$this->dm->persist($user);
-		$this->dm->persist($project);
 		
 		$this->dm->flush();
 		
