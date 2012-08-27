@@ -113,3 +113,26 @@ production < common:
 development < common:
 
 local < common:
+
+ws < common:
+	#nette.httpRequestFactory:
+		#class: \WsRequestFactory
+		#internal: TRUE
+	factories:
+		requestFactory:
+			class: \WsRequestFactory
+			setup:
+					- setEncoding(UTF-8)
+			internal: TRUE
+
+	services:
+
+		application:
+			class: \Nette\Application\WsApplication
+
+		nette.httpRequestFactory:
+			class: \WsRequestFactory
+			#internal: true
+		httpRequest:
+			class: Nette\Http\Request
+			factory: @requestFactory::createHttpRequest

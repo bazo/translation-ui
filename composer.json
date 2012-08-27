@@ -10,6 +10,9 @@
 		"rych/phpass": "*",
 		"genphrase/genphrase": "*",
 		"kdyby/redis-extension": "@dev",
-		"predis/predis": "*"
+		"predis/predis": "*",
+		"cboden/Ratchet": "dev-master",
+		"bazo/nette-symfonystorageadapter": "*",
+		"bazo/nette-ratchet-sessionprovider": "*"
 	}
 }
