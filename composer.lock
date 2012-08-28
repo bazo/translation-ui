@@ -64,8 +64,8 @@
         {
             "package": "mazagran/translation",
             "version": "dev-master",
-            "source-reference": "0dccef7fa857209027654ddc62e095d1053fd895",
-            "commit-date": "1346001148"
+            "source-reference": "83b6e7cc52d527e2f7e1c60cbb3f0e424cafcfa6",
+            "commit-date": "1346003036"
         },
         {
             "package": "nette/nette",

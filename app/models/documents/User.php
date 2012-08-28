@@ -70,13 +70,20 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 		/**
 		 * @ODM\ReferenceMany(targetDocument="ActivityLog", repositoryMethod="getUserLogs")
 		 */	
-		$logs
+		$logs,
+		
+		/**
+		 * @ODM\Date
+		 * @ODM\Index(order="desc")
+		 */	
+		$registered
 	;
 	
 	public function __construct()
 	{
 		$this->projects = new \Doctrine\Common\Collections\ArrayCollection;
 		$this->accesses = new Doctrine\Common\Collections\ArrayCollection;
+		$this->registered = new DateTime;
 	}
 	
 	public function getId()
