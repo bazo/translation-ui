@@ -124,7 +124,53 @@
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->	
+    <![endif]-->
+	<script type="text/javascript" src="https://raw.github.com/bazo/ratchet-js-client/master/ratchet-client.js"></script>
+		<script>
+			var client = new client();
+			client.onOpen = function(data)
+			{
+				console.log(data);
+			}
+			
+			client.onPipi = function(data)
+			{
+				console.log(data);
+			}
+			
+			client.onMessage = function(data)
+			{
+				console.log(data);
+				data = JSON.parse(data);
+				if(data.snippets)
+				{
+					for(id in data.snippets)
+					{
+						var snippet = $('#'+id);
+						console.log(snippet);
+						snippet.html(data.snippets[id]);
+					}
+				}
+			}
+			client.connect('ws://mazagran.local:8000');
+			
+			$(document).ready(function(){
+				$('.ws').on('click', function(e){
+					e.preventDefault();
+					client.send(this.href);
+					
+				})
+				
+				$("a.ajax").live("click", function (event) {
+					event.preventDefault();
+					$.post(this.href);
+				});
+				
+			})
+
+		// Later, at your leisure:
+		//conn.send('Hello World!');
+		</script>
 	{block script}{/block}
 	<script type="text/javascript">
 		var uvOptions = {};
