@@ -28,7 +28,7 @@ web1: #component type & number
     after_build:
         - "php composer.phar self-update"
         - "php composer.phar install"
-        - "php www/index.php app:cache:delete"
+        #- "php www/index.php app:cache:delete"
         #- "php www/index.php odm:clear-cache:metadata" causes error
         - "php www/index.php odm:schema:create"
         - "php www/index.php odm:generate:hydrators"
