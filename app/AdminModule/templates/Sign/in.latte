@@ -4,4 +4,16 @@
 
 <h1>Sign in</h1>
 
-{control signInForm}
+{form signInForm}
+	{label username /}
+	{input username }
+
+	{label password /}
+	{input password }
+
+	<div class="control-group">
+		<div class="controls">
+			{input send class => 'btn btn-primary btn-large'}
+		</div>
+	</div>
+{/form}
