@@ -8,7 +8,7 @@ use Nette\Config\Configurator;
  *
  * @author Martin
  */
-class AppCommandsExtension extends \Nette\Config\CompilerExtension
+class AppCommandsExtension extends \Nette\DI\CompilerExtension
 {
 	public function loadConfiguration()
 	{

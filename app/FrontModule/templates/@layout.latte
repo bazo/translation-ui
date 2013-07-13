@@ -1,120 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Mazagran</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<title>Mazagran</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="{$baseUri}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    <link href="{$baseUri}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="{$baseUri}/css/app.css" rel="stylesheet">
-
-    <!-- Le fav and touch icons -->
-	{block #head}{/block}
-    <link rel="shortcut icon" href="/favicon.png">
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
+		<link href="{$baseUri}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<style type="text/css">
 			
-		{*	
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			<span class="{ifCurrent dashboard:}active{/ifCurrent} icon-bar"><a n:href="dashboard:">Dashboard</a></span>
-			<span class="{ifCurrent projects:}active{/ifCurrent} icon-bar"><a n:href="projects:">Projects</a></span>
-			<span class="{ifCurrent translations:}active{/ifCurrent}" icon-bar"><a n:href="translations:">Translations</a></span>  
-          </a>
-		*}
-			
-		<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>	
-			
-          <a class="brand" href="{link homepage:}">Mazagran</a>
-		  
-		   <div n:if="$user->isLoggedIn()" class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				<img src="http://www.gravatar.com/avatar/{$me->getGravatar()}?s=20" style="position:relative; top: -1px; left: -5px" />&nbsp;
-				{if $me->getNick() !== null and $me->getNick() !== '' }{$me->getNick()}{else}{$me->getEmail()}{/if}
-              <span class="caret"></span>
-            </a>
-            <ul  class="dropdown-menu">
-              {*<li><a href="#">Profile</a></li>
-              <li class="divider"></li>
-				*}
-              <li><a n:href="logout!">Sign Out</a></li>
-            </ul>
-          </div>
-		  
-		  <div  n:if="!$user->isLoggedIn()" class="pull-right">
-            <a class="btn btn-primary" n:href="register:">
-              Register
-            </a>
-			  
-			  <a class="btn btn-primary" n:href="sign:in">
-				Login
-			 </a> 
-          </div>
-		  
-		  <nav  class="nav-collapse">
-            <ul id="nav" class="nav">
-				{if $user->isLoggedIn()}
-					<li {ifCurrent dashboard:}class="active"{/ifCurrent}}><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
-					<li {ifCurrent projects:}class="active"{/ifCurrent}}><a n:href="projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
-					<li {ifCurrent translations:}class="active"{/ifCurrent}}><a n:href="translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
-				{/if}
-				{*<li><a n:href="downloads:"><i class="icon-white icon-download"></i>Downloads</a></li>	*}
-            </ul>
-          </nav><!--/.nav-collapse -->
+		</style>
+		<link href="{$baseUri}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="{$baseUri}/css/app.css" rel="stylesheet">
+
+		{block #head}{/block}
+		<link rel="shortcut icon" href="/favicon.png">
+	</head>
+
+	<body>
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+
+					<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>	
+
+					<a class="brand" href="{link homepage:}">Mazagran</a>
+
+					<div n:if="$user->isLoggedIn()" class="btn-group pull-right">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							<img src="http://www.gravatar.com/avatar/{$me->getGravatar()}?s=20" style="position:relative; top: -1px; left: -5px" />&nbsp;
+					{if $me->getNick() !== null and $me->getNick() !== '' }{$me->getNick()}{else}{$me->getEmail()}{/if}
+					<span class="caret"></span>
+				</a>
+				<ul  class="dropdown-menu">
+					{*<li><a href="#">Profile</a></li>
+					<li class="divider"></li>
+					*}
+					<li><a n:href="logout!">Sign Out</a></li>
+				</ul>
+			</div>
+
+			<div  n:if="!$user->isLoggedIn()" class="pull-right">
+				<a class="btn btn-primary" n:href="register:">
+					Register
+				</a>
+
+				<a class="btn btn-primary" n:href="sign:in">
+					Login
+				</a> 
+			</div>
+
+			<nav  class="nav-collapse">
+				<ul id="nav" class="nav">
+					{if $user->isLoggedIn()}
+						<li {ifCurrent dashboard:}class="active"{/ifCurrent}><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
+						<li {ifCurrent projects:}class="active"{/ifCurrent}><a n:href="projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
+						<li {ifCurrent translations:}class="active"{/ifCurrent}><a n:href="translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
+						{/if}
+						{*<li><a n:href="downloads:"><i class="icon-white icon-download"></i>Downloads</a></li>	*}
+				</ul>
+			  </nav><!--/.nav-collapse -->
         </div>
-      </div>
-    </div>
+	</div>
+</div>
 
-    <div class="container-fluid">
-	  <section>
-		  
+<div class="container-fluid">
+	<section>
+
 		<div class="row-fluid">
 			<div class="span2">
-			{block #aside}
+				{block #aside}
 				{if $user->isLoggedIn()}
 					{include 'aside.latte'}
 				{/if}
-			{/block}
+				{/block}
 			</div>  
-			
+
 			<div class="span10">
 				<div class="row">
 					{snippet flash}
 						{foreach $flashes as $flash}
-						<div class="alert alert-{$flash->type}">
-							<a class="close" data-dismiss="alert">×</a>
-							<h4 style="text-transform: capitalize">{$flash->type}!</h4>
+							<div class="alert alert-{$flash->type}">
+								<a class="close" data-dismiss="alert">×</a>
+								<h4 style="text-transform: capitalize">{$flash->type}!</h4>
 
-							{!$flash->message}
-						</div>
+								{!$flash->message}
+							</div>
 						{/foreach}
 					{/snippet}
 				</div>
 				<div class="row">
-			   {include #content}
+					{include #content}
 				</div>
 			</div>
 		</div>
-	  </section>
-		
+	</section>
+
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript" src="{$baseUri}/js/jquery.nette.js"></script>
 	<script type="text/javascript" src="{$baseUri}/bootstrap/js/bootstrap.min.js"></script>
@@ -125,60 +112,16 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-	<script type="text/javascript" src="https://raw.github.com/bazo/ratchet-js-client/master/ratchet-client.js"></script>
-		<script>
-			var client = new client();
-			client.onOpen = function(data)
-			{
-				console.log(data);
-			}
-			
-			client.onPipi = function(data)
-			{
-				console.log(data);
-			}
-			
-			client.onMessage = function(data)
-			{
-				console.log(data);
-				data = JSON.parse(data);
-				if(data.snippets)
-				{
-					for(id in data.snippets)
-					{
-						var snippet = $('#'+id);
-						console.log(snippet);
-						snippet.html(data.snippets[id]);
-					}
-				}
-			}
-			client.connect('ws://mazagran.local:8000');
-			
-			$(document).ready(function(){
-				$('.ws').on('click', function(e){
-					e.preventDefault();
-					client.send(this.href);
-					
-				})
-				
-				$("a.ajax").live("click", function (event) {
-					event.preventDefault();
-					$.post(this.href);
-				});
-				
-			})
-
-		// Later, at your leisure:
-		//conn.send('Hello World!');
-		</script>
-	{block script}{/block}
 	<script type="text/javascript">
 		var uvOptions = {};
 		(function() {
-		  var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-		  uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/no7TpLcvNVTHkBMmEvfu7Q.js';
-		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-		})();
-	  </script>
-  </body>
+		  var uv = document.createElement('script');
+				  uv.type = 'text/javascript';
+				  uv.async = true;
+				  uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/no7TpLcvNVTHkBMmEvfu7Q.js';
+				  var s = document.getElementsByTagName('script')[0];
+				  s.parentNode.insertBefore(uv, s);
+			  })();
+	</script>
+</body>
 </html>

@@ -2,17 +2,13 @@
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.3.2",
-		"doctrine/mongodb-odm": "*",
-		"nette/nette": "*",
-		"bazo/gridder": "*",
-		"bazo/nette-document-manager-extension": "*",
-		"mazagran/translation": "*",
-		"rych/phpass": "*",
-		"genphrase/genphrase": "*",
-		"kdyby/redis-extension": "@dev",
-		"predis/predis": "*",
-		"cboden/Ratchet": "dev-master",
-		"bazo/nette-symfonystorageadapter": "*",
-		"bazo/nette-ratchet-sessionprovider": "*"
+		"doctrine/mongodb-odm": "@dev",
+		"nette/nette": "@dev",
+		"bazo/gridder": "@dev",
+		"bazo/nette-document-manager-extension": "@dev",
+		"mazagran/translation": "@dev",
+		"rych/phpass": "@dev",
+		"genphrase/genphrase": "@dev",
+		"kdyby/redis": "dev-master#a501a8fde860727355b0c606fc80358c1eb5b43b"
 	}
 }

@@ -29,28 +29,28 @@
 		<h3>New message</h3>
 	</div>
 	{snippet formNewMessage}
-	<form n:form="formNewMessage">
-		<div class="modal-body">
-			<table>
-				<tr>
-					<th>{label context /}</th>
-					<th>{input context}</th>
-				</tr>
-				<tr>
-					<th>{label singular /}</th>
-					<th>{input singular}</th>
-				</tr>
-				<tr>
-					<th>{label plural /}</th>
-					<th>{input plural}</th>
-				</tr>
-			</table>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-    {input btnSubmit class => "btn btn-primary"}
-		</div>
-	</form>
+		{form formNewMessage}
+			<div class="modal-body">
+				<table>
+					<tr>
+						<th>{label context /}</th>
+						<th>{input context}</th>
+					</tr>
+					<tr>
+						<th>{label singular /}</th>
+						<th>{input singular}</th>
+					</tr>
+					<tr>
+						<th>{label plural /}</th>
+						<th>{input plural}</th>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				{input btnSubmit class => "btn btn-primary"}
+			</div>
+		{/form}
 	{/snippet}
 </div>
 
@@ -70,7 +70,7 @@
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-    {input btnSubmit class => "btn btn-primary"}
+			{input btnSubmit class => "btn btn-primary"}
 		</div>
 	</form>
 </div>
@@ -95,9 +95,9 @@
 <br>
 <br>
 <ul class="nav nav-pills">
-    <li n:class="$filter == 'all' ? active"><a n:href="filter! filter => 'all', page => 1">All</a></li>
-    <li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated', page => 1">Translated</a></li>
-    <li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated', page => 1">Untranslated</a></li>
+	<li n:class="$filter == 'all' ? active"><a n:href="filter! filter => 'all', page => 1">All</a></li>
+	<li n:class="$filter == 'translated' ? active"><a n:href="filter! filter => 'translated', page => 1">Translated</a></li>
+	<li n:class="$filter == 'untranslated' ? active"><a n:href="filter! filter => 'untranslated', page => 1">Untranslated</a></li>
 </ul>
 
 <div n:if="$pagesCount > 1" class="pagination">
@@ -160,7 +160,7 @@
 
 {snippet messages}
 <div n:inner-foreach="$messages as $message" id="messages" >
-	{form "formTranslate-{$message->getId()}"}	
+	{form "formTranslate-{$message->getId()}"}
 	<div id="{$message->getId()}" class="message well">
 
 		<button data-id="{$message->getId()}" class="close">&times;</button>
@@ -229,10 +229,6 @@ $('.close').on('click', function(event){
 	var modal = $('#deleteMessage');
 	var form = modal.find('form').first();
 	var id = $(this).data('id');
-		
-	console.log(form);	
-		
-	console.log(form.find('input[name="id"]'));	
 		
 	form.find('input[name="id"]').val(id);
 	modal.modal('show')

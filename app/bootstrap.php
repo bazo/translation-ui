@@ -1,4 +1,5 @@
 <?php
+
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 
@@ -9,89 +10,66 @@ require_once VENDORS_DIR . '/autoload.php';
 // Configure application
 $configurator = new Nette\Config\Configurator;
 
-if(isset($_SERVER['ENVIRONMENT']))
-{
-    $environment = $_SERVER['ENVIRONMENT'];
-	
-}
-else
-{
-    $environment = 'local';
+if (isset($_SERVER['ENVIRONMENT'])) {
+	$environment = $_SERVER['ENVIRONMENT'];
+} else {
+	$environment = 'local';
 }
 $debug = Nette\Diagnostics\Debugger::DEVELOPMENT;
-if(isset($_SERVER['MODE']))
-{
-    $mode = $_SERVER['MODE'];
-	if($mode === 'production')
-	{
+if (isset($_SERVER['MODE'])) {
+	$mode = $_SERVER['MODE'];
+	if ($mode === 'production') {
 		$debug = Nette\Diagnostics\Debugger::PRODUCTION;
 	}
 }
 
-$configurator->setDebugMode(!$debug);
+$configurator->setDebugMode($debug);
 // Enable Nette Debugger for error visualisation & logging
-Nette\Diagnostics\Debugger::$strictMode = TRUE;
+Nette\Diagnostics\Debugger::$strictMode = FALSE; //don't throw exceptions for deprecated features
 Nette\Diagnostics\Debugger::enable($debug, __DIR__ . '/../log', 'martin@bazo.sk');
 
 // Enable RobotLoader - this will load all classes automatically
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()
-	->addDirectory(APP_DIR)
-	->addDirectory(LIBS_DIR)
-	->register();
+		->addDirectory(APP_DIR)
+		->addDirectory(LIBS_DIR)
+		->register();
 
 // Create Dependency Injection container from config.neon file
-$configurator->addConfig(__DIR__ . '/config/config.neon', $environment);
+$configurator->addConfig(__DIR__ . '/config/config.neon');
+
+$environmentConfig = __DIR__ . sprintf('/config/config.%s.neon', $environment);
+
 $localConfigFile = __DIR__ . '/config/config.local.neon';
-if(file_exists($localConfigFile))
-{
-	$configurator->addConfig($localConfigFile, $configurator::NONE);
+if (file_exists($localConfigFile)) {
+	$configurator->addConfig($localConfigFile);
 }
 
-$configurator->onCompile[] = function($configurator, $compiler) {
-		$compiler->addExtension('documentManagerExtension', new \Bazo\Extensions\DocumentManager);
-		$compiler->addExtension('appCommands', new \Extensions\AppCommandsExtension);
-        $compiler->addExtension('doctrineODMCommands', new \Bazo\Extensions\DoctrineODMCommands);
-		$compiler->addExtension('consoleApp', new \Extensions\ConsoleExtension);
-};
-Kdyby\Extension\Redis\DI\RedisExtension::register($configurator);
-\Mazagran\Translation\DI\Extension::register($configurator);
 $container = $configurator->createContainer();
 
-if(PHP_SAPI === 'cli')
-{
-	$container->console->run();
-}
-else
-{
-	$container->router[] = $apiRouter = new RouteList('Api');
-	$apiRouter[] = new Routes\RestRoute('api/<presenter>/<id>', array(
-	), Routes\RestRoute::RESTFUL);
-	
-	
-	$container->router[] = $adminRouter = new RouteList('Admin');
-	$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', array(
-		'presenter' => 'dashboard',
+$container->router[] = $apiRouter = new RouteList('Api');
+$apiRouter[] = new Routes\RestRoute('api/<presenter>/<id>', array(
+		), Routes\RestRoute::RESTFUL);
+
+
+$container->router[] = $adminRouter = new RouteList('Admin');
+$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', array(
+	'presenter' => 'dashboard',
+	'action' => 'default'
+		));
+
+if ($container->user->isLoggedIn()) {
+	$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
+		'module' => 'front',
+		'presenter' => 'stream',
 		'action' => 'default'
 	));
-	
-	if($container->user->isLoggedIn())
-	{
-		$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
-			'module' => 'front',
-			'presenter' => 'stream',
-			'action' => 'default'
-		));
-	}
-	else
-	{
-		$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
-			'module' => 'front',
-			'presenter' => 'homepage',
-			'action' => 'default'
-		));
-	}
-
-	// Configure and run the application!
-	$container->application->run();
+} else {
+	$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
+		'module' => 'front',
+		'presenter' => 'homepage',
+		'action' => 'default'
+	));
 }
+
+return $container;

@@ -43,8 +43,8 @@ class User extends Base
 		{
 			$this->dm->flush($user, array('safe' => true));
 			
-			$mailBuilder = new \Jobzine\Services\MailBuilder($this->presenter);
-			$mailBuilder->buildRegistrationEmail($user, $token)->send();
+			//$mailBuilder = new \Jobzine\Services\MailBuilder($this->presenter);
+			//$mailBuilder->buildRegistrationEmail($user, $token)->send();
 		}
 		catch(\MongoCursorException $e)
 		{

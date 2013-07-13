@@ -3,8 +3,9 @@ html{
 }
 body{
 	height: 100%;
+	padding-top: 60px;
+	padding-bottom: 40px;
 }
-
 #nav i{
 	margin-right: 5px;
 }

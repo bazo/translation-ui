@@ -108,7 +108,6 @@ class TranslationPresenter extends SecuredPresenter
 		$form->addText('singular', 'Singular')->setRequired();
 		$form->addText('plural', 'Plural');
 		$form->addSubmit('btnSubmit', 'Add');
-		
 		$form->onSuccess[] = callback($this, 'formNewMessageSubmitted');
 		
 		return $form;
@@ -117,7 +116,6 @@ class TranslationPresenter extends SecuredPresenter
 	public function formNewMessageSubmitted(Form $form)
 	{
 		$values = $form->getValues();
-		
 		$project = $this->translation->getProject();
 		try
 		{

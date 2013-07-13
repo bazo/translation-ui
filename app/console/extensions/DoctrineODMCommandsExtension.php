@@ -6,7 +6,7 @@ namespace Extensions;
  *
  * @author Martin Bažík
  */
-class DoctrineODMCommandsExtension extends \Nette\Config\CompilerExtension
+class DoctrineODMCommandsExtension extends \Nette\DI\CompilerExtension
 {
 	/**
 	 * Processes configuration data

@@ -4,135 +4,114 @@
 # If you don't protect this directory from direct web access, anybody will be able to see your passwords.
 # http://nette.org/security-warning
 #
-common:
-	parameters:
-		app:
-			name: watchdog
+parameters:
+	app:
+		name: mazagran
 
-		admin:
-			scriptFolder: %appDir%/AdminModule/scripts
+	admin:
+		scriptFolder: %appDir%/AdminModule/scripts
 
-		database:
-			dbname: mazagran
+	database:
+		dbname: mazagran
 
-		mail:
-			from: 'postmaster@mazagran.mailgun.org'
-			fromName: Mazagran
+	db:
+		name: mazagran
 
-		pusher:
-			appId: '19294'
-			apiKey: 'bf1aa9a75ae923eaadbf'
-			secret: 'aa7c879e53c77fa43776'
+	mail:
+		from: 'postmaster@mazagran.mailgun.org'
+		fromName: Mazagran
 
-		ironmq:
-			token: 'R7d3Ti3xJbt13uaBcq-XPyKJyks'
-			projectId: '4f9e9837f0b1990273005e29'
+	pusher:
+		appId: '19294'
+		apiKey: 'bf1aa9a75ae923eaadbf'
+		secret: 'aa7c879e53c77fa43776'
 
-	php:
-		date.timezone: Europe/Bratislava
-		# session.save_path: "%tempDir%/sessions"
-		# zlib.output_compression: yes
+	ironmq:
+		token: 'R7d3Ti3xJbt13uaBcq-XPyKJyks'
+		projectId: '4f9e9837f0b1990273005e29'
 
-	nette:
-		session:
-			autoStart: smart
-			expiration: '+365 days'
-		mailer:
-			smtp: true
-			host: smtp.mailgun.org
-			port: 587
-			secure: tls
-			username: postmaster@mazagran.mailgun.org
-			password: 4cvn7bvdye05
+php:
+	date.timezone: Europe/Bratislava
+	# session.save_path: "%tempDir%/sessions"
+	# zlib.output_compression: yes
 
-	documentManagerExtension:
-		documentsDir: %appDir%/models/documents
-		proxyDir: %appDir%/models/proxies
-		hydratorDir: %appDir%/models/hydrators
-		dbname: 'mazagran'
-		uri: 'mongodb://mazagran:DCQC7kJv25pFeUw@ds037007.mongolab.com:37007/mazagran'
-		cachePrefix: mazagran
-		metaDataCacheClass: '\Doctrine\Common\Cache\ApcCache'
+nette:
+	session:
+		autoStart: smart
+		expiration: '+365 days'
+	mailer:
+		smtp: true
+		host: smtp.mailgun.org
+		port: 587
+		secure: tls
+		username: postmaster@mazagran.mailgun.org
+		password: 4cvn7bvdye05
 
-	redis:
-		storage: on # nutné pro překrytí storage
-		journal: on # nutné pro překrytí journalu
-		session: on # nutné pro nastavení session handleru
-		host: 127.0.0.1
-	services:
+extensions:
+	database: Bazo\MongoDb\DI\DocumentManagerExtension
+	odmCommands: Bazo\MongoDb\DI\DoctrineODMCommandsExtension
+	appCommands: Extensions\AppCommandsExtension
+	console: Extensions\ConsoleExtension
+	redis: Kdyby\Redis\DI\RedisExtension
+	#translation: \Mazagran\Translation\DI\Extension
+database:
+	dbname: %db.name%
+	uri: mongodb://localhost/%db.name%
+	cachePrefix: %db.name%
+	documentsDir: %appDir%/models/documents
+	proxyDir: %appDir%/models/proxies
+	hydratorDir: %appDir%/models/hydrators
+	metaDataCache: @metaDataCache
 
-		passwordHasher:
-			class: \Phpass\Hash
+redis:
+	host: 127.0.0.1
+	port: 6379
+	database: 2
+	storage: on
+	journal: on
+	session: on
+services:
 
-		keyGenerator:
-			class: \Services\KeyGenerator
+	metaDataCache: Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/_Doctrine.Metadata)
 
-		userFacade:
-			class: \Facades\User(@documentManager, @passwordHasher)
+	passwordHasher:
+		class: \Phpass\Hash
 
-		projectFacade:
-			class: \Facades\Project(@documentManager, @keyGenerator)
+	keyGenerator:
+		class: \Services\KeyGenerator
 
-		translationFacade:
-			class: \Facades\Translation(@documentManager)	
+	userFacade:
+		class: \Facades\User(@documentManager, @passwordHasher)
 
-		messageFacade:
-			class: \Facades\Message(@documentManager)		
-      
-		logService:
-			class: \Services\LogService(@documentManager, @pusher)
-      
-		pusher:
-			class: \Pusher(%pusher.apiKey%, %pusher.secret%, %pusher.appId%)  
+	projectFacade:
+		class: \Facades\Project(@documentManager, @keyGenerator)
 
-		ironMQ:
-			class: \Iron\IronMQ(['token' = %ironmq.token%, 'project_id' = '%ironmq.projectId%'])
+	translationFacade:
+		class: \Facades\Translation(@documentManager)	
 
-		authenticator:
-			class: Authenticator(@documentManager::getRepository(User), @passwordHasher)
+	messageFacade:
+		class: \Facades\Message(@documentManager)		
 
-		adminAuthenticator:
-			class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
-			#autowired: false
+	logService:
+		class: \Services\LogService(@documentManager, @pusher)
 
-		authorizator:
-			class: \Services\Authorizator(@documentManager)
-		
-		activityLogger:
-			class: \Services\ActivityLogger(@documentManager)
+	pusher:
+		class: \Pusher(%pusher.apiKey%, %pusher.secret%, %pusher.appId%)  
 
-	factories:
+	ironMQ:
+		class: \Iron\IronMQ(['token' = %ironmq.token%, 'project_id' = '%ironmq.projectId%'])
 
-production < common:
-	redis:
-		storage: on # nutné pro překrytí storage
-		journal: on # nutné pro překrytí journalu
-		session: on # nutné pro nastavení session handleru
-		host: tunnel.pagodabox.com
-		port: 6379
-development < common:
+	authenticator:
+		class: Authenticator(@documentManager::getRepository(User), @passwordHasher)
 
-local < common:
+	adminAuthenticator:
+		class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
+		autowired: false
 
-ws < common:
-	#nette.httpRequestFactory:
-		#class: \WsRequestFactory
-		#internal: TRUE
-	factories:
-		requestFactory:
-			class: \WsRequestFactory
-			setup:
-					- setEncoding(UTF-8)
-			internal: TRUE
+	authorizator:
+		class: \Services\Authorizator(@documentManager)
 
-	services:
+	activityLogger:
+		class: \Services\ActivityLogger(@documentManager)
 
-		application:
-			class: \Nette\Application\WsApplication
-
-		nette.httpRequestFactory:
-			class: \WsRequestFactory
-			#internal: true
-		httpRequest:
-			class: Nette\Http\Request
-			factory: @requestFactory::createHttpRequest
+factories:

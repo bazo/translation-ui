@@ -9,7 +9,7 @@ use Nette\Config\Configurator,
  *
  * @author	Martin Bažík
  */
-class ConsoleExtension extends \Nette\Config\CompilerExtension
+class ConsoleExtension extends \Nette\DI\CompilerExtension
 {
 	/**
 	 * Processes configuration data

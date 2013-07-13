@@ -3,10 +3,10 @@
 Invite to project
 
 <form n:form="formInviteCollaborator" class="form-search">
-	<input n:input="search" type="text" class="input-medium search-query" autocomplete="off" data-provide="typeahead" data-items="8" data-link="{link search!}">
-	<input n:input="id" id="collaboratorId">
-	<button n:input="btnTranslate" type="submit" class="btn">Translate</button>
-	<button n:input="btnAdmin" type="submit" class="btn">Admin</button>
+	<input n:name="search" type="text" class="input-medium search-query" autocomplete="off" data-provide="typeahead" data-items="8" data-link="{link search!}">
+	<input n:name="id" id="collaboratorId">
+	<button n:name="btnTranslate" type="submit" class="btn">Translate</button>
+	<button n:name="btnAdmin" type="submit" class="btn">Admin</button>
 </form>
 
 {foreach $project->getAccesses() as $access}
