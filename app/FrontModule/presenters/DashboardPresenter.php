@@ -1,6 +1,9 @@
 <?php
+
 namespace FrontModule;
+
 use Nette\Application\UI\Form;
+
 /**
  * Homepage presenter.
  *
@@ -10,23 +13,25 @@ use Nette\Application\UI\Form;
 class DashboardPresenter extends SecuredPresenter
 {
 
-	public 
-		/** @persistent */	
-		$filters,
-			
-		/** @persistent */	
-		$levels
-	;
+	/** @persistent */
+	public $filters;
+
+	/** @persistent */
+	public $levels;
+
 
 	protected function startup()
 	{
 		parent::startup();
 	}
-	
+
+
 	public function renderDefault()
 	{
 		$logs = $this->context->documentManager->getRepository('ActivityLog')->getUserLogs($this->me, 20);
 		$this->template->logs = $logs;
 	}
 
+
 }
+

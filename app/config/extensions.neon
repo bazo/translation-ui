@@ -1,0 +1,12 @@
+extensions:
+	database: Bazo\MongoDb\DI\DocumentManagerExtension
+	odmCommands: Bazo\MongoDb\DI\DoctrineODMCommandsExtension
+	redis: Kdyby\Redis\DI\RedisExtension
+	console: Bazo\Console\DI\ConsoleExtension
+	monolog: Bazo\Monolog\DI\MonologExtension
+	mediator: Bazo\Mediator\DI\MediatorExtension
+	#translation: \Mazagran\Translation\DI\Extension
+
+console:
+	name: Mazagran CLI
+	version: 0.1.0

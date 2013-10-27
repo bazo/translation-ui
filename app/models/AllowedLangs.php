@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AllowedLangs
  *
@@ -6,19 +7,25 @@
  */
 class AllowedLangs
 {
-	private static $langs = array(
+
+	private static $langs = [
 		'en' => 'English',
 		'sk' => 'Slovak',
 		'cs' => 'Czech'
-	);
-	
+	];
+
+
 	public static function getLangs()
 	{
 		return self::$langs;
 	}
-	
+
+
 	public static function getLangCaption($iso)
 	{
 		return self::$langs[$iso];
 	}
+
+
 }
+

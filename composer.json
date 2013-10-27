@@ -1,14 +1,18 @@
 {
 	"minimum-stability": "dev",
 	"require": {
-		"php": ">=5.3.2",
+		"php": ">=5.4.0",
 		"doctrine/mongodb-odm": "@dev",
 		"nette/nette": "@dev",
 		"bazo/gridder": "@dev",
 		"bazo/nette-document-manager-extension": "@dev",
-		"mazagran/translation": "@dev",
+		"bazo/nette-translation": "@dev",
+		"bazo/nette-console-extension": "@dev",
+		"bazo/nette-monolog-extension": "@dev",
+		"bazo/nette-mediator-extension": "@dev",
 		"rych/phpass": "@dev",
 		"genphrase/genphrase": "@dev",
-		"kdyby/redis": "dev-master#a501a8fde860727355b0c606fc80358c1eb5b43b"
+		"kdyby/redis": "@dev",
+		"ircmaxell/password-compat": "@dev"
 	}
 }

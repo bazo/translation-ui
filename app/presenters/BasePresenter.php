@@ -1,5 +1,7 @@
 <?php
+
 namespace Base;
+
 /**
  * Base class for all application presenters.
  *
@@ -8,9 +10,13 @@ namespace Base;
  */
 abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
+
 	public function flash($message, $type = 'success')
 	{
 		$this->flashMessage($message, $type);
 		$this->invalidateControl('flashes');
 	}
+
+
 }
+

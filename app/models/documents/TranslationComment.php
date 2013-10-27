@@ -1,5 +1,7 @@
 <?php
+
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 /**
  * Log
  *
@@ -8,57 +10,59 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class TranslationComment
 {
-	private 
-		/** 
-		 * @ODM\Id 
-		 */	
-		$id,
-		
-		/**
-		 * @ODM\String
-		 * @ODM\Index
-		 */	
-		$context,	
-			
-		/**
-		 * @ODM\String
-		 * @ODM\Index
-		 */	
-		$singular,
-			
-		/**
-		 * @ODM\String
-		 * @ODM\Index
-		 */		
-		$plural,
-		
-		/**
-		 * @ODM\Int
-		 */		
-		$pluralsCount,	
-			
-		/**
-		 * @ODM\Hash
-		 * @ODM\Index
-		 */			
-		$translations,
-		
-		/**
-		 * @ODM\Boolean
-		 * @ODM\Index
-		 */		
-		$translated = false
-	;
-	
+
+	/**
+	 * @ODM\Id 
+	 */
+	private $id;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $context;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $singular;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $plural;
+
+	/**
+	 * @ODM\Int
+	 */
+	private $pluralsCount;
+
+	/**
+	 * @ODM\Hash
+	 * @ODM\Index
+	 */
+	private $translations;
+
+	/**
+	 * @ODM\Boolean
+	 * @ODM\Index
+	 */
+	private $translated = FALSE;
+
+
 	public function getId()
 	{
 		return $this->id;
 	}
 
+
 	public function getContext()
 	{
 		return $this->context;
 	}
+
 
 	public function setContext($context)
 	{
@@ -66,10 +70,12 @@ class TranslationComment
 		return $this;
 	}
 
+
 	public function getSingular()
 	{
 		return $this->singular;
 	}
+
 
 	public function setSingular($singular)
 	{
@@ -77,56 +83,62 @@ class TranslationComment
 		return $this;
 	}
 
+
 	public function hasPlural()
 	{
-		return $this->plural !== null;
+		return $this->plural !== NULL;
 	}
-	
+
+
 	public function getPlural()
 	{
 		return $this->plural;
 	}
+
 
 	public function setPlural($plural)
 	{
 		$this->plural = $plural;
 		return $this;
 	}
-	
+
+
 	public function getPluralsCount()
 	{
 		return $this->pluralsCount;
 	}
+
 
 	public function setPluralsCount($pluralsCount)
 	{
 		$this->pluralsCount = $pluralsCount;
 		return $this;
 	}
-	
+
+
 	public function getTranslations()
 	{
 		return $this->translations;
 	}
 
+
 	public function setTranslations($translations)
 	{
 		$this->translations = $translations;
-		
-		$translated = true;
-		
-		foreach($translations as $translation)
-		{
-			if($translation === '')
-			{
-				$translated = false;
+
+		$translated = TRUE;
+
+		foreach ($translations as $translation) {
+			if ($translation === '') {
+				$translated = FALSE;
 				break;
 			}
 		}
 		$this->translated = $translated;
 		return $this;
 	}
-		
+
+
 	public function addTranslation($form, $translation)
 	{
 		$this->translations[$form] = $translation;
@@ -135,3 +147,4 @@ class TranslationComment
 
 
 }
+

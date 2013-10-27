@@ -1,0 +1,33 @@
+services:
+	metaDataCache: Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/_Doctrine.Metadata)
+
+	passwordHasher:
+		class: \Phpass\Hash
+
+	keyGenerator:
+		class: \Services\KeyGenerator
+
+	userFacade:
+		class: \Facades\User(@documentManager, @passwordHasher)
+
+	projectFacade:
+		class: \Facades\Project(@documentManager, @keyGenerator)
+
+	translationFacade:
+		class: \Facades\Translation(@documentManager)
+
+	messageFacade:
+		class: \Facades\Message(@documentManager)
+
+	authenticator:
+		class: Authenticator(@documentManager::getRepository(User), @passwordHasher)
+
+	adminAuthenticator:
+		class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
+		autowired: false
+
+	authorizator:
+		class: \Services\Authorizator(@documentManager)
+
+	activityLogger:
+		class: \Services\ActivityLogger(@documentManager)

@@ -12,7 +12,7 @@ class ActivityLogRepository extends DocumentRepository
 	public function getUserLogs(\User $user, $limit = null)
 	{
 		$accesses = $user->getAccesses();
-		$projectIds = array();
+		$projectIds = [];
 		foreach($accesses as $access)
 		{
 			$projectIds[] = $access->getProject()->getId();

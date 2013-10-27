@@ -1,5 +1,7 @@
 <?php
+
 use Nette\Security as NS;
+
 /**
  * Users authenticator.
  *
@@ -7,19 +9,16 @@ use Nette\Security as NS;
  */
 class Authenticator extends Nette\Object implements NS\IAuthenticator
 {
-	private 
-		/** @var Doctrine\ODM\MongoDB\DocumentRepository */	
-		$usersRepository,
-			
-		/** @var \Security\PasswordHasher */	
-		$passwordHasher
-	;
 
-	public function __construct(Doctrine\ODM\MongoDB\DocumentRepository $usersRepository, Phpass\Hash $passwordHasher)
+	/** @var Doctrine\ODM\MongoDB\DocumentRepository */
+	private $usersRepository;
+
+
+	public function __construct(Doctrine\ODM\MongoDB\DocumentRepository $usersRepository)
 	{
 		$this->usersRepository = $usersRepository;
-		$this->passwordHasher = $passwordHasher;
 	}
+
 
 	/**
 	 * Performs an authentication
@@ -31,17 +30,17 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 	{
 		list($email, $password) = $credentials;
 		$user = $this->usersRepository->findOneBy(array('email' => $email));
-		if (!$user or !$this->passwordHasher->checkPassword($password, $user->getPassword())) 
-		{
+		if (!$user or !password_verify($password, $user->getPassword())) {
 			throw new NS\AuthenticationException("Invalid credentials", self::FAILURE);
-		}
-		elseif(!$user->isActive())
-		{
+		} elseif (!$user->isActive()) {
 			throw new NS\AuthenticationException("Your account hasn't been activated yet.", self::FAILURE);
 		}
 
 		$user->setAccountRule(AccountRules::getRuleForAccount($user->getAccount()));
-		
+
 		return $user;
 	}
+
+
 }
+

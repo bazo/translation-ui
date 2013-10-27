@@ -1,8 +1,9 @@
 <?php
+
 namespace AdminModule;
+
 use Nette\Application\UI,
 	Nette\Security as NS;
-
 
 /**
  * Sign in/out presenters.
@@ -13,7 +14,6 @@ use Nette\Application\UI,
 class SignPresenter extends BasePresenter
 {
 
-
 	/**
 	 * Sign in form component factory.
 	 * @return Nette\Application\UI\Form
@@ -22,10 +22,10 @@ class SignPresenter extends BasePresenter
 	{
 		$form = new UI\Form;
 		$form->addText('username', 'Username:')
-			->setRequired('Please provide a username.');
+				->setRequired('Please provide a username.');
 
 		$form->addPassword('password', 'Password:')
-			->setRequired('Please provide a password.');
+				->setRequired('Please provide a password.');
 
 		$form->addCheckbox('remember', 'Remember me on this computer');
 
@@ -34,7 +34,6 @@ class SignPresenter extends BasePresenter
 		$form->onSuccess[] = callback($this, 'signInFormSubmitted');
 		return $form;
 	}
-
 
 
 	public function signInFormSubmitted($form)
@@ -49,12 +48,10 @@ class SignPresenter extends BasePresenter
 			}
 			$this->getUser()->login($values->username, $values->password);
 			$this->redirect('dashboard:');
-
 		} catch (NS\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 		}
 	}
-
 
 
 	public function actionOut()
@@ -64,4 +61,6 @@ class SignPresenter extends BasePresenter
 		$this->redirect('in');
 	}
 
+
 }
+

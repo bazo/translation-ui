@@ -13,6 +13,16 @@ use Symfony\Component\Console\Input\InputArgument,
 class DeleteCache extends Console\Command\Command
 {
 
+	private $tempDir;
+	
+	function __construct($tempDir)
+	{
+		parent::__construct();
+		$this->tempDir = $tempDir;
+	}
+
+
+	
 	protected function configure()
 	{
 		$this
@@ -24,10 +34,7 @@ class DeleteCache extends Console\Command\Command
 	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
 		
-		$context = $this->getHelper('containerHelper')->getContainer();
-		
-		$tempDir = $context->parameters['tempDir'];
-		$cacheDir = $tempDir.'/cache';
+		$cacheDir = $this->tempDir.'/cache';
 		
 		$output->writeln(sprintf('deleting cache directory %s ', $cacheDir));
 		

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2608b227e564f04267596e112a74c628",
+    "hash": "a520c7b71622bc675d3ef062785d3d5f",
     "packages": [
         {
             "name": "bazo/gridder",
@@ -11,17 +11,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bazo/nette-gridder.git",
-                "reference": "9cb4bff5284634f5983b69e6f33451cd693653d5"
+                "reference": "f9a005a291205516c2e7633cf8b18d1ed856d397"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bazo/nette-gridder/zipball/9cb4bff5284634f5983b69e6f33451cd693653d5",
-                "reference": "9cb4bff5284634f5983b69e6f33451cd693653d5",
+                "url": "https://api.github.com/repos/bazo/nette-gridder/zipball/f9a005a291205516c2e7633cf8b18d1ed856d397",
+                "reference": "f9a005a291205516c2e7633cf8b18d1ed856d397",
                 "shasum": ""
             },
             "require": {
                 "bazo/nette-form-controls": "*",
-                "php": ">=5.3.0"
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "bazo/neo4j-tools": "@dev"
             },
             "type": "library",
             "autoload": {
@@ -46,7 +49,48 @@
                 "nette",
                 "odm"
             ],
-            "time": "2012-09-15 16:00:50"
+            "time": "2013-10-24 21:05:16"
+        },
+        {
+            "name": "bazo/nette-console-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazo/nette-console-extension.git",
+                "reference": "50b9805eff326d77b8b68758572d0b24b40dccdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazo/nette-console-extension/zipball/50b9805eff326d77b8b68758572d0b24b40dccdc",
+                "reference": "50b9805eff326d77b8b68758572d0b24b40dccdc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.4.0",
+                "symfony/console": "@dev"
+            },
+            "type": "nette-addon",
+            "autoload": {
+                "psr-0": {
+                    "Bazo\\Console\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Martin Bažík",
+                    "email": "martin@bazo.sk",
+                    "homepage": "http://bazo.sk"
+                }
+            ],
+            "description": "Nette console compiler extension",
+            "homepage": "https://github.com/bazo/nette-console-extension",
+            "keywords": [
+                "console",
+                "extension",
+                "nette"
+            ],
+            "time": "2013-10-15 20:45:36"
         },
         {
             "name": "bazo/nette-document-manager-extension",
@@ -54,22 +98,29 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bazo/nette-document-manager-extension.git",
-                "reference": "d6ab55342257b583f3b2aedde7e9a119451f27d9"
+                "reference": "dc2ee3d40fee52a621b5d47918e59cd05c1ea2b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bazo/nette-document-manager-extension/zipball/d6ab55342257b583f3b2aedde7e9a119451f27d9",
-                "reference": "d6ab55342257b583f3b2aedde7e9a119451f27d9",
+                "url": "https://api.github.com/repos/bazo/nette-document-manager-extension/zipball/dc2ee3d40fee52a621b5d47918e59cd05c1ea2b6",
+                "reference": "dc2ee3d40fee52a621b5d47918e59cd05c1ea2b6",
                 "shasum": ""
             },
             "require": {
-                "doctrine/mongodb-odm": "*",
-                "php": ">=5.3.0"
+                "doctrine/mongodb-odm": "@dev",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "gedmo/doctrine-extensions": "@dev"
+            },
+            "suggest": {
+                "bazo/nette-console-extension": "@dev",
+                "gedmo/doctrine-extensions": "@dev"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Bazo": ""
+                    "Bazo": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -87,7 +138,7 @@
                 "mongodb",
                 "nette"
             ],
-            "time": "2013-05-10 11:23:37"
+            "time": "2013-10-27 22:50:20"
         },
         {
             "name": "bazo/nette-form-controls",
@@ -128,6 +179,137 @@
                 "nette"
             ],
             "time": "2012-07-14 19:03:19"
+        },
+        {
+            "name": "bazo/nette-mediator-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazo/nette-mediator-extension.git",
+                "reference": "1ea3ab012d1ad45163e28865bc0143b13e15ab77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazo/nette-mediator-extension/zipball/1ea3ab012d1ad45163e28865bc0143b13e15ab77",
+                "reference": "1ea3ab012d1ad45163e28865bc0143b13e15ab77",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.4.0",
+                "symfony/event-dispatcher": "@dev"
+            },
+            "type": "nette-addon",
+            "autoload": {
+                "psr-0": {
+                    "Bazo\\Mediator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Martin Bažík",
+                    "email": "martin@bazo.sk",
+                    "homepage": "http://bazo.sk"
+                }
+            ],
+            "description": "Nette mediator compiler extension",
+            "homepage": "https://github.com/bazo/nette-mediator-extension",
+            "keywords": [
+                "event dispatcher",
+                "events",
+                "extension",
+                "mediator",
+                "nette"
+            ],
+            "time": "2013-10-18 11:31:22"
+        },
+        {
+            "name": "bazo/nette-monolog-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazo/nette-monolog-extension.git",
+                "reference": "b18f804881155812efbe55a54591495714dad262"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazo/nette-monolog-extension/zipball/b18f804881155812efbe55a54591495714dad262",
+                "reference": "b18f804881155812efbe55a54591495714dad262",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "@dev",
+                "php": ">= 5.4.0"
+            },
+            "type": "nette-addon",
+            "autoload": {
+                "psr-0": {
+                    "Bazo\\Monolog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Martin Bažík",
+                    "email": "martin@bazo.sk",
+                    "homepage": "http://bazo.sk"
+                }
+            ],
+            "description": "Nette monolog compiler extension",
+            "homepage": "https://github.com/bazo/nette-monolog-extension",
+            "keywords": [
+                "extension",
+                "logging",
+                "monolog",
+                "nette"
+            ],
+            "time": "2013-10-18 14:17:39"
+        },
+        {
+            "name": "bazo/nette-translation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazo/nette-translation.git",
+                "reference": "11137e95b9e19963116890867f724cb4b2a94bf5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazo/nette-translation/zipball/11137e95b9e19963116890867f724cb4b2a94bf5",
+                "reference": "11137e95b9e19963116890867f724cb4b2a94bf5",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": "@dev",
+                "nikic/php-parser": "@dev",
+                "php": ">=5.4.0",
+                "symfony/console": "@dev"
+            },
+            "type": "nette-addon",
+            "autoload": {
+                "psr-0": {
+                    "Bazo\\Translation": "src/"
+                },
+                "files": [
+                    "src/shortcuts.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Martin Bažík",
+                    "email": "martin@bazo.sk",
+                    "homepage": "http://bazo.sk"
+                }
+            ],
+            "description": "Translation extension for Nette Framework",
+            "homepage": "https://github.com/bazo/nette-translation",
+            "keywords": [
+                "neon",
+                "nette",
+                "translation"
+            ],
+            "time": "2013-10-27 20:01:42"
         },
         {
             "name": "doctrine/annotations",
@@ -202,16 +384,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "dc3438804c6303f1b5892f184a79aa8e3ce5d81d"
+                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/dc3438804c6303f1b5892f184a79aa8e3ce5d81d",
-                "reference": "dc3438804c6303f1b5892f184a79aa8e3ce5d81d",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/e16d7adf45664a50fa86f515b6d5e7f670130449",
+                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449",
                 "shasum": ""
             },
             "require": {
@@ -219,6 +401,10 @@
             },
             "conflict": {
                 "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7",
+                "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
             "extra": {
@@ -267,7 +453,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2013-07-04 15:48:06"
+            "time": "2013-10-25 19:04:14"
         },
         {
             "name": "doctrine/collections",
@@ -275,12 +461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "3db3ab843ff76774bee4679d4cb3a10cffb0a935"
+                "reference": "bcb53776a096a0c64579cc8d8ec0db62f1109fbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/3db3ab843ff76774bee4679d4cb3a10cffb0a935",
-                "reference": "3db3ab843ff76774bee4679d4cb3a10cffb0a935",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/bcb53776a096a0c64579cc8d8ec0db62f1109fbc",
+                "reference": "bcb53776a096a0c64579cc8d8ec0db62f1109fbc",
                 "shasum": ""
             },
             "require": {
@@ -334,20 +520,20 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2013-05-26 05:21:22"
+            "time": "2013-08-29 16:56:45"
         },
         {
             "name": "doctrine/common",
-            "version": "dev-master",
+            "version": "2.4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "6a39bb947b20d12a16820f2709509e41e28af005"
+                "reference": "c94d6ff79e25418b1225e187c782bf4742f23a8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/6a39bb947b20d12a16820f2709509e41e28af005",
-                "reference": "6a39bb947b20d12a16820f2709509e41e28af005",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/c94d6ff79e25418b1225e187c782bf4742f23a8b",
+                "reference": "c94d6ff79e25418b1225e187c782bf4742f23a8b",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +594,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-07-02 11:26:20"
+            "time": "2013-09-07 10:20:35"
         },
         {
             "name": "doctrine/inflector",
@@ -541,12 +727,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb.git",
-                "reference": "009ea85b2e6ba067fbce28b2e9ca80aea7fa2a6f"
+                "reference": "a263d678744d80edfbae34f862a4c93b0e28b55b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/009ea85b2e6ba067fbce28b2e9ca80aea7fa2a6f",
-                "reference": "009ea85b2e6ba067fbce28b2e9ca80aea7fa2a6f",
+                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/a263d678744d80edfbae34f862a4c93b0e28b55b",
+                "reference": "a263d678744d80edfbae34f862a4c93b0e28b55b",
                 "shasum": ""
             },
             "require": {
@@ -593,7 +779,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2013-07-08 15:15:19"
+            "time": "2013-09-09 15:53:46"
         },
         {
             "name": "doctrine/mongodb-odm",
@@ -601,16 +787,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "0bf89a83e8c61428b207b4ad71c079c6e5534c3e"
+                "reference": "4337a196395e26c167bdde5def8fc33503d6e202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/0bf89a83e8c61428b207b4ad71c079c6e5534c3e",
-                "reference": "0bf89a83e8c61428b207b4ad71c079c6e5534c3e",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/4337a196395e26c167bdde5def8fc33503d6e202",
+                "reference": "4337a196395e26c167bdde5def8fc33503d6e202",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.2.0,<2.5-dev",
+                "doctrine/annotations": "~1.0",
+                "doctrine/cache": "~1.0",
+                "doctrine/collections": "~1.0",
+                "doctrine/common": "2.4.*",
+                "doctrine/inflector": "~1.0",
                 "doctrine/mongodb": "1.0.*",
                 "php": ">=5.3.2",
                 "symfony/console": "~2.0"
@@ -643,7 +833,7 @@
                     "homepage": "http://avalanche123.com"
                 },
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 },
@@ -666,7 +856,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2013-07-04 19:12:04"
+            "time": "2013-10-25 18:50:17"
         },
         {
             "name": "genphrase/genphrase",
@@ -674,12 +864,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/timoh6/GenPhrase.git",
-                "reference": "c17ed5bb60e7eaeb3ea5c09eac0306a8f63e0f46"
+                "reference": "349b469102dc83914e3b9ee8a708650a5edb65a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timoh6/GenPhrase/zipball/c17ed5bb60e7eaeb3ea5c09eac0306a8f63e0f46",
-                "reference": "c17ed5bb60e7eaeb3ea5c09eac0306a8f63e0f46",
+                "url": "https://api.github.com/repos/timoh6/GenPhrase/zipball/349b469102dc83914e3b9ee8a708650a5edb65a9",
+                "reference": "349b469102dc83914e3b9ee8a708650a5edb65a9",
                 "shasum": ""
             },
             "require": {
@@ -705,7 +895,46 @@
                 "random",
                 "secure"
             ],
-            "time": "2013-03-11 09:56:56"
+            "time": "2013-09-26 08:56:20"
+        },
+        {
+            "name": "ircmaxell/password-compat",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/password_compat.git",
+                "reference": "1f482f79b9c336b1f658eb08d7bbf2b9901d9aee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/1f482f79b9c336b1f658eb08d7bbf2b9901d9aee",
+                "reference": "1f482f79b9c336b1f658eb08d7bbf2b9901d9aee",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/password.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@php.net",
+                    "homepage": "http://blog.ircmaxell.com"
+                }
+            ],
+            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
+            "homepage": "https://github.com/ircmaxell/password_compat",
+            "keywords": [
+                "hashing",
+                "password"
+            ],
+            "time": "2013-09-10 15:32:56"
         },
         {
             "name": "kdyby/redis",
@@ -713,12 +942,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Redis.git",
-                "reference": "a501a8fde860727355b0c606fc80358c1eb5b43b"
+                "reference": "96ba327caee61654edb1a72de42ca0aa33a5ab73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/e400d81fcf90804772d518ca53b96f6be0318385",
-                "reference": "a501a8fde860727355b0c606fc80358c1eb5b43b",
+                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/96ba327caee61654edb1a72de42ca0aa33a5ab73",
+                "reference": "96ba327caee61654edb1a72de42ca0aa33a5ab73",
                 "shasum": ""
             },
             "require": {
@@ -760,54 +989,70 @@
                 "nette",
                 "redis"
             ],
-            "time": "2013-07-09 00:51:47"
+            "time": "2013-10-01 20:03:29"
         },
         {
-            "name": "mazagran/translation",
+            "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Mazagran/translation.git",
-                "reference": "d19bf3426125f98684da1e478075d276f26f8b81"
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "c600461b0f1a8943696f931fc11db475193f62cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mazagran/translation/zipball/d19bf3426125f98684da1e478075d276f26f8b81",
-                "reference": "d19bf3426125f98684da1e478075d276f26f8b81",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c600461b0f1a8943696f931fc11db475193f62cd",
+                "reference": "c600461b0f1a8943696f931fc11db475193f62cd",
                 "shasum": ""
             },
             "require": {
-                "nette/nette": "*",
-                "nikic/php-parser": "*",
                 "php": ">=5.3.0",
-                "symfony/console": "*"
+                "psr/log": "~1.0"
             },
-            "type": "nette-addon",
+            "require-dev": {
+                "doctrine/couchdb": "dev-master",
+                "mlehner/gelf-php": "1.0.*",
+                "phpunit/phpunit": "~3.7.0",
+                "raven/raven": "0.5.*"
+            },
+            "suggest": {
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "raven/raven": "Allow sending log messages to a Sentry server"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
-                    "Mazagran\\Translation": "src/"
-                },
-                "files": [
-                    "src/shortcuts.php"
-                ]
+                    "Monolog": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "Martin Bažík",
-                    "email": "martin@bazo.sk",
-                    "homepage": "http://bazo.sk"
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
                 }
             ],
-            "description": "Mazagran client and translation addon for Nette Framework",
-            "homepage": "https://github.com/bazo/nette-translation",
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "http://github.com/Seldaek/monolog",
             "keywords": [
-                "mazagran",
-                "neon",
-                "nette",
-                "translation"
+                "log",
+                "logging",
+                "psr-3"
             ],
-            "time": "2012-09-26 15:19:26"
+            "time": "2013-10-24 12:32:52"
         },
         {
             "name": "nette/nette",
@@ -815,21 +1060,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "0c87249e07a2f7a33acdb382442c012840df9415"
+                "reference": "a27ed4df8dda6f8b7058485b46004cef48a99e3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/0c87249e07a2f7a33acdb382442c012840df9415",
-                "reference": "0c87249e07a2f7a33acdb382442c012840df9415",
+                "url": "https://api.github.com/repos/nette/nette/zipball/a27ed4df8dda6f8b7058485b46004cef48a99e3b",
+                "reference": "a27ed4df8dda6f8b7058485b46004cef48a99e3b",
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
                 "ext-tokenizer": "*",
                 "php": ">=5.3.0"
-            },
-            "replace": {
-                "nette/nette-minified": "self.version"
             },
             "require-dev": {
                 "nette/tester": "@dev"
@@ -884,7 +1126,7 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-07-12 15:14:33"
+            "time": "2013-10-21 23:36:35"
         },
         {
             "name": "nikic/php-parser",
@@ -892,15 +1134,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "5ccf6196d6925e66568e3b8460c262e9512e4b92"
+                "reference": "700847e2951942200b479c413aa2984b5364799b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5ccf6196d6925e66568e3b8460c262e9512e4b92",
-                "reference": "5ccf6196d6925e66568e3b8460c262e9512e4b92",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/700847e2951942200b479c413aa2984b5364799b",
+                "reference": "700847e2951942200b479c413aa2984b5364799b",
                 "shasum": ""
             },
             "require": {
+                "ext-tokenizer": "*",
                 "php": ">=5.2"
             },
             "type": "library",
@@ -928,7 +1171,45 @@
                 "parser",
                 "php"
             ],
-            "time": "2013-05-23 13:17:59"
+            "time": "2013-09-28 11:21:30"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
         },
         {
             "name": "rych/phpass",
@@ -988,12 +1269,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "c374f12670a4e6b6b72ef2a2d58b75534d94609c"
+                "reference": "662a2922e0bcb3669e66ab36c20ce508c68b1d46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/c374f12670a4e6b6b72ef2a2d58b75534d94609c",
-                "reference": "c374f12670a4e6b6b72ef2a2d58b75534d94609c",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/662a2922e0bcb3669e66ab36c20ce508c68b1d46",
+                "reference": "662a2922e0bcb3669e66ab36c20ce508c68b1d46",
                 "shasum": ""
             },
             "require": {
@@ -1032,7 +1313,61 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-11 19:37:15"
+            "time": "2013-10-23 08:18:42"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "d51d78b34c1d9dcc384ba48155105fe99284dd67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/d51d78b34c1d9dcc384ba48155105fe99284dd67",
+                "reference": "d51d78b34c1d9dcc384ba48155105fe99284dd67",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "~2.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-10-17 11:48:11"
         }
     ],
     "packages-dev": [
@@ -1047,13 +1382,17 @@
         "nette/nette": 20,
         "bazo/gridder": 20,
         "bazo/nette-document-manager-extension": 20,
-        "mazagran/translation": 20,
+        "bazo/nette-translation": 20,
+        "bazo/nette-console-extension": 20,
+        "bazo/nette-monolog-extension": 20,
+        "bazo/nette-mediator-extension": 20,
         "rych/phpass": 20,
         "genphrase/genphrase": 20,
-        "kdyby/redis": 20
+        "kdyby/redis": 20,
+        "ircmaxell/password-compat": 20
     },
     "platform": {
-        "php": ">=5.3.2"
+        "php": ">=5.4.0"
     },
     "platform-dev": [
 

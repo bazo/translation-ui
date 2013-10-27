@@ -1,5 +1,7 @@
 <?php
+
 namespace Forms;
+
 /**
  * Description of AjaxForm
  *
@@ -7,9 +9,13 @@ namespace Forms;
  */
 class AjaxForm extends BaseForm
 {
-    public function __construct(\Nette\ComponentModel\IContainer $parent = null, $name = null)
-    {
-        parent::__construct($parent, $name);
-        $this->getElementPrototype()->class('ajax');
-    }
+
+	public function __construct(\Nette\ComponentModel\IContainer $parent = null, $name = null)
+	{
+		parent::__construct($parent, $name);
+		$this->getElementPrototype()->class('ajax');
+	}
+
+
 }
+

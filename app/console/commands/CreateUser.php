@@ -1,9 +1,11 @@
 <?php
+
 namespace Console\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-	Symfony\Component\Console\Input\InputOption,
-	Symfony\Component\Console;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 /**
  * Description of CreateUser
@@ -12,6 +14,17 @@ use Symfony\Component\Console\Input\InputArgument,
  */
 class CreateUser extends Console\Command\Command
 {
+
+	/** @var DocumentManager */
+	private $dm;
+
+
+	function __construct(DocumentManager $dm)
+	{
+		parent::__construct();
+		$this->dm = $dm;
+	}
+
 
 	protected function configure()
 	{
@@ -23,59 +36,55 @@ class CreateUser extends Console\Command\Command
 		;
 	}
 
+
 	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
 		$output->writeln('creating new user...');
-		$dm = $this->getHelper('dm')->getDocumentManager();
+		$dm = $this->dm;
 
-		$dialog = $this->getHelperSet()->get('dialog');
-		
+		$dialog = new Console\Helper\DialogHelper;
+
 		$login = $input->getArgument('login');
 		$password = $input->getArgument('password');
-		
-		if($login === null)
-		{
+
+		if ($login === null) {
 			$login = $dialog->ask($output, '<question>please provide login for the new user: </question>', null);
-			
-			if($login === null)
-			{
+
+			if ($login === null) {
 				$output->writeln('<error>you have to provide login. aborting.</error>');
 				return;
 			}
-			
-			$password = $dialog->ask($output, '<question>please provide password for the user '.$login.': </question>', null);
-			
-			if($password === null)
-			{
+
+			$password = $dialog->ask($output, '<question>please provide password for the user ' . $login . ': </question>', null);
+
+			if ($password === null) {
 				$output->writeln('<error>you have to provide password. aborting.</error>');
 				return;
 			}
 		}
-		
-		if($login !== null and $password === null)
-		{
-			$password = $dialog->ask($output, '<question>please provide password for the user '.$login.': </question>', null);
-			if($password === null)
-			{
+
+		if ($login !== null and $password === null) {
+			$password = $dialog->ask($output, '<question>please provide password for the user ' . $login . ': </question>', null);
+			if ($password === null) {
 				$output->writeln('<error>you have to provide password. aborting.</error>');
 				return;
 			}
 		}
-		
-		$passwordHasher = new \Security\PasswordHasher;
-		
-		if($dm->getRepository('User')->findOneByLogin($login) !== null)
-		{
-			$output->writeln('<error>user with login '.$login.' already exists. aborting.</error>');
+
+		if ($dm->getRepository('User')->findOneByLogin($login) !== null) {
+			$output->writeln('<error>user with login ' . $login . ' already exists. aborting.</error>');
 			return;
 		}
 		$user = new \User;
-		$user->setLogin($login)->setPassword($passwordHasher->hashPassword($password));
-		
+		$hash = password_hash($password, PASSWORD_BCRYPT);
+		$user->setLogin($login)->setPassword($hash);
+
 		$dm->persist($user);
 		//$dm->flush(array('safe' => true)); //throws some bullshit error, thus checking by finding by login
 		$dm->flush();
-		$output->writeln('<info>user '.$login.' succesfully created</info>');
+		$output->writeln('<info>user ' . $login . ' succesfully created</info>');
 	}
 
+
 }
+

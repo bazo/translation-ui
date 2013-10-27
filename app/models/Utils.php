@@ -1,6 +1,9 @@
 <?php
+
 namespace Helpers;
+
 use Nette\Utils\Strings;
+
 /**
  * Utils
  *
@@ -8,8 +11,12 @@ use Nette\Utils\Strings;
  */
 class Message
 {
+
 	public static function encodeMessageId($messageId)
 	{
 		return Strings::replace($messageId, '/\./', 'DOT');
 	}
+
+
 }
+

@@ -1,5 +1,7 @@
 <?php
+
 namespace Services;
+
 /**
  * Authorizator
  *
@@ -7,15 +9,16 @@ namespace Services;
  */
 class Authorizator
 {
-	private
-		/** @var \Doctrine\ODM\MongoDB\DocumentManager */	
-		$dm
-	;
+
+	/** @var \Doctrine\ODM\MongoDB\DocumentManager */
+	private $dm;
+
 
 	public function __construct(\Doctrine\ODM\MongoDB\DocumentManager $dm)
 	{
 		$this->dm = $dm;
 	}
+
 
 	public function isAllowed(\User $user, \Project $project, $privilege)
 	{
@@ -25,4 +28,7 @@ class Authorizator
 
 		return \Access::assert($access->getLevel(), $privilege);
 	}
+
+
 }
+

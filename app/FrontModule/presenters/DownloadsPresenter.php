@@ -1,8 +1,9 @@
 <?php
+
 namespace FrontModule;
+
 use Nette\Application\UI,
 	Nette\Security as NS;
-
 
 /**
  * Sign in/out presenters.
@@ -12,4 +13,6 @@ use Nette\Application\UI,
  */
 class DownloadsPresenter extends BasePresenter
 {
+	
 }
+

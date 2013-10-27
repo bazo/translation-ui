@@ -3,22 +3,15 @@ namespace Facades;
 use Doctrine\ODM\MongoDB\DocumentManager;
 class User extends Base
 {
-	private
-			
-		/** @var PasswordHasher */	
-		$passwordHasher,
-			
-		$presenter
-	;
+	private $presenter;
 	
 	protected
 		$documentClass = 'User'
 	;
 	
-	public function __construct(DocumentManager $dm, \Phpass\Hash $passwordHasher)
+	public function __construct(DocumentManager $dm)
 	{
 		parent::__construct($dm);
-		$this->passwordHasher = $passwordHasher;
 	}
 	
 	public function setPresenter($presenter)
@@ -30,7 +23,7 @@ class User extends Base
 	{
 		$user = new \User;
 		
-		$hash = $this->passwordHasher->hashPassword($password);
+		$hash = password_hash($password, PASSWORD_BCRYPT);
 		
 		$user->setNick($nick)->setEmail($email)->setPassword($hash);
 		$this->dm->persist($user);
@@ -41,10 +34,7 @@ class User extends Base
 		
 		try
 		{
-			$this->dm->flush($user, array('safe' => true));
-			
-			//$mailBuilder = new \Jobzine\Services\MailBuilder($this->presenter);
-			//$mailBuilder->buildRegistrationEmail($user, $token)->send();
+			$this->dm->flush($user, ['safe' => TRUE]);
 		}
 		catch(\MongoCursorException $e)
 		{

@@ -7,29 +7,33 @@
  */
 class Access
 {
-	const 
-		OWNER = 'owner',
-		ADMIN = 'admin',
-		TRANSLATOR = 'translator'
-	;
-	
-	private static $accessRules = array(
-		'viewKeys' => array(
+
+	const OWNER = 'owner';
+	const ADMIN = 'admin';
+	const TRANSLATOR = 'translator';
+
+
+	private static $accessRules = [
+		'viewKeys' => [
 			'admin', 'owner'
-		),
-		'danger' => array(
+		],
+		'danger' => [
 			'owner'
-		),
-		'accessManagement' => array(
+		],
+		'accessManagement' => [
 			'admin', 'owner'
-		),
-		'importTemplate' => array(
+		],
+		'importTemplate' => [
 			'admin', 'owner'
-		),
-	);
-	
+		],
+	];
+
+
 	public static function assert($level, $privilege)
 	{
 		return in_array($level, self::$accessRules[$privilege]);
 	}
+
+
 }
+

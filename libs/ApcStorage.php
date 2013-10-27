@@ -1,20 +1,27 @@
 <?php
+
 namespace Caching;
+
 use Nette\Caching\Cache;
 use Nette;
+
 /**
  * APC caching storage
  * @author Michael Moravec
  */
 class ApcStorage implements Nette\Caching\IStorage
 {
-	/**#@+ @internal cache structure */
+	/*	 * #@+ @internal cache structure */
+
 	const META_CALLBACKS = 'callbacks';
 	const META_DATA = 'data';
 	const META_DELTA = 'delta';
-	/**#@-*/
+
+
+	/*	 * #@- */
 
 	private $prefix;
+
 
 	/**
 	 * Checks if APC extension is available.
@@ -24,8 +31,9 @@ class ApcStorage implements Nette\Caching\IStorage
 	{
 		return extension_loaded('apc');
 	}
-	
-	public function  __construct($prefix = '')
+
+
+	public function __construct($prefix = '')
 	{
 		if (!self::isAvailable()) {
 			throw new Nette\NotSupportedException("PHP extension 'apc' is not loaded.");
@@ -33,6 +41,7 @@ class ApcStorage implements Nette\Caching\IStorage
 
 		$this->prefix = (string) $prefix;
 	}
+
 
 	/**
 	 * Read from cache.
@@ -43,7 +52,8 @@ class ApcStorage implements Nette\Caching\IStorage
 	{
 		$this->_normalizeKey($key);
 		$meta = apc_fetch($key);
-		if (!$meta) return NULL;
+		if (!$meta)
+			return NULL;
 
 		// meta structure:
 		// array(
@@ -51,7 +61,6 @@ class ApcStorage implements Nette\Caching\IStorage
 		//     delta => relative (sliding) expiration
 		//     callbacks => array of callbacks (function, args)
 		// )
-
 		// verify dependencies
 		if (!empty($meta[self::META_CALLBACKS]) && !Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
 			apc_delete($key);
@@ -65,6 +74,7 @@ class ApcStorage implements Nette\Caching\IStorage
 
 		return $meta[self::META_DATA];
 	}
+
 
 	/**
 	 * Writes item into the cache.
@@ -100,6 +110,7 @@ class ApcStorage implements Nette\Caching\IStorage
 		apc_store($key, $meta, $expire);
 	}
 
+
 	/**
 	 * Removes item from the cache.
 	 * @param  string key
@@ -121,19 +132,23 @@ class ApcStorage implements Nette\Caching\IStorage
 	{
 		if (!empty($conds[Cache::ALL])) {
 			apc_clear_cache('user');
-
 		} elseif (isset($conds[Cache::TAGS]) || isset($conds[Cache::PRIORITY])) {
 			throw new Nette\NotSupportedException('Tags and priority is not supported by ApcStorage.');
 		}
 	}
 
+
 	private function _normalizeKey(&$key)
 	{
 		$key = $this->prefix . str_replace("\x00", '~', $key);
 	}
-	
+
+
 	function lock($key)
 	{
-	    
+		
 	}
+
+
 }
+

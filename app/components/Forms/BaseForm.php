@@ -27,6 +27,7 @@ class BaseForm extends Form
 		return $this[$name] = new Controls\ColorPicker($caption, $side, $border);
 	}
 
+
 	/**
 	 *
 	 * @param type $name
@@ -39,6 +40,7 @@ class BaseForm extends Form
 	{
 		return $this[$name] = new Controls\Slider($caption, $min, $max);
 	}
+
 
 	/**
 	 *
@@ -53,6 +55,7 @@ class BaseForm extends Form
 		return $this[$name] = new Controls\PlusMinus($caption, $min, $max);
 	}
 
+
 	/**
 	 *
 	 * @param type $name
@@ -65,10 +68,12 @@ class BaseForm extends Form
 		return $this[$name] = new Controls\LinkedSelectBox($caption, $items);
 	}
 
+
 	public function addDatePicker($name, $label)
 	{
 		return $this[$name] = new Controls\DatePicker($label);
 	}
+
 
 	/**
 	 *
@@ -76,24 +81,28 @@ class BaseForm extends Form
 	 * @param string $label
 	 * @return Html5Input
 	 */
-	public function addEmail($name, $label = null)
+	public function addEmail($name, $label = NULL)
 	{
 		$input = new \Nette\Forms\Controls\TextInput($label);
 		$input->type = 'email';
 		$input->addCondition(Form::FILLED)->addRule(Form::EMAIL, '%label must be a valid email');
 		return $this[$name] = $input;
 	}
-	
-	public function addCheckboxList($name, $label, $items = null)
+
+
+	public function addCheckboxList($name, $label, $items = NULL)
 	{
 		$list = new Controls\CheckboxList($label, $items);
 		return $this[$name] = $list;
 	}
-	
+
+
 	public function addReCaptcha($name, $label, $publicKey, $privateKey)
 	{
 		$reCaptcha = new Controls\ReCaptcha($label, $publicKey, $privateKey);
 		return $this[$name] = $reCaptcha;
 	}
 
+
 }
+

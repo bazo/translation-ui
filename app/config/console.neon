@@ -1,0 +1,17 @@
+services:
+	#console.commands
+	createUser:
+		class: Console\Command\CreateUser
+		tags: [console.command]
+
+	createAdmin:
+		class: Console\Command\CreateAdmin
+		tags: [console.command]
+
+	deleteCache:
+		class: Console\Command\DeleteCache(%tempDir%)
+		tags: [console.command]
+
+	reinstall:
+		class: Console\Command\Reinstall
+		tags: [console.command]

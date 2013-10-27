@@ -21,15 +21,6 @@ parameters:
 		from: 'postmaster@mazagran.mailgun.org'
 		fromName: Mazagran
 
-	pusher:
-		appId: '19294'
-		apiKey: 'bf1aa9a75ae923eaadbf'
-		secret: 'aa7c879e53c77fa43776'
-
-	ironmq:
-		token: 'R7d3Ti3xJbt13uaBcq-XPyKJyks'
-		projectId: '4f9e9837f0b1990273005e29'
-
 php:
 	date.timezone: Europe/Bratislava
 	# session.save_path: "%tempDir%/sessions"
@@ -47,13 +38,6 @@ nette:
 		username: postmaster@mazagran.mailgun.org
 		password: 4cvn7bvdye05
 
-extensions:
-	database: Bazo\MongoDb\DI\DocumentManagerExtension
-	odmCommands: Bazo\MongoDb\DI\DoctrineODMCommandsExtension
-	appCommands: Extensions\AppCommandsExtension
-	console: Extensions\ConsoleExtension
-	redis: Kdyby\Redis\DI\RedisExtension
-	#translation: \Mazagran\Translation\DI\Extension
 database:
 	dbname: %db.name%
 	uri: mongodb://localhost/%db.name%
@@ -70,48 +54,8 @@ redis:
 	storage: on
 	journal: on
 	session: on
-services:
 
-	metaDataCache: Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/_Doctrine.Metadata)
-
-	passwordHasher:
-		class: \Phpass\Hash
-
-	keyGenerator:
-		class: \Services\KeyGenerator
-
-	userFacade:
-		class: \Facades\User(@documentManager, @passwordHasher)
-
-	projectFacade:
-		class: \Facades\Project(@documentManager, @keyGenerator)
-
-	translationFacade:
-		class: \Facades\Translation(@documentManager)	
-
-	messageFacade:
-		class: \Facades\Message(@documentManager)		
-
-	logService:
-		class: \Services\LogService(@documentManager, @pusher)
-
-	pusher:
-		class: \Pusher(%pusher.apiKey%, %pusher.secret%, %pusher.appId%)  
-
-	ironMQ:
-		class: \Iron\IronMQ(['token' = %ironmq.token%, 'project_id' = '%ironmq.projectId%'])
-
-	authenticator:
-		class: Authenticator(@documentManager::getRepository(User), @passwordHasher)
-
-	adminAuthenticator:
-		class: AdminAuthenticator(@documentManager::getRepository(Admin), @passwordHasher)
-		autowired: false
-
-	authorizator:
-		class: \Services\Authorizator(@documentManager)
-
-	activityLogger:
-		class: \Services\ActivityLogger(@documentManager)
-
-factories:
+includes:
+	- services.neon
+	- extensions.neon
+	- console.neon

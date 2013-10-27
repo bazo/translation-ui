@@ -1,4 +1,5 @@
 <?php
+
 namespace AdminModule;
 
 /**
@@ -10,16 +11,13 @@ namespace AdminModule;
 abstract class SecuredPresenter extends BasePresenter
 {
 
-	protected
-		$subTabs = array(
-		)
-	;		
-	
+	protected $subTabs = [];
+
+
 	protected function startup()
 	{
 		parent::startup();
-		if(!$this->user->isLoggedIn() or !$this->user->isInRole('admin'))
-		{
+		if (!$this->user->isLoggedIn() or !$this->user->isInRole('admin')) {
 			$this->redirect('sign:in');
 		}
 	}
@@ -30,11 +28,14 @@ abstract class SecuredPresenter extends BasePresenter
 		parent::beforeRender();
 		$this->template->parameters = $this->context->parameters;
 	}
-	
+
+
 	public function handleLogout()
 	{
-		$this->user->logout(true);
+		$this->user->logout(TRUE);
 		$this->redirect('sign:in');
 	}
 
+
 }
+

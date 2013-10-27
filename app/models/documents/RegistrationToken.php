@@ -1,5 +1,7 @@
 <?php
+
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 /**
  * RegistrationToken
  *
@@ -9,42 +11,46 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class RegistrationToken
 {
 
-	private
-			/**
-			 * @ODM\Id
-			 */
-			$id,
-			/**
-			 * @ODM\String
-			 */
-			$token,
-			/**
-			 * @var User
-			 * @ODM\ReferenceOne(targetDocument="User")
-			 */
-			$user,
-			/**
-			 * @ODM\Boolean
-			 */
-			$used
+	/**
+	 * @ODM\Id
+	 */
+	private $id;
 
-	;
+	/**
+	 * @ODM\String
+	 */
+	private $token;
+
+	/**
+	 * @var User
+	 * @ODM\ReferenceOne(targetDocument="User")
+	 */
+	private $user;
+
+	/**
+	 * @ODM\Boolean
+	 */
+	private $used;
+
 
 	public function __construct($token)
 	{
 		$this->token = $token;
-		$this->used = false;
+		$this->used = FALSE;
 	}
+
 
 	public function getId()
 	{
 		return $this->id;
 	}
 
+
 	public function getToken()
 	{
 		return $this->token;
 	}
+
 
 	public function setToken($token)
 	{
@@ -52,10 +58,12 @@ class RegistrationToken
 		return $this;
 	}
 
+
 	public function getUser()
 	{
 		return $this->user;
 	}
+
 
 	public function setUser($user)
 	{
@@ -63,10 +71,12 @@ class RegistrationToken
 		return $this;
 	}
 
+
 	public function isUsed()
 	{
 		return $this->used;
 	}
+
 
 	public function setUsed($used)
 	{
@@ -74,4 +84,6 @@ class RegistrationToken
 		return $this;
 	}
 
+
 }
+

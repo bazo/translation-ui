@@ -1,5 +1,7 @@
 <?php
+
 namespace FrontModule;
+
 /**
  * Homepage presenter.
  *
@@ -12,10 +14,11 @@ class HomepagePresenter extends BasePresenter
 	protected function startup()
 	{
 		parent::startup();
-		if($this->user->isLoggedIn())
-		{
+		if ($this->user->isLoggedIn()) {
 			$this->redirect('dashboard:');
 		}
 	}
 
+
 }
+

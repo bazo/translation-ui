@@ -1,9 +1,6 @@
 <?php
+
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of App
@@ -14,44 +11,42 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class ProjectAccess
 {
-	private 
-		/** 
-		 * @ODM\Id 
-		 */	
-		$id,
-			
-		/**
-		 * @var \Project
-		 * @ODM\ReferenceOne(targetDocument="Project")
-		 */	
-		$project,
-		
-		/**
-		 * @var \User
-		 * @ODM\ReferenceOne(targetDocument="User")
-		 */		
-		$user,
-		
-		/**
-		 * @ODM\String
-		 * @ODM\Index
-		 */	
-		$level
-	;
-	
-	public function __construct()
-	{
-	}
-	
+
+	/**
+	 * @ODM\Id 
+	 */
+	private $id;
+
+	/**
+	 * @var \Project
+	 * @ODM\ReferenceOne(targetDocument="Project")
+	 */
+	private $project;
+
+	/**
+	 * @var \User
+	 * @ODM\ReferenceOne(targetDocument="User")
+	 */
+	private $user;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $level;
+
+
 	public function getId()
 	{
 		return $this->id;
 	}
-	
+
+
 	public function getProject()
 	{
 		return $this->project;
 	}
+
 
 	public function setProject($project)
 	{
@@ -59,10 +54,12 @@ class ProjectAccess
 		return $this;
 	}
 
+
 	public function getUser()
 	{
 		return $this->user;
 	}
+
 
 	public function setUser($user)
 	{
@@ -70,10 +67,12 @@ class ProjectAccess
 		return $this;
 	}
 
+
 	public function getLevel()
 	{
 		return $this->level;
 	}
+
 
 	public function setLevel($level)
 	{
@@ -82,5 +81,5 @@ class ProjectAccess
 	}
 
 
-
 }
+
