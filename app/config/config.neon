@@ -5,6 +5,7 @@
 # http://nette.org/security-warning
 #
 parameters:
+	appName: mazagran
 	app:
 		name: mazagran
 
@@ -27,33 +28,25 @@ php:
 	# zlib.output_compression: yes
 
 nette:
-	session:
-		autoStart: smart
-		expiration: '+365 days'
-	mailer:
-		smtp: true
-		host: smtp.mailgun.org
-		port: 587
-		secure: tls
-		username: postmaster@mazagran.mailgun.org
-		password: 4cvn7bvdye05
+
 
 database:
-	dbname: %db.name%
-	uri: mongodb://localhost/%db.name%
-	cachePrefix: %db.name%
-	documentsDir: %appDir%/models/documents
-	proxyDir: %appDir%/models/proxies
-	hydratorDir: %appDir%/models/hydrators
-	metaDataCache: @metaDataCache
+	proxyDir: %tempDir%/proxies
+	hydratorDir: %tempDir%/hydrators
+	dbname: %appName%
+	uri: mongodb://localhost/%appName%
+	cachePrefix: %appName%
+	metaDataCacheClass: '\Doctrine\Common\Cache\ArrayCache'
+	autoGenerateHydratorClasses: TRUE
+	autoGenerateProxyClasses: TRUE
 
-redis:
-	host: 127.0.0.1
-	port: 6379
-	database: 2
-	storage: on
-	journal: on
-	session: on
+#redis:
+	#host: 127.0.0.1
+	#port: 6379
+	#database: 2
+	#storage: on
+	#journal: on
+	#session: on
 
 includes:
 	- services.neon

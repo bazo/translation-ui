@@ -12,7 +12,6 @@
 		"bazo/nette-mediator-extension": "@dev",
 		"rych/phpass": "@dev",
 		"genphrase/genphrase": "@dev",
-		"kdyby/redis": "@dev",
-		"ircmaxell/password-compat": "@dev"
+		"kdyby/redis": "@dev"
 	}
 }

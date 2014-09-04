@@ -4,6 +4,8 @@ namespace FrontModule;
 
 use Nette\Application\UI\Form;
 
+
+
 /**
  * Homepage presenter.
  *
@@ -12,6 +14,15 @@ use Nette\Application\UI\Form;
  */
 class RegisterPresenter extends BasePresenter
 {
+
+	/** @var \Facades\User */
+	private $userFacade;
+
+	function __construct(\Facades\User $userFacade)
+	{
+		$this->userFacade = $userFacade;
+	}
+
 
 	public function renderDefault()
 	{
@@ -37,8 +48,8 @@ class RegisterPresenter extends BasePresenter
 		$values = $form->getValues();
 
 		try {
-			$this->context->userFacade->setPresenter($this);
-			$this->context->userFacade->createUser($values->nick, $values->email, $values->password);
+			$this->userFacade->setPresenter($this);
+			$this->userFacade->createUser($values->nick, $values->email, $values->password);
 			$this->flash('You have been successfully registered. A confirmation email to activate your account has been sent to you.');
 		} catch (\ExistingUserException $e) {
 			$this->flash($e->getMessage(), 'error');
@@ -54,7 +65,8 @@ class RegisterPresenter extends BasePresenter
 			$this->redirect('step1');
 		} else {
 			$this->template->tokenUsed = false;
-			$tokenDoc = $this->context->documentManager->getRepository('RegistrationToken')->findOneBy(array('token' => $token));
+			$tokenDoc = $this->context->documentManager->getRepository('RegistrationToken')->findOneBy(array(
+				'token' => $token));
 			if ($tokenDoc === null or $tokenDoc->isUsed()) {
 				$this->template->tokenUsed = TRUE;
 			} else {
@@ -75,9 +87,8 @@ class RegisterPresenter extends BasePresenter
 
 	public function renderConfirmation($token)
 	{
-		
+
 	}
 
 
 }
-

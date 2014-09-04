@@ -1,0 +1,17 @@
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+
+	session:
+		autoStart: smart
+		expiration: '+365 days'
+
+	mailer:
+		smtp: true
+		host: smtp.mailgun.org
+		port: 587
+		secure: tls
+		username: postmaster@mazagran.mailgun.org
+		password: 4cvn7bvdye05

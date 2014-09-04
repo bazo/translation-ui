@@ -1,17 +1,10 @@
 <?php
-// absolute filesystem path to this web root
-define('WWW_DIR', __DIR__);
 
-// absolute filesystem path to the application root
-define('APP_DIR', WWW_DIR . '/../app');
+// Uncomment this line if you must temporarily take down your site for maintenance.
+// require '.maintenance.php';
 
-// absolute filesystem path to the libraries
-define('LIBS_DIR', WWW_DIR . '/../libs');
+$configurator = require __DIR__ . '/../app/bootstrap.php';
+$container = $configurator->createContainer();
 
-// uncomment this line if you must temporarily take down your site for maintenance
-// require APP_DIR . '/templates/maintenance.phtml';
-// load bootstrap file
-$container = require APP_DIR . '/bootstrap.php';
-
-// Configure and run the application!
-$container->application->run();
+// Run application.
+$container->getService('application')->run();

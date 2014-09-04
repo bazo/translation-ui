@@ -1,75 +1,55 @@
 <?php
 
-use Nette\Application\Routers\Route;
-use Nette\Application\Routers\RouteList;
+use Nette\Application\UI\Form;
+use Nette\Configurator;
+use Nette\Forms\Controls\SelectBox;
+use Nette\Forms\Validator;
+use Nette\Utils\Strings;
+use Tracy\Logger;
 
-// Load Nette Framework
-define('VENDORS_DIR', __DIR__ . '/../vendor');
-require_once VENDORS_DIR . '/autoload.php';
+require __DIR__ . '/shortcuts.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-// Configure application
-$configurator = new Nette\Config\Configurator;
+class_alias(Logger::class, 'Nette\Diagnostics\Logger');
 
-if (isset($_SERVER['ENVIRONMENT'])) {
-	$environment = $_SERVER['ENVIRONMENT'];
+$configurator = new Configurator;
+
+$debugMode = FALSE;
+$environmentFile = __DIR__ . '/local/environment';
+if (file_exists($environmentFile)) {
+	$environment = file_get_contents($environmentFile);
+	$debugMode = $environment === 'production' ? FALSE : TRUE;
 } else {
-	$environment = 'local';
+	$environment = 'production';
 }
-$debug = Nette\Diagnostics\Debugger::DEVELOPMENT;
-if (isset($_SERVER['MODE'])) {
-	$mode = $_SERVER['MODE'];
-	if ($mode === 'production') {
-		$debug = Nette\Diagnostics\Debugger::PRODUCTION;
-	}
+$environment = Strings::trim(Strings::lower($environment));
+
+$debugSwitchFile = __DIR__ . '/local/debug';
+
+if (file_exists($debugSwitchFile)) {
+	$debugMode = Strings::trim(mb_strtolower(file_get_contents($debugSwitchFile))) === 'true' ? TRUE : FALSE;
 }
 
-$configurator->setDebugMode($debug);
 // Enable Nette Debugger for error visualisation & logging
-Nette\Diagnostics\Debugger::$strictMode = FALSE; //don't throw exceptions for deprecated features
-Nette\Diagnostics\Debugger::enable($debug, __DIR__ . '/../log', 'martin@bazo.sk');
+$configurator->setDebugMode($debugMode);
+$configurator->enableDebugger(__DIR__ . '/../log');
+
+// Specify folder for cache
+$configurator->setTempDirectory(__DIR__ . '/../temp');
 
 // Enable RobotLoader - this will load all classes automatically
-$configurator->setTempDirectory(__DIR__ . '/../temp');
-$configurator->createRobotLoader()
-		->addDirectory(APP_DIR)
-		->addDirectory(LIBS_DIR)
+$robotLoader = $configurator->createRobotLoader()
+		->addDirectory(__DIR__)
+		->addDirectory(__DIR__ . '/../libs')
 		->register();
 
 // Create Dependency Injection container from config.neon file
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 
-$environmentConfig = __DIR__ . sprintf('/config/config.%s.neon', $environment);
+$localConfig = __DIR__ . '/local/config.local.neon';
 
-$localConfigFile = __DIR__ . '/config/config.local.neon';
-if (file_exists($localConfigFile)) {
-	$configurator->addConfig($localConfigFile);
+if (file_exists($localConfig)) {
+	$configurator->addConfig($localConfig);
 }
 
-$container = $configurator->createContainer();
-
-$container->router[] = $apiRouter = new RouteList('Api');
-$apiRouter[] = new Routes\RestRoute('api/<presenter>/<id>', array(
-		), Routes\RestRoute::RESTFUL);
-
-
-$container->router[] = $adminRouter = new RouteList('Admin');
-$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', array(
-	'presenter' => 'dashboard',
-	'action' => 'default'
-		));
-
-if ($container->user->isLoggedIn()) {
-	$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
-		'module' => 'front',
-		'presenter' => 'stream',
-		'action' => 'default'
-	));
-} else {
-	$container->router[] = new Route('/<presenter>/<action>[/<id>]', array(
-		'module' => 'front',
-		'presenter' => 'homepage',
-		'action' => 'default'
-	));
-}
-
-return $container;
+return $configurator;

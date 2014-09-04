@@ -1,6 +1,0 @@
-redis:
-	storage: on # nutné pro překrytí storage
-	journal: on # nutné pro překrytí journalu
-	session: on # nutné pro nastavení session handleru
-	host: 127.0.0.1
-	port: 6379

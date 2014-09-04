@@ -6,10 +6,6 @@ use Nette\Application\UI,
 	Nette\Security as NS;
 
 /**
- * Sign in/out presenters.
- *
- * @author     John Doe
- * @package    MyApplication
  */
 class SignPresenter extends BasePresenter
 {
@@ -41,13 +37,12 @@ class SignPresenter extends BasePresenter
 		try {
 			$values = $form->getValues();
 			if ($values->remember) {
-				$this->getUser()->setExpiration('+ 365 days', FALSE);
+				$this->user->setExpiration('+ 365 days', FALSE);
 			} else {
-				$this->getUser()->setExpiration('+ 60 minutes', TRUE);
+				$this->user->setExpiration('+ 60 minutes', TRUE);
 			}
-			$this->getUser()->onLoggedIn[] = callback($this, 'userLoggedIn');
-			$this->getUser()->setAuthenticator($this->getService('authenticator'));
-			$this->getUser()->login($values->email, $values->password);
+			$this->user->onLoggedIn[] = callback($this, 'userLoggedIn');
+			$this->user->login($values->email, $values->password);
 			//$this->redirect('Homepage:');
 		} catch (NS\AuthenticationException $e) {
 			$this->flash($e->getMessage(), 'error');

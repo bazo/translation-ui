@@ -31,3 +31,5 @@ services:
 
 	activityLogger:
 		class: \Services\ActivityLogger(@documentManager)
+
+	router: App\RouterFactory()::createRouter
