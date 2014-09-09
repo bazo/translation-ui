@@ -28,7 +28,7 @@ class DashboardPresenter extends SecuredPresenter
 
 	public function renderDefault()
 	{
-		$logs = $this->context->documentManager->getRepository('ActivityLog')->getUserLogs($this->me, 20);
+		$logs = $this->context->getByType(\Doctrine\ODM\MongoDB\DocumentManager::class)->getRepository('ActivityLog')->getUserLogs($this->me, 20);
 		$this->template->logs = $logs;
 	}
 

@@ -25,7 +25,7 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		parent::startup();
 		$this->id = $this->getParameter('id');
-		$this->project = $this->context->projectFacade->find($this->id);
+		$this->project = $this->projectFacade->find($this->id);
 	}
 
 

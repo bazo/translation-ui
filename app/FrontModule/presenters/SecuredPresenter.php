@@ -5,6 +5,8 @@ namespace FrontModule;
 use Nette\Application\UI\Form;
 use \AllowedLangs;
 
+
+
 /**
  * Base class for all application presenters.
  *
@@ -16,17 +18,21 @@ abstract class SecuredPresenter extends BasePresenter
 
 	protected $subTabs = [];
 
-	/** @var Services\Authorizator */
-	protected $acl;
+	/** @var \Services\Authorizator @inject */
+	public $acl;
 
+	/** @var \Facades\Project @inject */
+	public $projectFacade;
+
+	/** @var \Services\ActivityLogger @inject */
+	public $activityLogger;
 
 	protected function startup()
 	{
 		parent::startup();
-		if (!$this->user->isLoggedIn() or !$this->user->isInRole('user')) {
+		if (!$this->user->isLoggedIn() or ! $this->user->isInRole('user')) {
 			$this->redirect('sign:in');
 		}
-		$this->acl = $this->context->authorizator;
 	}
 
 
@@ -65,7 +71,7 @@ abstract class SecuredPresenter extends BasePresenter
 		$values = $form->getValues();
 		if ($this->user->identity->canAddProject()) {
 			try {
-				$project = $this->context->projectFacade->createProject($values, $this->me);
+				$project = $this->projectFacade->createProject($values, $this->me);
 				$this->log($project, \Activity::CREATE_PROJECT);
 				$this->redirect('project:', array('id' => $project->getId()));
 			} catch (\ExistingProjectException $e) {
@@ -80,9 +86,8 @@ abstract class SecuredPresenter extends BasePresenter
 
 	protected function log(\Project $project, $activity, $object = null)
 	{
-		$this->context->activityLogger->log($this->me, $project, $activity, $object);
+		$this->activityLogger->log($this->me, $project, $activity, $object);
 	}
 
 
 }
-

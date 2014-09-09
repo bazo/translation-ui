@@ -15,14 +15,6 @@ use Nette\Application\UI\Form;
 class RegisterPresenter extends BasePresenter
 {
 
-	/** @var \Facades\User */
-	private $userFacade;
-
-	function __construct(\Facades\User $userFacade)
-	{
-		$this->userFacade = $userFacade;
-	}
-
 
 	public function renderDefault()
 	{
