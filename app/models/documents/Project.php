@@ -13,7 +13,7 @@ class Project
 {
 
 	/**
-	 * @ODM\Id 
+	 * @ODM\Id
 	 */
 	private $id;
 
@@ -30,7 +30,7 @@ class Project
 	private $name;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 */
 	private $key;
 
@@ -70,11 +70,10 @@ class Project
 	 */
 	private $templateMessages = [];
 
-
 	public function __construct()
 	{
-		$this->translation = new Doctrine\Common\Collections\ArrayCollection;
-		$this->accesses = new Doctrine\Common\Collections\ArrayCollection;
+		$this->translation	 = new Doctrine\Common\Collections\ArrayCollection;
+		$this->accesses		 = new Doctrine\Common\Collections\ArrayCollection;
 	}
 
 
@@ -223,4 +222,3 @@ class Project
 
 
 }
-

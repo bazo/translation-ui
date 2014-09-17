@@ -91,6 +91,13 @@ class TranslationPresenter extends SecuredPresenter
 			$response = new TextDownloadResponse($data, $name, 'text/x-neon', 'UTF-8');
 			$this->sendResponse($response);
 			$this->terminate();
+		} else {
+			$zip = new \ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
+			foreach($outputFiles as $fileName => $data) {
+				$data = Neon::encode(current($outputFiles), Neon::BLOCK);
+				$zip->add_file($fileName, $data);
+			}
+			$zip->finish();
 		}
 	}
 

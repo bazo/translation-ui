@@ -3,8 +3,6 @@
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Helpers\Message;
 
-
-
 /**
  * Log
  *
@@ -84,8 +82,8 @@ class Translation
 
 	public function __construct()
 	{
-		$this->created = new DateTime;
-		$this->messages = new \Doctrine\Common\Collections\ArrayCollection;
+		$this->created	 = new DateTime;
+		$this->messages	 = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 
 
@@ -219,6 +217,9 @@ class Translation
 	}
 
 
+	/**
+	 * @return \Project
+	 */
 	public function getProject()
 	{
 		return $this->project;

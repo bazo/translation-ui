@@ -14,6 +14,7 @@
 		"genphrase/genphrase": "@dev",
 		"kdyby/console": "@dev",
 		"kdyby/redis": "@dev",
-		"kdyby/translation": "@dev"
+		"kdyby/translation": "@dev",
+		"maennchen/zipstream-php": "@dev"
 	}
 }
