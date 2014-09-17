@@ -7,11 +7,13 @@
 		"bazo/gridder": "@dev",
 		"bazo/nette-document-manager-extension": "@dev",
 		"bazo/nette-translation": "@dev",
-		"bazo/nette-console-extension": "@dev",
 		"bazo/nette-monolog-extension": "@dev",
 		"bazo/nette-mediator-extension": "@dev",
+		"symfony/intl": "@dev",
 		"rych/phpass": "@dev",
 		"genphrase/genphrase": "@dev",
-		"kdyby/redis": "@dev"
+		"kdyby/console": "@dev",
+		"kdyby/redis": "@dev",
+		"kdyby/translation": "@dev"
 	}
 }

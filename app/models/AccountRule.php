@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * AccountRule
  *
@@ -11,7 +13,6 @@ class AccountRule
 	private $maximumProjects;
 	private $maximumTranslationsPerProject;
 	private $monthlyPrice;
-
 
 	function __construct($rules)
 	{
@@ -33,12 +34,6 @@ class AccountRule
 	public function getMaximumTranslationsPerProject()
 	{
 		return $this->maximumTranslationsPerProject;
-	}
-
-
-	public function getMonthlyPrice()
-	{
-		return $this->monthlyPrice;
 	}
 
 
@@ -67,4 +62,3 @@ class AccountRule
 
 
 }
-

@@ -2,8 +2,15 @@
 
 namespace FrontModule;
 
+use Activity;
+use AllowedLangs;
+use ExistingProjectException;
+use Facades\Project;
 use Nette\Application\UI\Form;
-use \AllowedLangs;
+use Project as Project2;
+use Services\ActivityLogger;
+use Services\Authorizator;
+use Symfony\Component\Intl\Intl;
 
 
 
@@ -18,13 +25,13 @@ abstract class SecuredPresenter extends BasePresenter
 
 	protected $subTabs = [];
 
-	/** @var \Services\Authorizator @inject */
+	/** @var Authorizator @inject */
 	public $acl;
 
-	/** @var \Facades\Project @inject */
+	/** @var Project @inject */
 	public $projectFacade;
 
-	/** @var \Services\ActivityLogger @inject */
+	/** @var ActivityLogger @inject */
 	public $activityLogger;
 
 	protected function startup()
@@ -41,6 +48,10 @@ abstract class SecuredPresenter extends BasePresenter
 		parent::beforeRender();
 		$this->template->parameters = $this->context->parameters;
 		$this->template->acl = $this->acl;
+
+		$this->template->addFilter('langName', function($locale) {
+			return Intl::getLocaleBundle()->getLocaleName($locale);
+		});
 	}
 
 
@@ -72,9 +83,9 @@ abstract class SecuredPresenter extends BasePresenter
 		if ($this->user->identity->canAddProject()) {
 			try {
 				$project = $this->projectFacade->createProject($values, $this->me);
-				$this->log($project, \Activity::CREATE_PROJECT);
+				$this->log($project, Activity::CREATE_PROJECT);
 				$this->redirect('project:', array('id' => $project->getId()));
-			} catch (\ExistingProjectException $e) {
+			} catch (ExistingProjectException $e) {
 				$this->flash($e->getMessage(), 'error');
 			}
 		} else {
@@ -84,7 +95,7 @@ abstract class SecuredPresenter extends BasePresenter
 	}
 
 
-	protected function log(\Project $project, $activity, $object = null)
+	protected function log(Project2 $project, $activity, $object = null)
 	{
 		$this->activityLogger->log($this->me, $project, $activity, $object);
 	}

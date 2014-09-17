@@ -42,7 +42,7 @@ class Project extends Base
 	 * @param type $name
 	 * @param \User $user
 	 * @return \Project
-	 * @throws \ExistingProjectException 
+	 * @throws \ExistingProjectException
 	 */
 	public function createProject($values, \User $user)
 	{
@@ -73,8 +73,13 @@ class Project extends Base
 		$pluralRule = Langs::getPluralRule($lang);
 		$pluralsCount = Langs::getPluralsCount($lang);
 
-		$translation->setLang($lang)->setProject($project)->setPluralRule($pluralRule)->setPluralsCount($pluralsCount)
-				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang));
+		$translation
+				->setLang($lang)
+				->setProject($project)
+				->setPluralRule($pluralRule)
+				->setPluralsCount($pluralsCount)
+				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang))
+		;
 
 		$singleTranslation = $this->prepareTranslationsArray(1);
 		$translations = $this->prepareTranslationsArray($pluralsCount);

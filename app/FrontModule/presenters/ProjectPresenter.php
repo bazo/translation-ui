@@ -2,8 +2,17 @@
 
 namespace FrontModule;
 
+use Access;
+use Activity;
+use ExistingTranslationException;
+use InvalidPluralRuleException;
+use Nette\Application\Responses\JsonResponse;
 use Nette\Application\UI\Form;
-use \AllowedLangs;
+use Nette\Forms\Controls\Button;
+use Nette\Neon\Neon;
+use Nette\Utils\TokenizerException;
+use Project;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Homepage presenter.
@@ -17,7 +26,7 @@ class ProjectPresenter extends SecuredPresenter
 	/** @persistent */
 	public $id;
 
-	/** @var \Project */
+	/** @var Project */
 	private $project;
 
 
@@ -41,7 +50,7 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		$form = new Form;
 
-		$langs = AllowedLangs::getLangs();
+		$langs = Intl::getLocaleBundle()->getLocaleNames();
 
 		$form->addSelect('lang', 'Language', $langs);
 		$form->addSubmit('btnSubmit', 'Create');
@@ -54,13 +63,16 @@ class ProjectPresenter extends SecuredPresenter
 	public function formAddTranslationSubmitted(Form $form)
 	{
 		$values = $form->getValues();
+
+		$lang = substr($values->lang, 0, 2);
+
 		try {
-			$translation = $this->context->projectFacade->createTranslation($this->project, $values->lang);
-			$this->log($this->project, \Activity::CREATE_TRANSLATION, $translation);
-			$this->flash(sprintf('Translation for language %s created', AllowedLangs::getLangCaption($values->lang)));
-		} catch (\ExistingTranslationException $e) {
+			$translation = $this->projectFacade->createTranslation($this->project, $lang);
+			$this->log($this->project, Activity::CREATE_TRANSLATION, $translation);
+			$this->flash(sprintf('Translation for language %s created', Intl::getLocaleBundle()->getLocaleName($values->lang)));
+		} catch (ExistingTranslationException $e) {
 			$this->flash($e->getMessage(), 'error');
-		} catch (\InvalidPluralRuleException $e) {
+		} catch (InvalidPluralRuleException $e) {
 			$this->flash($e->getMessage(), 'error');
 		}
 
@@ -90,16 +102,16 @@ class ProjectPresenter extends SecuredPresenter
 		if ($values->template->isOk()) {
 			try {
 				$neon = file_get_contents($values->template->getTemporaryFile());
-				$data = \Nette\Utils\Neon::decode($neon);
-				$imported = $this->context->projectFacade->importTemplate($data, $this->project);
+				$data = Neon::decode($neon);
+				$imported = $this->projectFacade->importTemplate($data, $this->project);
 				$status = $imported > 0 ? 'success' : 'error';
 				$this->flash(sprintf('%d messages imported.', $imported), $status);
 				if ($imported > 0) {
-					$this->log($this->project, \Activity::IMPORT_TEMPLATE, $imported);
+					$this->log($this->project, Activity::IMPORT_TEMPLATE, $imported);
 				}
 			} catch (\Nette\Utils\NeonException $e) {
 				$this->flash(sprintf('Template contains illegal characters: %s', $e->getMessage()), 'error');
-			} catch (\Nette\Utils\TokenizerException $e) {
+			} catch (TokenizerException $e) {
 				$this->flash('Uploaded file is not a valid template. Please upload a valid template.', 'error');
 			}
 		} else {
@@ -129,7 +141,7 @@ class ProjectPresenter extends SecuredPresenter
 			$this->context->projectFacade->delete($this->project);
 			$this->flash(sprintf('Project %s was successfully deleted', $this->project->getCaption()));
 
-			$this->log($this->project, \Activity::DELETE_PROJECT);
+			$this->log($this->project, Activity::DELETE_PROJECT);
 		}
 		$this->redirect('projects:');
 	}
@@ -162,38 +174,38 @@ class ProjectPresenter extends SecuredPresenter
 			];
 		}
 
-		$this->sendResponse(new \Nette\Application\Responses\JsonResponse($result));
+		$this->sendResponse(new JsonResponse($result));
 	}
 
 
-	public function formInviteCollaboratorBtnTranslateClicked(\Nette\Forms\Controls\Button $button)
+	public function formInviteCollaboratorBtnTranslateClicked(Button $button)
 	{
 		$values = $button->getForm()->getValues();
 		$id = $values->id;
 
 		$user = $this->context->userFacade->find($id);
 
-		$level = \Access::TRANSLATOR;
+		$level = Access::TRANSLATOR;
 
 		$access = $this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
-		$this->log($this->project, \Activity::ADD_COLLABORATOR, $access);
+		$this->log($this->project, Activity::ADD_COLLABORATOR, $access);
 
 		$this->flash(sprintf('User <strong>%s</strong> has been added to project <strong>%s</strong> as %s', $user->getNick(), $this->project->getCaption(), $level));
 		$this->redirect('this');
 	}
 
 
-	public function formInviteCollaboratorBtnAdminClicked(\Nette\Forms\Controls\Button $button)
+	public function formInviteCollaboratorBtnAdminClicked(Button $button)
 	{
 		$values = $button->getForm()->getValues();
 		$id = $values->id;
 
 		$user = $this->context->userFacade->find($id);
 
-		$level = \Access::ADMIN;
+		$level = Access::ADMIN;
 
 		$access = $this->context->projectFacade->addCollaboratorToProject($user, $this->project, $level);
-		$this->log($this->project, \Activity::ADD_COLLABORATOR, $access);
+		$this->log($this->project, Activity::ADD_COLLABORATOR, $access);
 
 		$this->flash(sprintf('User <strong>%s</strong> has been added to project %s as %s', $user->getNick(), $this->project->getCaption(), $level));
 		$this->redirect('this');

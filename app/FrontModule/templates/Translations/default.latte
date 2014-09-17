@@ -6,15 +6,15 @@
 			{$access->getProject()->getCaption()}
 		</li>
 		<li n:foreach="$access->getProject()->getTranslations() as $translation">
-			<a style="float: left; margin-right: 15px; width: 5%;" n:href="translation: id => $translation->getId()">{\AllowedLangs::getLangCaption($translation->getLang())}</a>
-			
+			<a style="float: left; margin-right: 15px; width: 5%;" n:href="translation: id => $translation->getId()">{$translation->getLang()|langName}</a>
+
 			{var $completion = $translation->getCompletionPercentage()}
-			<div style="width: 20%;" title="{$translation->getTranslatedMessagesCount()}/{$translation->getMessages()->count()} = {$completion}%" rel="tooltip" style="margin-bottom: 9px;" 
+			<div style="width: 20%;" title="{$translation->getTranslatedMessagesCount()}/{$translation->getMessages()->count()} = {$completion}%" rel="tooltip" style="margin-bottom: 9px;"
 				 n:class="$completion < 33 ? progress-danger : (($completion > 33 and $completion < 66) ? progress-warning : ($completion < 100 ? progress-info : progress-success)) ,progress">
 				<div style="width: {!$completion}%" class="bar"></div>
 			</div>
-			
-			
+
+
 		</li>
 	</ul>
 {/foreach}

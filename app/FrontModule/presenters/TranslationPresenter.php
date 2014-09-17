@@ -3,14 +3,9 @@
 namespace FrontModule;
 
 use Nette\Application\UI\Form;
-use Nette\Utils\Strings;
 
-/**
- * Homepage presenter.
- *
- * @author     John Doe
- * @package    MyApplication
- */
+
+
 class TranslationPresenter extends SecuredPresenter
 {
 
@@ -25,16 +20,19 @@ class TranslationPresenter extends SecuredPresenter
 
 	/** @var \Translation */
 	private $translation;
-	private $maxItems = 10
+	private $maxItems = 10;
 
+	/** @var \Facades\Translation @inject */
+	public $translationFacade;
 
-	;
+	/** @var \Facades\Message @inject */
+	public $messageFacade;
 
 	protected function startup()
 	{
 		parent::startup();
 		$this->id = $this->getParameter('id');
-		$this->translation = $this->context->translationFacade->find($this->id);
+		$this->translation = $this->translationFacade->find($this->id);
 	}
 
 
@@ -57,7 +55,7 @@ class TranslationPresenter extends SecuredPresenter
 		$this->template->filter = $filter;
 		$this->template->translation = $this->translation;
 
-		$messages = $this->context->translationFacade->findFilteredMessages($this->id, $filter, $this->page, $this->maxItems);
+		$messages = $this->translationFacade->findFilteredMessages($this->id, $filter, $this->page, $this->maxItems);
 
 		$totalCount = $messages->count();
 
@@ -77,11 +75,11 @@ class TranslationPresenter extends SecuredPresenter
 
 	public function handleDownload()
 	{
-		$dictionary = $this->context->translationFacade->getDictionary($this->translation);
+		$dictionary = $this->translationFacade->getDictionary($this->translation);
 		$data = serialize($dictionary);
 		$name = $this->translation->getProject()->getCaption() . '-' . $this->translation->getLang() . '.dict';
 
-		$fileName = $this->context->parameters['tempDir'] . '/' . $this->translation->getId() . '-' . $name;
+		$fileName = $this->parameters['tempDir'] . '/' . $this->translation->getId() . '-' . $name;
 
 		file_put_contents($fileName, $data);
 
@@ -96,7 +94,7 @@ class TranslationPresenter extends SecuredPresenter
 
 	public function handleDownloadTranslation()
 	{
-		$dictionaryData = $this->context->translationFacade->getDictionaryData($this->translation);
+		$dictionaryData = $this->translationFacade->getDictionaryData($this->translation);
 
 		$builder = new \Bazo\Translation\Builder;
 		$data = $builder->dump($dictionaryData);
@@ -127,7 +125,7 @@ class TranslationPresenter extends SecuredPresenter
 		$values = $form->getValues();
 		$project = $this->translation->getProject();
 		try {
-			$message = $this->context->translationFacade->addMessageToProject($project, $values);
+			$message = $this->translationFacade->addMessageToProject($project, $values);
 			$this->log($project, \Activity::ADD_MESSAGE, $message);
 		} catch (\ExistingMessageException $e) {
 			$this->flash($e->getMessage(), 'error');
@@ -159,7 +157,7 @@ class TranslationPresenter extends SecuredPresenter
 			$neon = file_get_contents($values->translation->getTemporaryFile());
 			$data = \Nette\Utils\Neon::decode($neon);
 
-			$this->context->translationFacade->importTranslation($data, $this->translation);
+			$this->translationFacade->importTranslation($data, $this->translation);
 		}
 	}
 
@@ -169,7 +167,7 @@ class TranslationPresenter extends SecuredPresenter
 		$presenter = $this;
 		return new \Nette\Application\UI\Multiplier(function($id, $control) use ($presenter) {
 
-			$message = $presenter->context->messageFacade->find($id);
+			$message = $presenter->messageFacade->find($id);
 
 			$form = new Form;
 			$form->addHidden('id', $id);
@@ -200,8 +198,8 @@ class TranslationPresenter extends SecuredPresenter
 	public function formTranslateSubmitted(Form $form)
 	{
 		$values = $form->getValues();
-		
-		$message = $this->context->messageFacade->find($values->id);
+
+		$message = $this->messageFacade->find($values->id);
 
 		$translations = array();
 		if ($message->hasPlural()) {
@@ -214,11 +212,11 @@ class TranslationPresenter extends SecuredPresenter
 			$translations[0] = $values->translations->{0};
 		}
 
-		$this->context->messageFacade->translateMessage($message, $translations);
+		$this->messageFacade->translateMessage($message, $translations);
 
 		$this->log($this->translation->getProject(), $activity, $message);
 
-		if($this->isAjax()) {
+		if ($this->isAjax()) {
 			$this->terminate();
 		} else {
 			$this->redirect('this');
@@ -243,10 +241,10 @@ class TranslationPresenter extends SecuredPresenter
 	{
 		$values = $form->getValues();
 
-		$message = $this->context->messageFacade->find($values->id);
+		$message = $this->messageFacade->find($values->id);
 
 		if ($this->translation->hasMessage($message)) {
-			$this->context->messageFacade->delete($message);
+			$this->messageFacade->delete($message);
 			$this->log($this->translation->getProject(), \Activity::DELETE_MESSAGE, $message);
 			$this->flash(sprintf('Message "%s" has been deleted.', $message->getSingular()));
 		}
@@ -256,4 +254,3 @@ class TranslationPresenter extends SecuredPresenter
 
 
 }
-
