@@ -64,10 +64,8 @@ class ProjectPresenter extends SecuredPresenter
 	{
 		$values = $form->getValues();
 
-		$lang = substr($values->lang, 0, 2);
-
 		try {
-			$translation = $this->projectFacade->createTranslation($this->project, $lang);
+			$translation = $this->projectFacade->createTranslation($this->project, $values->lang);
 			$this->log($this->project, Activity::CREATE_TRANSLATION, $translation);
 			$this->flash(sprintf('Translation for language %s created', Intl::getLocaleBundle()->getLocaleName($values->lang)));
 		} catch (ExistingTranslationException $e) {

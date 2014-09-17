@@ -1,6 +1,7 @@
 extensions:
 	database: Bazo\MongoDb\DI\DocumentManagerExtension
 	odmCommands: Bazo\MongoDb\DI\DoctrineODMCommandsExtension
+	#translation: Kdyby\Translation\DI\TranslationExtension
 	#redis: Kdyby\Redis\DI\RedisExtension
 	console: Kdyby\Console\DI\ConsoleExtension
 	#monolog: Bazo\Monolog\DI\MonologExtension

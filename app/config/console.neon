@@ -2,16 +2,22 @@ services:
 	#console.commands
 	createUser:
 		class: Console\Command\CreateUser
-		tags: [console.command]
+		tags: [kdyby.console.command]
 
 	createAdmin:
 		class: Console\Command\CreateAdmin
-		tags: [console.command]
+		tags: [kdyby.console.command]
 
 	deleteCache:
 		class: Console\Command\DeleteCache(%tempDir%)
-		tags: [console.command]
+		tags: [kdyby.console.command]
 
 	reinstall:
 		class: Console\Command\Reinstall
-		tags: [console.command]
+		tags: [kdyby.console.command]
+
+	dmHelper:
+		class : Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper
+		tags: [kdyby.console.helper]
+
+	- {class: Symfony\Component\Console\Helper\DialogHelper, tags: [console.helper]}

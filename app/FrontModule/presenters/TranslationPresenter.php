@@ -2,7 +2,16 @@
 
 namespace FrontModule;
 
+use Activity;
+use ExistingMessageException;
+use Facades\Message;
+use Facades\Translation as Translation2;
+use KdybyTranslationBuilder;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\Multiplier;
+use Nette\Neon\Neon;
+use Responses\TextDownloadResponse;
+use Translation;
 
 
 
@@ -18,14 +27,14 @@ class TranslationPresenter extends SecuredPresenter
 	/** @persistent */
 	public $page = 1;
 
-	/** @var \Translation */
+	/** @var Translation */
 	private $translation;
 	private $maxItems = 10;
 
-	/** @var \Facades\Translation @inject */
+	/** @var Translation2 @inject */
 	public $translationFacade;
 
-	/** @var \Facades\Message @inject */
+	/** @var Message @inject */
 	public $messageFacade;
 
 	protected function startup()
@@ -67,43 +76,22 @@ class TranslationPresenter extends SecuredPresenter
 	}
 
 
-	private function formatDownloadName(\Translation $translation, $ext)
-	{
-		return $translation->getProject()->getCaption() . '-' . $translation->getLang() . '.' . $ext;
-	}
-
-
-	public function handleDownload()
-	{
-		$dictionary = $this->translationFacade->getDictionary($this->translation);
-		$data = serialize($dictionary);
-		$name = $this->translation->getProject()->getCaption() . '-' . $this->translation->getLang() . '.dict';
-
-		$fileName = $this->parameters['tempDir'] . '/' . $this->translation->getId() . '-' . $name;
-
-		file_put_contents($fileName, $data);
-
-		$response = new \Nette\Application\Responses\FileResponse($fileName, $name, 'text/plain');
-
-		//$response = new \Responses\TextDownloadResponse(chr(239) . chr(187) . chr(191).$data, $name, 'text/x-neon', 'UTF-8');
-
-		$this->sendResponse($response);
-		$this->terminate();
-	}
-
-
 	public function handleDownloadTranslation()
 	{
 		$dictionaryData = $this->translationFacade->getDictionaryData($this->translation);
+		$builder = new KdybyTranslationBuilder;
 
-		$builder = new \Bazo\Translation\Builder;
-		$data = $builder->dump($dictionaryData);
+		$mask = '%s.' . $this->translation->getLocale() . '.neon';
 
-		$name = $this->formatDownloadName($this->translation, 'neon');
-		$response = new \Responses\TextDownloadResponse($data, $name, 'text/x-neon', 'UTF-8');
+		$outputFiles = $builder->build($mask, $dictionaryData, 'messages');
 
-		$this->sendResponse($response);
-		$this->terminate();
+		if (count($outputFiles) === 1) {
+			$name = key($outputFiles);
+			$data = Neon::encode(current($outputFiles), Neon::BLOCK);
+			$response = new TextDownloadResponse($data, $name, 'text/x-neon', 'UTF-8');
+			$this->sendResponse($response);
+			$this->terminate();
+		}
 	}
 
 
@@ -126,8 +114,8 @@ class TranslationPresenter extends SecuredPresenter
 		$project = $this->translation->getProject();
 		try {
 			$message = $this->translationFacade->addMessageToProject($project, $values);
-			$this->log($project, \Activity::ADD_MESSAGE, $message);
-		} catch (\ExistingMessageException $e) {
+			$this->log($project, Activity::ADD_MESSAGE, $message);
+		} catch (ExistingMessageException $e) {
 			$this->flash($e->getMessage(), 'error');
 		}
 
@@ -165,7 +153,7 @@ class TranslationPresenter extends SecuredPresenter
 	protected function createComponentFormTranslate()
 	{
 		$presenter = $this;
-		return new \Nette\Application\UI\Multiplier(function($id, $control) use ($presenter) {
+		return new Multiplier(function($id, $control) use ($presenter) {
 
 			$message = $presenter->messageFacade->find($id);
 
@@ -203,12 +191,12 @@ class TranslationPresenter extends SecuredPresenter
 
 		$translations = array();
 		if ($message->hasPlural()) {
-			$activity = \Activity::TRANSLATE_PLURAL;
+			$activity = Activity::TRANSLATE_PLURAL;
 			for ($i = 0; $i < $message->getPluralsCount(); $i++) {
 				$translations[$i] = $values->translations->{$i};
 			}
 		} else {
-			$activity = \Activity::TRANSLATE_SINGULAR;
+			$activity = Activity::TRANSLATE_SINGULAR;
 			$translations[0] = $values->translations->{0};
 		}
 
@@ -245,7 +233,7 @@ class TranslationPresenter extends SecuredPresenter
 
 		if ($this->translation->hasMessage($message)) {
 			$this->messageFacade->delete($message);
-			$this->log($this->translation->getProject(), \Activity::DELETE_MESSAGE, $message);
+			$this->log($this->translation->getProject(), Activity::DELETE_MESSAGE, $message);
 			$this->flash(sprintf('Message "%s" has been deleted.', $message->getSingular()));
 		}
 

@@ -6,13 +6,14 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Nette\Utils\Strings;
 use Bazo\Translation\Langs;
 
+
+
 class Project extends Base
 {
 
 	/** @var KeyGenerator */
 	private $keyGenerator;
 	protected $documentClass = 'Project';
-
 
 	public function __construct(DocumentManager $dm, \Services\KeyGenerator $keyGenerator)
 	{
@@ -66,15 +67,18 @@ class Project extends Base
 	}
 
 
-	public function createTranslation(\Project $project, $lang)
+	public function createTranslation(\Project $project, $locale)
 	{
 		$translation = new \Translation;
+
+		$lang = substr($locale, 0, 2);
 
 		$pluralRule = Langs::getPluralRule($lang);
 		$pluralsCount = Langs::getPluralsCount($lang);
 
 		$translation
 				->setLang($lang)
+				->setLocale($locale)
 				->setProject($project)
 				->setPluralRule($pluralRule)
 				->setPluralsCount($pluralsCount)
@@ -172,11 +176,17 @@ class Project extends Base
 	private function prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount)
 	{
 		$message = new \Message;
-		$message->setSingular($messageData['singular'])->setPluralsCount($pluralsCount);
+		$message
+				->setSingular($messageData['singular'])
+				->setPluralsCount($pluralsCount)
+		;
 
+		$context = 'messages';
 		if (isset($messageData['context'])) {
-			$message->setContext($messageData['context']);
+			$context = $messageData['context'];
 		}
+
+		$message->setContext($context);
 
 		if (isset($messageData['plural'])) {
 			$message->setPlural($messageData['plural']);
@@ -201,8 +211,8 @@ class Project extends Base
 		foreach ($translations as $translation) {
 			$pluralsCount = Langs::getPluralsCount($translation->getLang());
 			$translationsData[$translation->getLang()] = array(
-				'pluralsCount' => $pluralsCount,
-				'translations' => $this->prepareTranslationsArray($pluralsCount)
+				'pluralsCount'	 => $pluralsCount,
+				'translations'	 => $this->prepareTranslationsArray($pluralsCount)
 			);
 		}
 
@@ -258,4 +268,3 @@ class Project extends Base
 
 
 }
-

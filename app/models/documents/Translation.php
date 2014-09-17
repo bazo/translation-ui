@@ -3,6 +3,8 @@
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Helpers\Message;
 
+
+
 /**
  * Log
  *
@@ -13,7 +15,7 @@ class Translation
 {
 
 	/**
-	 * @ODM\Id 
+	 * @ODM\Id
 	 */
 	private $id;
 
@@ -22,6 +24,12 @@ class Translation
 	 * @ODM\Index
 	 */
 	private $lang;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $locale;
 
 	/**
 	 * @ODM\Int
@@ -49,7 +57,7 @@ class Translation
 	private $translated = 0;
 
 	/**
-	 * @ODM\ReferenceMany(targetDocument="Message", cascade={"persist", "remove"}) 
+	 * @ODM\ReferenceMany(targetDocument="Message", cascade={"persist", "remove"})
 	 * @ODM\Index
 	 */
 	private $messages;
@@ -64,16 +72,15 @@ class Translation
 	private $project;
 
 	/**
-	 * @ODM\ReferenceMany(targetDocument="User") 
+	 * @ODM\ReferenceMany(targetDocument="User")
 	 * @ODM\Index
 	 */
 	private $user;
 
-	/** @ODM\Date  
-	 * @ODM\Index 
+	/** @ODM\Date
+	 * @ODM\Index
 	 */
 	private $created;
-
 
 	public function __construct()
 	{
@@ -97,6 +104,19 @@ class Translation
 	public function setLang($lang)
 	{
 		$this->lang = $lang;
+		return $this;
+	}
+
+
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+
+
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
 		return $this;
 	}
 
@@ -282,4 +302,3 @@ class Translation
 
 
 }
-
