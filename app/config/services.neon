@@ -1,6 +1,9 @@
 services:
-	metaDataCache: Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/_Doctrine.Metadata)
-
+	#metaDataCache: Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/_Doctrine.Metadata)
+	metaDataCache:
+		class: Doctrine\Common\Cache\RedisCache
+		setup:
+			- setRedis(@redis.client::getDriver())
 	passwordHasher:
 		class: \Phpass\Hash
 

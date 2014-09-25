@@ -36,17 +36,15 @@ database:
 	dbname: %appName%
 	uri: mongodb://localhost/%appName%
 	cachePrefix: %appName%
-	metaDataCacheClass: '\Doctrine\Common\Cache\ArrayCache'
+	metaDataCache: @metaDataCache
 	autoGenerateHydratorClasses: TRUE
 	autoGenerateProxyClasses: TRUE
 
-#redis:
-	#host: 127.0.0.1
-	#port: 6379
-	#database: 2
-	#storage: on
-	#journal: on
-	#session: on
+redis:
+	database: 15
+	storage: on
+	journal: on
+	session: on
 
 includes:
 	- services.neon
