@@ -1,11 +1,11 @@
 {block content}
 
-{foreach $me->getAccesses() as $access}
+{foreach $projects as $project}
 	<ul class="nav nav-list">
 		<li class="nav-header">
-			{$access->getProject()->getCaption()}
+			{$project->getCaption()}
 		</li>
-		<li n:foreach="$access->getProject()->getTranslations() as $translation">
+		<li n:foreach="$project->getTranslations() as $translation">
 			<a style="float: left; margin-right: 15px; width: 5%;" n:href="translation: id => $translation->getId()">{$translation->getLang()|langName}</a>
 
 			{var $completion = $translation->getCompletionPercentage()}

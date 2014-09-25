@@ -1,26 +1,20 @@
 {block content}
-	{if $me->getAccesses()->count() === 0}
-		<div class="alert alert-info">
-			You don't have any projects. Please <a data-toggle="modal" href="#newProject">add</a> one now.
+{if count($projects) === 0}
+	<div class="alert alert-info">
+		You don't have any projects. Please <a data-toggle="modal" href="#newProject">add</a> one now.
+	</div>
+{else}
+
+	<a class="btn btn-success btn-large" data-toggle="modal" href="#newProject"><i class="icon-plus-sign icon-white"></i>Add</a><br><br>
+
+	<div id="projects" n:inner-foreach="$projects as $project" class="span11">
+		<div class="project well span3">
+			<a n:href="project: id => $project->getId()"><strong>{$project->getCaption()}</strong></a> <br><br>
+
+			translations: <a n:href="project:translations id => $project->getId()"><span class="badge badge-info">{count($project->getTranslations())}</span></a><br>
+			messages: <span class="badge badge-info">{count($project->getTemplateMessages())}</span>
 		</div>
-	{else}
-		
-		<a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" data-toggle="modal" href="#newProject"><i class="icon-plus-sign icon-white"></i>Add</a><br><br>
-		
-		<div n:if="!$user->identity->canAddProject()" class="alert alert-info span9 ">
-			<p><h4 class="alert-heading">Info:</h4>You have reached the maximum number(<strong>{$user->identity->getAccountRule()->getMaximumProjects()}</strong>) of projects allowed for your account type.</p>
-		</div>
-		
-		<div id="projects" n:inner-foreach="$me->getAccesses() as $access" class="span11">
-			<div class="project well span3">
-				<a n:href="project: id => $access->getProject()->getId()"><strong>{$access->getProject()->getCaption()}</strong> <span class="muted">({$access->getLevel()})</span></a> <br><br>
-				
-				translations: <a n:href="project:translations id => $access->getProject()->getId()"><span class="badge badge-info">{count($access->getProject()->getTranslations())}</span></a><br>
-				messages: <span class="badge badge-info">{count($access->getProject()->getTemplateMessages())}</span>
-			</div>
-			
-		
-		</div>
-		
-	{/if}
+	</div>
+
+{/if}
 {/block}

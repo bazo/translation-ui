@@ -57,11 +57,8 @@ class Project extends Base
 
 		$project->setOwner($user);
 
-		if ($user->addProject($project) === FALSE) {
-			throw new \ExistingProjectException(sprintf('Project with name %s already exists ', $name));
-		}
-
-		$this->addCollaboratorToProject($user, $project, \Access::OWNER);
+		$this->dm->persist($project);
+		$this->dm->flush();
 
 		return $project;
 	}
@@ -252,18 +249,9 @@ class Project extends Base
 	}
 
 
-	public function addCollaboratorToProject(\User $user, \Project $project, $level)
+	public function findAll()
 	{
-		$access = new \ProjectAccess;
-		$access->setUser($user)->setProject($project)->setLevel($level);
-
-
-		$this->dm->persist($project);
-		$this->dm->persist($user);
-		$this->dm->persist($access);
-		$this->dm->flush();
-
-		return $access;
+		return $this->dm->getRepository(\Project::class)->findAll();
 	}
 
 

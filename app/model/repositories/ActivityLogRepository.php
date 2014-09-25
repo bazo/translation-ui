@@ -1,6 +1,10 @@
 <?php
+
 namespace Repositories;
+
 use Doctrine\ODM\MongoDB\DocumentRepository;
+
+
 
 /**
  * Description of DocumentRepository
@@ -9,24 +13,18 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class ActivityLogRepository extends DocumentRepository
 {
+
 	public function getUserLogs(\User $user, $limit = null)
 	{
-		$accesses = $user->getAccesses();
-		$projectIds = [];
-		foreach($accesses as $access)
-		{
-			$projectIds[] = $access->getProject()->getId();
-		}
-		
 		$qb = $this->createQueryBuilder()
-				->field('project.id')->in($projectIds)
 				->sort('added', 'desc');
-		
-		if($limit !== null)
-		{
+
+		if ($limit !== null) {
 			$qb->limit($limit);
 		}
-		
+
 		return $qb->getQuery()->execute();
 	}
+
+
 }

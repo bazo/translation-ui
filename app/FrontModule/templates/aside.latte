@@ -1,19 +1,12 @@
 <a n:if="$user->identity->canAddProject()" class="btn btn-success btn-large" data-toggle="modal" href="#newProject"><i class="icon-plus-sign icon-white"></i>Add</a><br>
 <ul class="nav nav-list">
 	<li class="nav-header">
-		YOUR PROJECTS (max: {!$user->identity->getAccountRule()->getMaximumProjects()})
+		YOUR PROJECTS
 	</li>
-	<li n:foreach="$me->getAccesses(array('owner')) as $access">
-		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()}</a>
+	<li n:foreach="$projects as $project">
+		<a n:href="project: id => $project->getId()">{$project->getCaption()}</a>
 	</li>
-	
-	<li class="nav-header">
-		OTHER PROJECTS 
-	</li>
-	<li n:foreach="$me->getAccesses(array('translator', 'admin')) as $access">
-		<a n:href="project: id => $access->getProject()->getId()">{$access->getProject()->getCaption()} <span class="muted">({$access->getLevel()})</span></a>
-	</li>
-	
+
 </ul>
 
 <div n:if="$user->identity->canAddProject()" class="modal hide" id="newProject">
@@ -41,7 +34,7 @@
 		{label link class => 'control-label'/}
 		<div class="controls">
 			<div class="input-prepend">
-				<span class="add-on pull-left">http://</span>	
+				<span class="add-on pull-left">http://</span>
 				{input link class => "span9"}
 			</div>
 		</div>

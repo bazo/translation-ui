@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
+
+
 /**
  * Description of CreateUser
  *
@@ -15,14 +17,13 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 class CreateUser extends Console\Command\Command
 {
 
-	/** @var DocumentManager */
-	private $dm;
+	/** @var \Facades\User */
+	private $userFacade;
 
-
-	function __construct(DocumentManager $dm)
+	function __construct(\Facades\User $userFacade)
 	{
 		parent::__construct();
-		$this->dm = $dm;
+		$this->userFacade = $userFacade;
 	}
 
 
@@ -31,7 +32,8 @@ class CreateUser extends Console\Command\Command
 		$this
 				->setName('app:user:create')
 				->setDescription('Creates a user')
-				->addArgument('login', InputArgument::OPTIONAL, 'login?')
+				->addArgument('nick', InputArgument::OPTIONAL, 'nick?')
+				->addArgument('email', InputArgument::OPTIONAL, 'email?')
 				->addArgument('password', InputArgument::OPTIONAL, 'password?')
 		;
 	}
@@ -40,51 +42,50 @@ class CreateUser extends Console\Command\Command
 	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
 		$output->writeln('creating new user...');
-		$dm = $this->dm;
 
 		$dialog = new Console\Helper\DialogHelper;
 
-		$login = $input->getArgument('login');
+		$nick = $input->getArgument('nick');
+		$email = $input->getArgument('email');
 		$password = $input->getArgument('password');
 
-		if ($login === null) {
-			$login = $dialog->ask($output, '<question>please provide login for the new user: </question>', null);
+		if ($nick === NULL) {
+			$nick = $dialog->ask($output, '<question>please provide nick for the new user: </question>', NULL);
 
-			if ($login === null) {
-				$output->writeln('<error>you have to provide login. aborting.</error>');
+			if ($nick === NULL) {
+				$output->writeln('<error>you have to provide nick. aborting.</error>');
 				return;
 			}
 
-			$password = $dialog->ask($output, '<question>please provide password for the user ' . $login . ': </question>', null);
+			$password = $dialog->ask($output, '<question>please provide password for the user ' . $nick . ': </question>', NULL);
 
-			if ($password === null) {
+			if ($password === NULL) {
 				$output->writeln('<error>you have to provide password. aborting.</error>');
 				return;
 			}
 		}
 
-		if ($login !== null and $password === null) {
-			$password = $dialog->ask($output, '<question>please provide password for the user ' . $login . ': </question>', null);
-			if ($password === null) {
+		if ($email === NULL) {
+			$email = $dialog->ask($output, '<question>please provide email for the new user: </question>', NULL);
+
+			if ($email === NULL) {
+				$output->writeln('<error>you have to provide email. aborting.</error>');
+				return;
+			}
+		}
+
+		if ($nick !== NULL and $password === NULL) {
+			$password = $dialog->ask($output, '<question>please provide password for the user ' . $nick . ': </question>', NULL);
+			if ($password === NULL) {
 				$output->writeln('<error>you have to provide password. aborting.</error>');
 				return;
 			}
 		}
 
-		if ($dm->getRepository('User')->findOneByLogin($login) !== null) {
-			$output->writeln('<error>user with login ' . $login . ' already exists. aborting.</error>');
-			return;
-		}
-		$user = new \User;
-		$hash = password_hash($password, PASSWORD_BCRYPT);
-		$user->setLogin($login)->setPassword($hash);
+		$this->userFacade->createUser($nick, $email, $password);
 
-		$dm->persist($user);
-		//$dm->flush(array('safe' => true)); //throws some bullshit error, thus checking by finding by login
-		$dm->flush();
-		$output->writeln('<info>user ' . $login . ' succesfully created</info>');
+		$output->writeln('<info>user ' . $nick . ' succesfully created</info>');
 	}
 
 
 }
-

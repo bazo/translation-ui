@@ -52,6 +52,8 @@ abstract class SecuredPresenter extends BasePresenter
 		$this->template->addFilter('langName', function($locale) {
 			return Intl::getLocaleBundle()->getLocaleName($locale);
 		});
+
+		$this->template->projects = $this->projectFacade->findAll();
 	}
 
 

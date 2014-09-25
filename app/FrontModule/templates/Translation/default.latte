@@ -4,7 +4,7 @@
 			Messages
 		</li>
 		<li n:foreach="$messages as $message">
-			<a href="#{$message->getId()}" data-content="{$message->getSingular()}" rel="popover" data-placement="bottom" title="Full text" >{$message->getSingular()}</a>
+			<a href="#{$message->getId()}" data-content="{$message->getSingular()}" title="{$message->getSingular()}" >{$message->getSingular()}</a>
 		</li>
 	</ul>
 {/block}
@@ -51,31 +51,6 @@
 					{input btnSubmit class => "btn btn-primary"}
 				</div>
 			{/form}
-			{*
-			{form formNewMessage class => "ajax"}
-					{label context /}
-					{input context}
-
-					{label singular /}
-					{input singular}
-
-					{label plural /}
-					{input plural}
-					{input btnSubmit class => "btn btn-primary"}
-			{/form}
-
-				<form n:name="formNewMessage" class="ajax">
-					{label context /}
-					{input context}
-
-					{label singular /}
-					{input singular}
-
-					{label plural /}
-					{input plural}
-					{input btnSubmit class => "btn btn-primary"}
-			</form>
-			*}
 		{/snippet}
 	</div>
 
@@ -194,6 +169,7 @@
 		{/form}
 		{/}
 	{/snippet}
+		{include paging.latte}
 	</div>
 {/block}
 

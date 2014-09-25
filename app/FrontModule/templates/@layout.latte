@@ -30,7 +30,7 @@
 						<span class="icon-bar"></span>
 					</a>
 
-					<a class="brand" href="{link homepage:}">Mazagran</a>
+					<a class="brand" href="{link homepage:}">Translation UI</a>
 
 					<div n:if="$user->isLoggedIn()" class="btn-group pull-right">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -65,7 +65,7 @@
 						{/if}
 						{*<li><a n:href="downloads:"><i class="icon-white icon-download"></i>Downloads</a></li>	*}
 				</ul>
-			  </nav><!--/.nav-collapse -->
+			</nav><!--/.nav-collapse -->
         </div>
 	</div>
 </div>
@@ -109,21 +109,7 @@
 	{*<script type="text/javascript" src="{$baseUri}/js/netteForms.js"></script>*}
 	<script type="text/javascript" src="{$baseUri}/js/timeago.js"></script>
 	<script type="text/javascript" src="{$baseUri}/js/app.js"></script>
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-	<script type="text/javascript">
-		var uvOptions = {};
-		(function() {
-		  var uv = document.createElement('script');
-				  uv.type = 'text/javascript';
-				  uv.async = true;
-				  uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/no7TpLcvNVTHkBMmEvfu7Q.js';
-				  var s = document.getElementsByTagName('script')[0];
-				  s.parentNode.insertBefore(uv, s);
-			  })();
-	</script>
+
 	{block script}{/}
 </body>
 </html>
