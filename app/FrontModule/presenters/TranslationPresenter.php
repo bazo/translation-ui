@@ -130,7 +130,7 @@ class TranslationPresenter extends SecuredPresenter
 			$this->flash($e->getMessage(), 'error');
 		}
 
-
+		$this->invalidateControl('aside');
 		$this->invalidateControl('messages');
 	}
 

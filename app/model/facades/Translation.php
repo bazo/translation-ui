@@ -62,13 +62,20 @@ class Translation extends Base
 			$message->setPluralsCount($pluralsCount)
 					->setTranslations($this->prepareTranslationsArray($pluralsCount))
 					->setTranslation($translation);
-			$translation->addMessage($message);
 
-			$this->dm->persist($message);
-			$this->dm->persist($translation);
-
-			$this->dm->flush();
+			$res = $translation->addMessage($message);
+			if ($res === TRUE) {
+				$this->dm->persist($message);
+				$this->dm->persist($translation);
+			}
 		}
+
+		$templateMessage = [$values->singular => ['singular' => $values->singular, 'translations' => []]];
+		$res = $project->addTemplateMessage($values->singular, $templateMessage);
+		if ($res === TRUE) {
+			$this->dm->persist($project);
+		}
+		$this->dm->flush();
 		return $message;
 	}
 

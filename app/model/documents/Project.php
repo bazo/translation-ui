@@ -3,6 +3,8 @@
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Helpers\Message;
 
+
+
 /**
  * Description of App
  *
@@ -72,8 +74,8 @@ class Project
 
 	public function __construct()
 	{
-		$this->translation	 = new Doctrine\Common\Collections\ArrayCollection;
-		$this->accesses		 = new Doctrine\Common\Collections\ArrayCollection;
+		$this->translation = new Doctrine\Common\Collections\ArrayCollection;
+		$this->accesses = new Doctrine\Common\Collections\ArrayCollection;
 	}
 
 
@@ -207,9 +209,12 @@ class Project
 
 	public function addTemplateMessage($messageId, $templateMessage)
 	{
-		unset($templateMessage['files']);
-		$this->templateMessages[Message::encodeMessageId($messageId)] = $templateMessage;
-		return $this;
+		if (!$this->hasTemplateMessage($messageId)) {
+			unset($templateMessage['files']);
+			$this->templateMessages[Message::encodeMessageId($messageId)] = $templateMessage;
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 

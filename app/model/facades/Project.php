@@ -82,11 +82,10 @@ class Project extends Base
 				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang))
 		;
 
-		$singleTranslation = $this->prepareTranslationsArray(1);
 		$translations = $this->prepareTranslationsArray($pluralsCount);
 
 		foreach ($project->getTemplateMessages() as $messageData) {
-			$message = $this->prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount);
+			$message = $this->prepareMessage($messageData, $translations, $pluralsCount);
 			$translation->addMessage($message);
 			$message->setTranslation($translation);
 
@@ -170,8 +169,9 @@ class Project extends Base
 	 * @param array $messageData
 	 * @return \Message
 	 */
-	private function prepareMessage($messageData, $translations, $singleTranslation, $pluralsCount)
+	private function prepareMessage($messageData, $translations, $pluralsCount)
 	{
+		$messageData = current($messageData);
 		$message = new \Message;
 		$message
 				->setSingular($messageData['singular'])
@@ -184,13 +184,7 @@ class Project extends Base
 		}
 
 		$message->setContext($context);
-
-		if (isset($messageData['plural'])) {
-			$message->setPlural($messageData['plural']);
-			$message->setTranslations($translations);
-		} else {
-			$message->setTranslations($singleTranslation);
-		}
+		$message->setTranslations($translations);
 
 		return $message;
 	}

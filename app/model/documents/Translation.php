@@ -196,9 +196,10 @@ class Translation
 			$this->messages->add($message);
 			$this->messageIds[Message::encodeMessageId($message->getSingular())] = $message->getSingular();
 			$this->messagesCount++;
-			return $this;
+			return TRUE;
 		} else {
-			throw new \ExistingMessageException(sprintf('Translation already contains message %s', $message->getSingular()));
+			return FALSE;
+			//throw new \ExistingMessageException(sprintf('Translation already contains message %s', $message->getSingular()));
 		}
 	}
 
