@@ -3,7 +3,7 @@ shared_folders:
 	- log
 hooks:
 	after_receive:
-		- "composer install"
+		- "composer install --optimize-autoloader --no-dev --prefer-dist --profile -v -n"
 	before_deploy:
 	after_deploy:
 		- "php cli odm:clear-cache:metadata"
