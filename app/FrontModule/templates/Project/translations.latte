@@ -8,10 +8,10 @@
 	You don't have any translations. Please add one now.
 </div>
 
-{foreach $project->getTranslations() as $translation}
+{foreach $translations as $translation}
 	<div class="row" style="margin-left: 0px;">
-		<div class="span1">
-			<strong class="pull-left">{$translation->getLang()|langName}</strong>&nbsp;
+		<div class="span2">
+			<strong class="pull-left">{$translation->getLang()|langName} <span class="muted">({$translation->getLocale()}) plurals: {$translation->getPluralsCount()}</span></strong>&nbsp;
 		</div>
 
 		<div class="span2 pull-left">

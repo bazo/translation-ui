@@ -29,7 +29,7 @@ class Activity
 		self::CREATE_TRANSLATION => 'created <strong>%2$s</strong> translation for project <strong>%1$s</strong>',
 		self::REMOVE_TRANSLATION => 'removed <strong>%2$s</strong> translation from project <strong>%1$s</strong>',
 		self::TRANSLATE_SINGULAR => 'translated message <strong>%2$s</strong> to <strong>%3$s</strong>',
-		self::TRANSLATE_PLURAL => 'translated plural message <strong>%2$s</strong> to <strong>%3$s</strong>',
+		self::TRANSLATE_PLURAL => 'added translation for <strong>%2$s</strong> to <strong>%3$s</strong>',
 		self::ADD_MESSAGE => 'added message <strong>%2$s</strong> to project <strong>%1$s</strong>',
 		self::DELETE_MESSAGE => 'deleted message <strong>%2$s</strong> from project <strong>%1$s</strong>',
 		self::IMPORT_TEMPLATE => 'imported <strong>%2$d</strong> new messages to project <strong>%1$s</strong>, increasing the count to <strong>%3$d</strong>.'

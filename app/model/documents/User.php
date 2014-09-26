@@ -60,7 +60,7 @@ class User extends Gridder\Document implements Nette\Security\IIdentity
 	/**
 	 * @ODM\Boolean
 	 */
-	private $active = FALSE;
+	private $active = TRUE;
 
 	/**
 	 * @ODM\String

@@ -3,6 +3,8 @@
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Helpers\Message;
 
+
+
 /**
  * Log
  *
@@ -22,6 +24,12 @@ class Translation
 	 * @ODM\Index
 	 */
 	private $lang;
+
+	/**
+	 * @ODM\String
+	 * @ODM\Index
+	 */
+	private $language;
 
 	/**
 	 * @ODM\String
@@ -82,8 +90,8 @@ class Translation
 
 	public function __construct()
 	{
-		$this->created	 = new DateTime;
-		$this->messages	 = new \Doctrine\Common\Collections\ArrayCollection;
+		$this->created = new DateTime;
+		$this->messages = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 
 
@@ -300,6 +308,18 @@ class Translation
 			return 0;
 		}
 		return round(($this->getTranslatedMessagesCount() / $this->getMessagesCount()) * 100, $decimals);
+	}
+
+
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+
+
+	public function setLanguage($language)
+	{
+		$this->language = $language;
 	}
 
 

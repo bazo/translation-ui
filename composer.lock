@@ -233,12 +233,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bazo/nette-translation.git",
-                "reference": "d08bec09a83cd3c372c13af7779745cd6b7cf196"
+                "reference": "1eec476adbc80a1a38e343834bd51267b4efcb82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bazo/nette-translation/zipball/d08bec09a83cd3c372c13af7779745cd6b7cf196",
-                "reference": "d08bec09a83cd3c372c13af7779745cd6b7cf196",
+                "url": "https://api.github.com/repos/bazo/nette-translation/zipball/1eec476adbc80a1a38e343834bd51267b4efcb82",
+                "reference": "1eec476adbc80a1a38e343834bd51267b4efcb82",
                 "shasum": ""
             },
             "require": {
@@ -272,7 +272,7 @@
                 "nette",
                 "translation"
             ],
-            "time": "2014-09-15 16:31:37"
+            "time": "2014-09-26 14:40:39"
         },
         {
             "name": "doctrine/annotations",

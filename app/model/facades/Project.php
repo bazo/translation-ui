@@ -72,14 +72,16 @@ class Project extends Base
 
 		$pluralRule = Langs::getPluralRule($lang);
 		$pluralsCount = Langs::getPluralsCount($lang);
-
+		$plurals = $this->getPlurals($locale, $pluralsCount);
+		$language = \Symfony\Component\Intl\Intl::getLocaleBundle()->getLocaleName($locale);
 		$translation
 				->setLang($lang)
 				->setLocale($locale)
+				->setLanguage($language)
 				->setProject($project)
 				->setPluralRule($pluralRule)
 				->setPluralsCount($pluralsCount)
-				->setPluralNumbers($this->getPluralNumbers($pluralRule, $pluralsCount, $lang))
+				->setPluralNumbers($plurals)
 		;
 
 		$translations = $this->prepareTranslationsArray($pluralsCount);
@@ -103,14 +105,6 @@ class Project extends Base
 	}
 
 
-	private function evaluateRule($n, $rule)
-	{
-		$tmp = preg_replace('/([a-z]+)/', '$$1', "n=$n;" . $rule);
-		eval($tmp);
-		return $plural;
-	}
-
-
 	private function arrayFilled(&$array)
 	{
 		$filled = TRUE;
@@ -124,23 +118,21 @@ class Project extends Base
 	}
 
 
-	private function getPluralNumbers($rule, $count, $lang)
+	private function getPlurals($locale, $count)
 	{
 		$numbers = array_fill(0, $count, NULL);
 		$n = 1;
 		do {
-			$plural = $this->evaluateRule($n, $rule);
+			$plural = \Symfony\Component\Translation\PluralizationRules::get($n, $locale);
 			if (!isset($numbers[$plural])) {
 				$numbers[$plural] = $n;
 			}
 			$n++;
-			if ($n > 10000)
+			if ($n > 10000) {
 				break;
-		}while (!$this->arrayFilled($numbers));
+			}
+		} while (!$this->arrayFilled($numbers));
 
-		if (!$this->arrayFilled($numbers)) {
-			throw new \InvalidPluralRuleException(sprintf('plural rule for lang %s is broken. failed to evaluate the rule: %s', $lang, $rule));
-		}
 		return $numbers;
 	}
 
@@ -246,6 +238,17 @@ class Project extends Base
 	public function findAll()
 	{
 		return $this->dm->getRepository(\Project::class)->findAll();
+	}
+
+
+	public function getTranslations(\Project $project)
+	{
+		$qb = $this->dm->getRepository(\Translation::class)->createQueryBuilder();
+
+		$qb->field('project')->references($project)
+				->sort('language');
+
+		return $qb->getQuery()->execute();
 	}
 
 

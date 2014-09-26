@@ -151,7 +151,7 @@ class Project
 
 	public function addTranslation(Translation $translation)
 	{
-		if (!in_array($translation->getLang(), $this->translationLangs)) {
+		if (!in_array($translation->getLocale(), $this->translationLangs)) {
 			$this->translationLangs[] = $translation->getLang();
 			$this->translations->add($translation);
 		} else {

@@ -38,11 +38,11 @@ class ProjectPresenter extends SecuredPresenter
 	}
 
 
-	protected function beforeRender()
+	public function beforeRender()
 	{
 		parent::beforeRender();
-
 		$this->template->project = $this->project;
+		$this->template->translations = $this->projectFacade->getTranslations($this->project);
 	}
 
 
@@ -52,7 +52,17 @@ class ProjectPresenter extends SecuredPresenter
 
 		$langs = Intl::getLocaleBundle()->getLocaleNames();
 
-		$form->addSelect('lang', 'Language', $langs);
+		$filtered = [];
+		foreach($langs as $locale => $name) {
+			try {
+				$lang = substr($locale, 0, -strlen(strrchr($locale, '_')));
+				\Bazo\Translation\Langs::getPluralRule($lang);
+				$filtered[$locale] = $name;
+			} catch (\InvalidArgumentException $ex) {
+			}
+		}
+
+		$form->addSelect('lang', 'Language', $filtered);
 		$form->addSubmit('btnSubmit', 'Create');
 
 		$form->onSuccess[] = callback($this, 'formAddTranslationSubmitted');
