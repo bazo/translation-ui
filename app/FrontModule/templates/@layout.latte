@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Mazagran</title>
+		<title>Translation UI</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -30,12 +30,12 @@
 						<span class="icon-bar"></span>
 					</a>
 
-					<a class="brand" href="{link homepage:}">Translation UI</a>
+					<a class="brand" href="{link dashboard:}">Translation UI</a>
 
 					<div n:if="$user->isLoggedIn()" class="btn-group pull-right">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 							<img src="http://www.gravatar.com/avatar/{$me->getGravatar()}?s=20" style="position:relative; top: -1px; left: -5px" />&nbsp;
-					{if $me->getNick() !== null and $me->getNick() !== '' }{$me->getNick()}{else}{$me->getEmail()}{/if}
+					{if $me->getNick() !== NULL and $me->getNick() !== '' }{$me->getNick()}{else}{$me->getEmail()}{/if}
 					<span class="caret"></span>
 				</a>
 				<ul  class="dropdown-menu">
