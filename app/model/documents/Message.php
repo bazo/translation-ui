@@ -12,7 +12,7 @@ class Message
 {
 
 	/**
-	 * @ODM\Id 
+	 * @ODM\Id
 	 */
 	private $id;
 
@@ -43,10 +43,10 @@ class Message
 	private $pluralsCount;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Collection
 	 * @ODM\Index
 	 */
-	private $translations;
+	private $translations = [];
 
 	/**
 	 * @ODM\Boolean
@@ -145,7 +145,7 @@ class Message
 	}
 
 
-	public function setTranslations($translations)
+	public function setTranslations(array $translations)
 	{
 		$this->translations = $translations;
 

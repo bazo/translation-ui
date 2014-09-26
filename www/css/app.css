@@ -13,15 +13,24 @@ a i{
 	position: relative;
 	top: 1px;
 }
-
+.form-search{
+	width: 600px;
+	margin: 0;
+	margin-left: 50px;
+	padding-top: 10px;
+	display: inline-block;
+}
+.form-search input[type="text"] {
+	width: 510px;
+}
 #message-list{
 	position: fixed;
 	padding-right: 0px;
 	padding-left: 0px;
 }
 #message-list li a{
-	text-overflow: ellipsis; 
-	white-space: nowrap; 
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	overflow: hidden;
 }
 #message-list li a:hover{
@@ -34,6 +43,10 @@ a i{
 	padding-top: 10px;
 	padding-bottom: 5px;
 	padding-left: 10px;
+}
+
+.message .nav-tabs label {
+	display: inline-block;
 }
 
 .message .close{
@@ -52,7 +65,7 @@ textarea.translation{
 	height: 95px;
 	padding: 0;
 	margin: 0;
-	
+
 	padding-top: 2px;
 	padding-left: 2px;
 	border-radius: 0px 0px 3px 3px;

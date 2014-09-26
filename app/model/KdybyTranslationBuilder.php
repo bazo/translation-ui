@@ -19,7 +19,7 @@ class KdybyTranslationBuilder
 				$domain = $defaultDomain;
 			}
 
-			$messagesByDomain[$domain][$message] = current($messageData['translations']);
+			$messagesByDomain[$domain][$message] = implode('|', $messageData['translations']);
 		}
 		return $this->buildLanguageFiles($fileMask, $messagesByDomain);
 	}
@@ -30,8 +30,8 @@ class KdybyTranslationBuilder
 		$outputFiles = [];
 		foreach ($messagesByDomain as $domain => $messages) {
 			$data = [];
-			foreach ($messages as $message) {
-				$data[$message] = $message;
+			foreach ($messages as $message => $translation) {
+				$data[$message] = $translation;
 			}
 
 			$file = sprintf($fileMask, $domain);

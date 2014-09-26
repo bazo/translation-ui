@@ -18,15 +18,6 @@ use Translation;
 class TranslationPresenter extends SecuredPresenter
 {
 
-	/** @persistent */
-	public $id;
-
-	/** @persistent */
-	public $filter = 'all';
-
-	/** @persistent */
-	public $page = 1;
-
 	/** @var Translation */
 	private $translation;
 	private $maxItems = 10;
@@ -36,6 +27,18 @@ class TranslationPresenter extends SecuredPresenter
 
 	/** @var Message @inject */
 	public $messageFacade;
+
+	/** @persistent */
+	public $id;
+
+	/** @persistent */
+	public $filter = 'all';
+
+	/** @persistent */
+	public $search = NULL;
+
+	/** @persistent */
+	public $page = 1;
 
 	protected function startup()
 	{
@@ -59,12 +62,12 @@ class TranslationPresenter extends SecuredPresenter
 	}
 
 
-	public function renderDefault($filter)
+	public function renderDefault($filter, $search)
 	{
 		$this->template->filter = $filter;
 		$this->template->translation = $this->translation;
 
-		$messages = $this->translationFacade->findFilteredMessages($this->id, $filter, $this->page, $this->maxItems);
+		$messages = $this->translationFacade->findFilteredMessages($this->id, $filter, $search, $this->page, $this->maxItems);
 
 		$totalCount = $messages->count();
 
@@ -105,9 +108,10 @@ class TranslationPresenter extends SecuredPresenter
 	protected function createComponentFormNewMessage()
 	{
 		$form = new Form;
-		$form->addText('context', 'Context');
+		$form->addText('context', 'Context')->setDefaultValue('messages');
 		$form->addText('singular', 'Singular')->setRequired();
-		$form->addText('plural', 'Plural');
+		//$form->addText('plural', 'Plural');
+		$form->addHidden('plural', '');
 		$form->addSubmit('btnSubmit', 'Add');
 		$form->onSuccess[] = callback($this, 'formNewMessageSubmitted');
 
@@ -192,12 +196,12 @@ class TranslationPresenter extends SecuredPresenter
 			$form->addHidden('plural', $message->hasPlural());
 			$translations = $form->addContainer('translations');
 
-			if ($message->hasPlural()) {
-				for ($i = 0; $i < $message->getPluralsCount(); $i++) {
+			for ($i = 0; $i < $message->getPluralsCount(); $i++) {
+				if ($i === 0) {
+					$translations->addTextArea(sprintf('%d', $i), 'Singular');
+				} else {
 					$translations->addTextArea(sprintf('%d', $i), sprintf('Plural form %d', $i));
 				}
-			} else {
-				$translations->addTextArea(0, 'Translation');
 			}
 
 			$form->addSubmit('btnSubmit', 'Save');
@@ -219,15 +223,16 @@ class TranslationPresenter extends SecuredPresenter
 
 		$message = $this->messageFacade->find($values->id);
 
-		$translations = array();
-		if ($message->hasPlural()) {
+		if (count($values->translations) > 1) {
 			$activity = Activity::TRANSLATE_PLURAL;
-			for ($i = 0; $i < $message->getPluralsCount(); $i++) {
-				$translations[$i] = $values->translations->{$i};
-			}
 		} else {
 			$activity = Activity::TRANSLATE_SINGULAR;
-			$translations[0] = $values->translations->{0};
+		}
+
+		$translations = array();
+		$activity = Activity::TRANSLATE_PLURAL;
+		for ($i = 0; $i < $message->getPluralsCount(); $i++) {
+			$translations[$i] = $values->translations->{$i};
 		}
 
 		$this->messageFacade->translateMessage($message, $translations);
@@ -268,6 +273,30 @@ class TranslationPresenter extends SecuredPresenter
 		}
 
 		$this->redirect('this');
+	}
+
+
+	protected function createComponentFormSearch()
+	{
+		$form = new Form;
+
+		$form->addText('search', 'Search');
+		$form->addSubmit('btnSubmit', 'Search');
+
+		$form->onSuccess[] = callback($this, 'formSearchSubmitted');
+
+		return $form;
+	}
+
+
+	public function formSearchSubmitted(Form $form)
+	{
+		$values = $form->getValues();
+
+		$this->search = $values->search;
+
+		$this->redrawControl('aside');
+		$this->redrawControl('messages');
 	}
 
 

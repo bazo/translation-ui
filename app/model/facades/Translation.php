@@ -11,7 +11,7 @@ class Translation extends Base
 
 	protected $documentClass = 'Translation';
 
-	public function findFilteredMessages($id, $filter = 'all', $page = 1, $maxItems = 5)
+	public function findFilteredMessages($id, $filter = 'all', $search = NULL, $page = 1, $maxItems = 5)
 	{
 		$qb = $this->dm->getRepository('Message')->createQueryBuilder()
 				->field('translation.id')->equals($id)
@@ -27,19 +27,18 @@ class Translation extends Base
 				break;
 		}
 
+		if (!empty($search)) {
+			$regex = new \MongoRegex('/.*' . $search . '.*/i');
+			$qb->addOr($qb->expr()->field('singular')->equals($regex));
+			$qb->addOr($qb->expr()->field('translations')->equals($regex));
+		}
+
 		$offset = ($page - 1) * $maxItems;
 
 		$qb->skip($offset)->limit($maxItems);
 
 
 		return $qb->getQuery()->execute();
-	}
-
-
-	public function findAllTranslationsForUser(\User $user)
-	{
-		$translations = [];
-		$projects = $user->getProjects();
 	}
 
 
@@ -151,7 +150,7 @@ class Translation extends Base
 				$entry = $data[$msgId];
 
 				$trans = implode('|', $entry['msgstr']);
-				$message->setTranslations([$trans]);
+				$message->setTranslations($entry['msgstr']);
 				$this->dm->persist($message);
 			}
 		}
