@@ -93,7 +93,7 @@ class TranslationPresenter extends SecuredPresenter
 			$this->terminate();
 		} else {
 			$zip = new \ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
-			foreach($outputFiles as $fileName => $data) {
+			foreach ($outputFiles as $fileName => $data) {
 				$data = Neon::encode(current($outputFiles), Neon::BLOCK);
 				$zip->add_file($fileName, $data);
 			}
@@ -153,6 +153,29 @@ class TranslationPresenter extends SecuredPresenter
 			$data = \Nette\Utils\Neon::decode($neon);
 
 			$this->translationFacade->importTranslation($data, $this->translation);
+		}
+	}
+
+
+	protected function createComponentFormImportPOTranslation()
+	{
+		$form = new Form;
+
+		$form->addUpload('translation', 'Translation');
+		$form->addSubmit('btnSubmit', 'Import');
+
+		$form->onSuccess[] = callback($this, 'formImportPOTranslationSubmitted');
+
+		return $form;
+	}
+
+
+	public function formImportPOTranslationSubmitted(Form $form)
+	{
+		$values = $form->getValues();
+
+		if ($values->translation->isOk()) {
+			$this->translationFacade->importPOTranslation($values->translation, $this->translation);
 		}
 	}
 

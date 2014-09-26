@@ -19,6 +19,10 @@
 	<div class="pull-right">
 		<a class="btn btn-info" data-toggle="modal" href="#importTranslation" ><i class="icon-white icon-upload"></i> Import translation</a>
 		&nbsp;
+
+		<a class="btn btn-info" data-toggle="modal" href="#importPOTranslation" ><i class="icon-white icon-upload"></i> Import .PO translation</a>
+		&nbsp;
+
 		<a class="btn btn-primary" n:href="downloadTranslation!"><i class="icon-white icon-download"></i> Download translation</a>
 	</div>
 
@@ -60,6 +64,27 @@
 			<h3>Import translation</h3>
 		</div>
 		<form n:name="formImportTranslation">
+			<div class="modal-body">
+				<table>
+					<tr>
+						<th>{label translation /}</th>
+						<th>{input translation}</th>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				{input btnSubmit class => "btn btn-primary"}
+			</div>
+		</form>
+	</div>
+
+	<div class="modal hide" id="importPOTranslation">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Import translation</h3>
+		</div>
+		<form n:name="formImportPOTranslation">
 			<div class="modal-body">
 				<table>
 					<tr>

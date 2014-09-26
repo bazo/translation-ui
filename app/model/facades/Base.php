@@ -3,7 +3,8 @@
 namespace Facades;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Nette\Utils\Strings;
+
+
 
 abstract class Base
 {
@@ -11,7 +12,6 @@ abstract class Base
 	/** @var DocumentManager */
 	protected $dm;
 	protected $documentClass;
-
 
 	function __construct($dm)
 	{
@@ -38,7 +38,7 @@ abstract class Base
 
 
 	/**
-	 * @return \Doctrine\ODM\MongoDB\DocumentManager
+	 * @return DocumentManager
 	 */
 	public function getDm()
 	{
@@ -47,4 +47,3 @@ abstract class Base
 
 
 }
-

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9b441c16c69c336910faa86ce4dde0a5",
+    "hash": "33605bab8cce9377adca7ca86e71cde8",
     "packages": [
         {
             "name": "bazo/gridder",
@@ -280,12 +280,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "024c39e4ca0372b1df761b1cba21fb7f4a2e5e98"
+                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/024c39e4ca0372b1df761b1cba21fb7f4a2e5e98",
-                "reference": "024c39e4ca0372b1df761b1cba21fb7f4a2e5e98",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/6a6bec0670bb6e71a263b08bc1b98ea242928633",
+                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633",
                 "shasum": ""
             },
             "require": {
@@ -340,7 +340,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-09-17 14:44:13"
+            "time": "2014-09-25 16:45:30"
         },
         {
             "name": "doctrine/cache",
@@ -417,12 +417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a"
+                "reference": "8c5148e0ef8cee4afe86d45ba98f7b6d96e780d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a",
-                "reference": "432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/8c5148e0ef8cee4afe86d45ba98f7b6d96e780d0",
+                "reference": "8c5148e0ef8cee4afe86d45ba98f7b6d96e780d0",
                 "shasum": ""
             },
             "require": {
@@ -475,7 +475,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-07-29 20:07:28"
+            "time": "2014-09-24 12:11:27"
         },
         {
             "name": "doctrine/common",
@@ -687,12 +687,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb.git",
-                "reference": "3e93880d971c8f0db30e24426941eb41b10494bf"
+                "reference": "9422d441aeef701a5a342112764a4156fa50afce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/3e93880d971c8f0db30e24426941eb41b10494bf",
-                "reference": "3e93880d971c8f0db30e24426941eb41b10494bf",
+                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/9422d441aeef701a5a342112764a4156fa50afce",
+                "reference": "9422d441aeef701a5a342112764a4156fa50afce",
                 "shasum": ""
             },
             "require": {
@@ -746,7 +746,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2014-08-25 18:30:43"
+            "time": "2014-09-18 17:55:53"
         },
         {
             "name": "doctrine/mongodb-odm",
@@ -1287,12 +1287,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/application.git",
-                "reference": "6f33bb1a1abf58bdd6c8f794ac2191d534618dea"
+                "reference": "88592f0cd09b3440bbaa5de424acf98421611c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/application/zipball/6f33bb1a1abf58bdd6c8f794ac2191d534618dea",
-                "reference": "6f33bb1a1abf58bdd6c8f794ac2191d534618dea",
+                "url": "https://api.github.com/repos/nette/application/zipball/88592f0cd09b3440bbaa5de424acf98421611c4d",
+                "reference": "88592f0cd09b3440bbaa5de424acf98421611c4d",
                 "shasum": ""
             },
             "require": {
@@ -1344,7 +1344,7 @@
             ],
             "description": "Nette Application MVC Component",
             "homepage": "http://nette.org",
-            "time": "2014-09-08 16:38:39"
+            "time": "2014-09-22 13:52:47"
         },
         {
             "name": "nette/bootstrap",
@@ -1531,12 +1531,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/database.git",
-                "reference": "133ac9cb8b5635362c99c8122678a2bb0fd2f19b"
+                "reference": "dd7bdd9986619a3c22b2ce33f522e2fe84fab952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/database/zipball/133ac9cb8b5635362c99c8122678a2bb0fd2f19b",
-                "reference": "133ac9cb8b5635362c99c8122678a2bb0fd2f19b",
+                "url": "https://api.github.com/repos/nette/database/zipball/dd7bdd9986619a3c22b2ce33f522e2fe84fab952",
+                "reference": "dd7bdd9986619a3c22b2ce33f522e2fe84fab952",
                 "shasum": ""
             },
             "require": {
@@ -1581,7 +1581,7 @@
             ],
             "description": "Nette Database Component",
             "homepage": "http://nette.org",
-            "time": "2014-09-16 11:18:30"
+            "time": "2014-09-22 22:42:56"
         },
         {
             "name": "nette/deprecated",
@@ -2595,18 +2595,63 @@
             "time": "2014-09-08 14:20:42"
         },
         {
+            "name": "sepia/po-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulferras/PHP-po-parser.git",
+                "reference": "fed2dc69ce2fd6849d410a73f91b8994e23b066f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulferras/PHP-po-parser/zipball/fed2dc69ce2fd6849d410a73f91b8994e23b066f",
+                "reference": "fed2dc69ce2fd6849d410a73f91b8994e23b066f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "1.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sepia": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raúl Ferràs",
+                    "email": "raul.ferras@gmail.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "PO file parser for PHP.",
+            "homepage": "https://github.com/raulferras/PHP-po-parser",
+            "keywords": [
+                "gettext",
+                "i10n",
+                "i18n",
+                "po"
+            ],
+            "time": "2014-07-08 08:39:19"
+        },
+        {
             "name": "symfony/config",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "472b64a8343c26cd3ac1e80cd11f7653e3eb57f4"
+                "reference": "b9f7877e02682cb081585c58baf3b9760865b98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/472b64a8343c26cd3ac1e80cd11f7653e3eb57f4",
-                "reference": "472b64a8343c26cd3ac1e80cd11f7653e3eb57f4",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/b9f7877e02682cb081585c58baf3b9760865b98e",
+                "reference": "b9f7877e02682cb081585c58baf3b9760865b98e",
                 "shasum": ""
             },
             "require": {
@@ -2640,7 +2685,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-31 03:28:38"
+            "time": "2014-09-25 18:11:49"
         },
         {
             "name": "symfony/console",
@@ -2649,12 +2694,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "0f682ba7bd8102ed9374d247ca9c13236c2f1008"
+                "reference": "700dbb7648e89d0c8ce5337a9febc18dc84bcb6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/0f682ba7bd8102ed9374d247ca9c13236c2f1008",
-                "reference": "0f682ba7bd8102ed9374d247ca9c13236c2f1008",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/700dbb7648e89d0c8ce5337a9febc18dc84bcb6e",
+                "reference": "700dbb7648e89d0c8ce5337a9febc18dc84bcb6e",
                 "shasum": ""
             },
             "require": {
@@ -2697,7 +2742,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-17 09:54:14"
+            "time": "2014-09-25 10:18:55"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2706,12 +2751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "68ab3c3f50eae2b152075da722204d4de67f596f"
+                "reference": "bf53697836343c9bc5663649f5f094ede73c2d5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/68ab3c3f50eae2b152075da722204d4de67f596f",
-                "reference": "68ab3c3f50eae2b152075da722204d4de67f596f",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/bf53697836343c9bc5663649f5f094ede73c2d5c",
+                "reference": "bf53697836343c9bc5663649f5f094ede73c2d5c",
                 "shasum": ""
             },
             "require": {
@@ -2754,7 +2799,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-28 13:20:53"
+            "time": "2014-09-22 11:59:59"
         },
         {
             "name": "symfony/filesystem",
@@ -2763,12 +2808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "75f5f5c8ff1497a2071f9c77484390087e379406"
+                "reference": "7d97789ea01c3c76ecaa59b954d162777033cbd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/75f5f5c8ff1497a2071f9c77484390087e379406",
-                "reference": "75f5f5c8ff1497a2071f9c77484390087e379406",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/7d97789ea01c3c76ecaa59b954d162777033cbd4",
+                "reference": "7d97789ea01c3c76ecaa59b954d162777033cbd4",
                 "shasum": ""
             },
             "require": {
@@ -2801,7 +2846,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-04 21:09:17"
+            "time": "2014-09-22 15:54:44"
         },
         {
             "name": "symfony/icu",
@@ -2857,12 +2902,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Intl.git",
-                "reference": "46ce49e7eb97e53680494e0f4fe03946c1da89d1"
+                "reference": "2c15e4bf15f87f5e75a3c0feb9cc1f7ce3e8ae54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Intl/zipball/46ce49e7eb97e53680494e0f4fe03946c1da89d1",
-                "reference": "46ce49e7eb97e53680494e0f4fe03946c1da89d1",
+                "url": "https://api.github.com/repos/symfony/Intl/zipball/2c15e4bf15f87f5e75a3c0feb9cc1f7ce3e8ae54",
+                "reference": "2c15e4bf15f87f5e75a3c0feb9cc1f7ce3e8ae54",
                 "shasum": ""
             },
             "require": {
@@ -2924,7 +2969,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2014-09-17 09:54:14"
+            "time": "2014-09-22 11:59:59"
         },
         {
             "name": "symfony/translation",
@@ -2933,22 +2978,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "0e9e608a4417d48a4de868807e69f078625d76a2"
+                "reference": "e57fe05fdcbe9f5dd36a77ff5886fb782236e9ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/0e9e608a4417d48a4de868807e69f078625d76a2",
-                "reference": "0e9e608a4417d48a4de868807e69f078625d76a2",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/e57fe05fdcbe9f5dd36a77ff5886fb782236e9ef",
+                "reference": "e57fe05fdcbe9f5dd36a77ff5886fb782236e9ef",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
+                "psr/log": "~1.0",
                 "symfony/config": "~2.0",
+                "symfony/intl": "~2.3",
                 "symfony/yaml": "~2.2"
             },
             "suggest": {
+                "psr/log": "To use logging capability in translator",
                 "symfony/config": "",
                 "symfony/yaml": ""
             },
@@ -2979,7 +3027,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-17 09:54:14"
+            "time": "2014-09-24 08:44:29"
         },
         {
             "name": "tracy/tracy",
@@ -2987,12 +3035,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "2f70d1f2ca423cac11121b061b1592de5f049d30"
+                "reference": "682405280eae534dd3d9c7446173a635738dfec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/2f70d1f2ca423cac11121b061b1592de5f049d30",
-                "reference": "2f70d1f2ca423cac11121b061b1592de5f049d30",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/682405280eae534dd3d9c7446173a635738dfec4",
+                "reference": "682405280eae534dd3d9c7446173a635738dfec4",
                 "shasum": ""
             },
             "require": {
@@ -3038,7 +3086,7 @@
                 "debugger",
                 "nette"
             ],
-            "time": "2014-09-17 11:22:18"
+            "time": "2014-09-25 22:58:39"
         }
     ],
     "packages-dev": [],
@@ -3058,7 +3106,8 @@
         "kdyby/console": 20,
         "kdyby/redis": 20,
         "kdyby/translation": 20,
-        "maennchen/zipstream-php": 20
+        "maennchen/zipstream-php": 20,
+        "sepia/po-parser": 20
     },
     "prefer-stable": false,
     "platform": {

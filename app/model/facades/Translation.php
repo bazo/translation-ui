@@ -4,11 +4,12 @@ namespace Facades;
 
 use Nette\Utils\Strings;
 
+
+
 class Translation extends Base
 {
 
 	protected $documentClass = 'Translation';
-
 
 	public function findFilteredMessages($id, $filter = 'all', $page = 1, $maxItems = 5)
 	{
@@ -106,9 +107,9 @@ class Translation extends Base
 	public function getDictionaryData(\Translation $translation)
 	{
 		$metadata = array(
-			'plural-count' => $translation->getPluralsCount(),
-			'plural-rule' => $translation->getPluralRule(),
-			'creation-date' => date('d.m.Y H:i:s')
+			'plural-count'	 => $translation->getPluralsCount(),
+			'plural-rule'	 => $translation->getPluralRule(),
+			'creation-date'	 => date('d.m.Y H:i:s')
 		);
 
 		$data['messages'] = $this->formatDictionaryMessages($translation);
@@ -138,5 +139,25 @@ class Translation extends Base
 	}
 
 
-}
+	public function importPOTranslation($filename, \Translation $translation)
+	{
+		$parser = new \Sepia\PoParser;
+		$data = $parser->parse($filename);
 
+		foreach ($translation->getMessages() as $message) {
+			$msgId = $message->getSingular();
+			if (isset($data[$msgId])) {
+
+				$entry = $data[$msgId];
+
+				$trans = implode('|', $entry['msgstr']);
+				$message->setTranslations([$trans]);
+				$this->dm->persist($message);
+			}
+		}
+
+		$this->dm->flush();
+	}
+
+
+}

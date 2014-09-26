@@ -15,6 +15,7 @@
 		"kdyby/console": "@dev",
 		"kdyby/redis": "@dev",
 		"kdyby/translation": "@dev",
-		"maennchen/zipstream-php": "@dev"
+		"maennchen/zipstream-php": "@dev",
+		"sepia/po-parser": "@dev"
 	}
 }
