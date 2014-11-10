@@ -213,25 +213,23 @@ class Project extends Base
 		}
 
 		foreach ($translations as $translation) {
+			$translationData = $translationsData[$translation->getLang()];
 			foreach ($data['messages'] as $messageId => $messageData) {
 				if (!$project->hasTemplateMessage($messageId)) {
 					$project->addTemplateMessage($messageId, $messageData);
-
-					$translationData = $translationsData[$translation->getLang()];
-					$message		 = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
-					try {
-						$translation->addMessage($message);
-					} catch (\ExistingMessageException $e) {
-						//ignore
-					}
-
-					$message->setTranslation($translation);
-
-					$this->dm->persist($message);
-					//$this->dm->flush();
 				}
-				$imported++;
+				$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
+				$added = $translation->addMessage($message);
+
+				if ($added) {
+					$message->setTranslation($translation);
+					$this->dm->persist($message);
+					$imported++;
+				}
 			}
+
+
+			$this->dm->persist($translation);
 		}
 
 		$this->dm->persist($project);

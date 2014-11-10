@@ -206,7 +206,6 @@ class Translation
 			return TRUE;
 		} else {
 			return FALSE;
-			//throw new \ExistingMessageException(sprintf('Translation already contains message %s', $message->getSingular()));
 		}
 	}
 
