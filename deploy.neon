@@ -10,3 +10,5 @@ hooks:
 		- "php cli odm:clear-cache:metadata"
 		- "php cli odm:generate:hydrators"
 		- "php cli odm:generate:proxies"
+		- "sudo service php5-fpm restart"
+		- "rm -rf temp/cache"
