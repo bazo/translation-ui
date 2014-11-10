@@ -2,6 +2,7 @@
 
 namespace Helpers;
 
+
 use Nette\Utils\Strings;
 
 /**
@@ -18,5 +19,10 @@ class Message
 	}
 
 
-}
+	public static function decodeMessageId($messageId)
+	{
+		return Strings::replace($messageId, '/DOT/', '.');
+	}
 
+
+}
