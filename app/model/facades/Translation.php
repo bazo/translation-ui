@@ -148,7 +148,7 @@ class Translation extends Base
 	public function importPOTranslation($filename, \Translation $translation)
 	{
 		$parser = new \Sepia\PoParser;
-		$data = $parser->parse($filename);
+		$data = $parser->parseFile($filename);
 
 		foreach ($translation->getMessages() as $message) {
 			$msgId = $message->getSingular();
