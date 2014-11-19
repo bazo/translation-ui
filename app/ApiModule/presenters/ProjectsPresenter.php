@@ -76,10 +76,11 @@ class ProjectsPresenter extends BasePresenter
 
 		$zip = new \ZipStream(sprintf('%s.zip', $project->getName()));
 
-		foreach ($files as $fileName => $data) {
-			$data = Neon::encode(current($files), Neon::BLOCK);
+		foreach ($files as $fileName => $messages) {
+			$data = Neon::encode($messages, Neon::BLOCK);
 			$zip->add_file($fileName, $data);
 		}
+
 		$zip->finish();
 	}
 
