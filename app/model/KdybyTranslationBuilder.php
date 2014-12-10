@@ -19,7 +19,16 @@ class KdybyTranslationBuilder
 				$domain = $defaultDomain;
 			}
 
-			$messagesByDomain[$domain][$message] = implode('|', $messageData['translations']);
+			$translations = array_filter($messageData['translations']);
+			if (empty($translations)) {
+				continue;
+			}
+
+			if(count($translations) === 1) {
+				$messagesByDomain[$domain][$message] = current($translations);
+			} else {
+				$messagesByDomain[$domain][$message] = implode('|', $messageData['translations']);
+			}
 		}
 		return $this->buildLanguageFiles($fileMask, $messagesByDomain);
 	}
