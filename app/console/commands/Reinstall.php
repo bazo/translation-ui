@@ -44,7 +44,7 @@ class Reinstall extends Console\Command\Command
 		$command = $application->get('odm:generate:proxies');
 		$command->run($input, $output);
 
-		$command = $application->get('app:admin:create');
+		$command = $application->get('app:user:create');
 		$command->run($input, $output);
 
 		$output->writeln('Finished');

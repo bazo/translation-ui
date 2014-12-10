@@ -70,7 +70,6 @@ class Translation
 
 	/**
 	 * @ODM\Hash
-	 * @ODM\Index
 	 */
 	private $messageIds = [];
 
@@ -207,7 +206,6 @@ class Translation
 			return TRUE;
 		} else {
 			return FALSE;
-			//throw new \ExistingMessageException(sprintf('Translation already contains message %s', $message->getSingular()));
 		}
 	}
 
@@ -251,6 +249,7 @@ class Translation
 	public function setUser($user)
 	{
 		$this->user = $user;
+		return $this;
 	}
 
 
@@ -263,6 +262,7 @@ class Translation
 	public function setAdded($added)
 	{
 		$this->added = $added;
+		return $this;
 	}
 
 
@@ -275,6 +275,7 @@ class Translation
 	public function setIndex($index)
 	{
 		$this->index = $index;
+		return $this;
 	}
 
 
@@ -320,6 +321,7 @@ class Translation
 	public function setLanguage($language)
 	{
 		$this->language = $language;
+		return $this;
 	}
 
 

@@ -2,8 +2,6 @@
 
 namespace Facades;
 
-use Nette\Utils\Strings;
-
 
 
 class Translation extends Base
@@ -71,7 +69,7 @@ class Translation extends Base
 		}
 
 		$templateMessage = [$values->singular => ['singular' => $values->singular, 'translations' => []]];
-		$res = $project->addTemplateMessage($values->singular, $templateMessage);
+		$res			 = $project->addTemplateMessage($values->singular, $templateMessage);
 		if ($res === TRUE) {
 			$this->dm->persist($project);
 		}
@@ -83,9 +81,8 @@ class Translation extends Base
 	private function formatDictionaryMessages(\Translation $translation)
 	{
 		$translatedMessages = $this->dm->createQueryBuilder('Message')
+						->field('translation')->references($translation)
 						->field('singular')->notEqual('')
-						//->field('translated')->equals(true)
-						->field('translation.id')->equals($translation->getId())
 						->getQuery()->execute();
 
 		$messages = [];
@@ -103,8 +100,8 @@ class Translation extends Base
 				$messageArr['plural'] = $message->getPlural();
 			}
 
-			$messageArr['translations'] = $message->getTranslations();
-			$messages[$message->getSingular()] = $messageArr;
+			$messageArr['translations']			 = $message->getTranslations();
+			$messages[$message->getSingular()]	 = $messageArr;
 		}
 
 		return $messages;
@@ -119,9 +116,9 @@ class Translation extends Base
 			'creation-date'	 => date('d.m.Y H:i:s')
 		);
 
-		$data['messages'] = $this->formatDictionaryMessages($translation);
-		$data['lang'] = $translation->getLang();
-		$data['metadata'] = $metadata;
+		$data['messages']	 = $this->formatDictionaryMessages($translation);
+		$data['lang']		 = $translation->getLang();
+		$data['metadata']	 = $metadata;
 
 		return $data;
 	}
@@ -148,8 +145,8 @@ class Translation extends Base
 
 	public function importPOTranslation($filename, \Translation $translation)
 	{
-		$parser = new \Sepia\PoParser;
-		$data = $parser->parse($filename);
+		$parser	 = new \Sepia\PoParser;
+		$data	 = $parser->parseFile($filename);
 
 		foreach ($translation->getMessages() as $message) {
 			$msgId = $message->getSingular();

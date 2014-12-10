@@ -2,11 +2,10 @@
 
 namespace Facades;
 
+
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Nette\Utils\Strings;
 use Bazo\Translation\Langs;
-
-
 
 class Project extends Base
 {
@@ -51,9 +50,15 @@ class Project extends Base
 
 		$key = $this->keyGenerator->generateKey();
 
-		$name = Strings::webalize(Strings::lower(Strings::toAscii($values->caption)));
-		$name = str_replace('-', '_', $name);
-		$project->setCaption($values->caption)->setName($name)->setSourceLanguage($values->sourceLang)->setLink($values->link)->setKey($key);
+		$name	 = Strings::webalize(Strings::lower(Strings::toAscii($values->caption)));
+		$name	 = str_replace('-', '_', $name);
+		$project
+				->setCaption($values->caption)
+				->setName($name)
+				->setSourceLanguage($values->sourceLang)
+				->setLink($values->link)
+				->setKey($key)
+		;
 
 		$project->setOwner($user);
 
@@ -70,10 +75,11 @@ class Project extends Base
 
 		$lang = substr($locale, 0, 2);
 
-		$pluralRule = Langs::getPluralRule($lang);
-		$pluralsCount = Langs::getPluralsCount($lang);
-		$plurals = $this->getPlurals($locale, $pluralsCount);
-		$language = \Symfony\Component\Intl\Intl::getLocaleBundle()->getLocaleName($locale);
+		$pluralRule		 = Langs::getPluralRule($lang);
+		$pluralsCount	 = Langs::getPluralsCount($lang);
+		$plurals		 = $this->getPlurals($locale, $pluralsCount);
+		$language		 = \Symfony\Component\Intl\Intl::getLocaleBundle()->getLocaleName($locale);
+
 		$translation
 				->setLang($lang)
 				->setLocale($locale)
@@ -121,7 +127,7 @@ class Project extends Base
 	private function getPlurals($locale, $count)
 	{
 		$numbers = array_fill(0, $count, NULL);
-		$n = 1;
+		$n		 = 1;
 		do {
 			$plural = \Symfony\Component\Translation\PluralizationRules::get($n, $locale);
 			if (!isset($numbers[$plural])) {
@@ -163,7 +169,10 @@ class Project extends Base
 	 */
 	private function prepareMessage($messageData, $translations, $pluralsCount)
 	{
-		$messageData = current($messageData);
+		//workaround around something
+		if (!isset($messageData['singular'])) {
+			$messageData = current($messageData);
+		}
 		$message = new \Message;
 		$message
 				->setSingular($messageData['singular'])
@@ -184,41 +193,43 @@ class Project extends Base
 
 	public function importTemplate($data, \Project $project)
 	{
-		$imported = 0;
-		$singleTranslation = $this->prepareTranslationsArray(1);
-
 		$translations = $project->getTranslations();
+
+		if ($translations->count() === 0) {
+			return 0;
+		}
+
+		$imported			 = 0;
+		$singleTranslation	 = $this->prepareTranslationsArray(1);
 
 		$translationsData = [];
 
 		foreach ($translations as $translation) {
-			$pluralsCount = Langs::getPluralsCount($translation->getLang());
-			$translationsData[$translation->getLang()] = array(
+			$pluralsCount								 = Langs::getPluralsCount($translation->getLang());
+			$translationsData[$translation->getLang()]	 = array(
 				'pluralsCount'	 => $pluralsCount,
 				'translations'	 => $this->prepareTranslationsArray($pluralsCount)
 			);
 		}
 
-		foreach ($data['messages'] as $messageId => $messageData) {
-			if (!$project->hasTemplateMessage($messageId)) {
-				$project->addTemplateMessage($messageId, $messageData);
-
-				foreach ($translations as $translation) {
-					$translationData = $translationsData[$translation->getLang()];
-					$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
-					try {
-						$translation->addMessage($message);
-					} catch (\ExistingMessageException $e) {
-						//ignore
-					}
-
-					$message->setTranslation($translation);
-
-					$this->dm->persist($message);
-					//$this->dm->flush();
+		foreach ($translations as $translation) {
+			$translationData = $translationsData[$translation->getLang()];
+			foreach ($data['messages'] as $messageId => $messageData) {
+				if (!$project->hasTemplateMessage($messageId)) {
+					$project->addTemplateMessage($messageId, $messageData);
 				}
-				$imported++;
+				$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
+				$added = $translation->addMessage($message);
+
+				if ($added) {
+					$message->setTranslation($translation);
+					$this->dm->persist($message);
+					$imported++;
+				}
 			}
+
+
+			$this->dm->persist($translation);
 		}
 
 		$this->dm->persist($project);

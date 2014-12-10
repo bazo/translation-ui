@@ -90,15 +90,15 @@ class TranslationPresenter extends SecuredPresenter
 
 		if (count($outputFiles) === 1) {
 			$name = key($outputFiles);
-			$data = Neon::encode(current($outputFiles), Neon::BLOCK);
-			$response = new TextDownloadResponse($data, $name, 'text/x-neon', 'UTF-8');
+			$neon = Neon::encode(current($outputFiles), Neon::BLOCK);
+			$response = new TextDownloadResponse($neon, $name, 'text/x-neon', 'UTF-8');
 			$this->sendResponse($response);
 			$this->terminate();
 		} else {
 			$zip = new \ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
 			foreach ($outputFiles as $fileName => $data) {
-				$data = Neon::encode(current($outputFiles), Neon::BLOCK);
-				$zip->add_file($fileName, $data);
+				$neon = Neon::encode($data, Neon::BLOCK);
+				$zip->add_file($fileName, $neon);
 			}
 			$zip->finish();
 		}

@@ -68,7 +68,6 @@ class Project
 
 	/**
 	 * @ODM\Hash
-	 * @ODM\Index
 	 */
 	private $templateMessages = [];
 
