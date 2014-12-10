@@ -83,7 +83,8 @@ class Translation extends Base
 	private function formatDictionaryMessages(\Translation $translation)
 	{
 		$translatedMessages = $this->dm->createQueryBuilder('Message')
-						->field('translated')->equals(true)
+						->field('singular')->notEqual('')
+						//->field('translated')->equals(true)
 						->field('translation.id')->equals($translation->getId())
 						->getQuery()->execute();
 
