@@ -3,7 +3,6 @@
 namespace Facades;
 
 
-
 class Translation extends Base
 {
 
@@ -135,7 +134,12 @@ class Translation extends Base
 	public function importTranslation($data, \Translation $translation)
 	{
 		foreach ($translation->getMessages() as $message) {
-			$message->setTranslations($data['messages'][$message->getSingular()]['translations']);
+
+			if (isset($data['messages'])) {
+				$message->setTranslations($data['messages'][$message->getSingular()]['translations']);
+			} else {
+				$message->setTranslations([$data[$message->getSingular()]]);
+			}
 			$this->dm->persist($message);
 		}
 
