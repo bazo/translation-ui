@@ -173,21 +173,28 @@ class Project extends Base
 		if (!isset($messageData['singular'])) {
 			$messageData = current($messageData);
 		}
-		$message = new \Message;
-		$message
-				->setSingular($messageData['singular'])
-				->setPluralsCount($pluralsCount)
-		;
+
+		$message = $messageData['singular'];
 
 		$context = 'messages';
 		if (isset($messageData['context'])) {
 			$context = $messageData['context'];
+		} else {
+			if (strpos($message, '.') !== FALSE && strpos($message, ' ') === FALSE) {
+				list($context, $message) = explode('.', $message, 2);
+			}
 		}
 
-		$message->setContext($context);
-		$message->setTranslations($translations);
+		$msg = new \Message;
+		$msg
+				->setSingular($message)
+				->setPluralsCount($pluralsCount)
+		;
 
-		return $message;
+		$msg->setContext($context);
+		$msg->setTranslations($translations);
+
+		return $msg;
 	}
 
 
@@ -219,7 +226,7 @@ class Project extends Base
 					$project->addTemplateMessage($messageId, $messageData);
 				}
 				$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
-				$added = $translation->addMessage($message);
+				$added	 = $translation->addMessage($message);
 
 				if ($added) {
 					$message->setTranslation($translation);
