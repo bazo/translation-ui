@@ -70,7 +70,7 @@ class ProjectsPresenter extends BasePresenter
 		foreach ($translations as $translation) {
 			$mask	 = '%s.' . $translation->getLocale() . '.neon';
 			$dictionaryData	 = $this->translationFacade->getDictionaryData($translation);
-			$outputFiles	 = $builder->build($mask, $dictionaryData, 'messages');
+			$outputFiles	 = $builder->build($mask, $dictionaryData);
 			$files			 = array_merge($files, $outputFiles);
 		}
 

@@ -8,16 +8,12 @@
 class KdybyTranslationBuilder
 {
 
-	public function build($fileMask, $data, $defaultDomain)
+	public function build($fileMask, $data)
 	{
 		$messagesByDomain = [];
 		foreach ($data['messages'] as $index => $messageData) {
 			$message = $messageData['singular'];
-			if (strpos($message, '.') !== FALSE && strpos($message, ' ') === FALSE) {
-				list($domain, $message) = explode('.', $message, 2);
-			} else {
-				$domain = $defaultDomain;
-			}
+			$domain = $messageData['context'];
 
 			$translations = array_filter($messageData['translations']);
 			if (empty($translations)) {

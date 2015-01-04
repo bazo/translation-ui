@@ -86,7 +86,7 @@ class TranslationPresenter extends SecuredPresenter
 
 		$mask = '%s.' . $this->translation->getLocale() . '.neon';
 
-		$outputFiles = $builder->build($mask, $dictionaryData, 'messages');
+		$outputFiles = $builder->build($mask, $dictionaryData);
 
 		if (count($outputFiles) === 1) {
 			$name = key($outputFiles);
