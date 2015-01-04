@@ -134,13 +134,16 @@ class Translation extends Base
 	public function importTranslation($data, \Translation $translation)
 	{
 		foreach ($translation->getMessages() as $message) {
-
 			if (isset($data['messages'])) {
-				$message->setTranslations($data['messages'][$message->getSingular()]['translations']);
+				$translations = $data['messages'][$message->getSingular()]['translations'];
 			} else {
-				$message->setTranslations([$data[$message->getSingular()]]);
+				$translations = [$data[$message->getSingular()]];
 			}
-			$this->dm->persist($message);
+
+			if (!empty(current($translations))) {
+				$message->setTranslations($translations);
+				$this->dm->persist($message);
+			}
 		}
 
 		$this->dm->flush();
