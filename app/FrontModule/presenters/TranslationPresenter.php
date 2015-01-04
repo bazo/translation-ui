@@ -158,6 +158,8 @@ class TranslationPresenter extends SecuredPresenter
 
 			$this->translationFacade->importTranslation($data, $this->translation);
 		}
+
+		$this->redirect('this');
 	}
 
 
