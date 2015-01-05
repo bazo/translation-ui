@@ -78,6 +78,10 @@
 					<th>{label translation /}</th>
 					<th>{input translation}</th>
 				</tr>
+				<tr>
+					<th>{label context /}</th>
+					<th>{input context}</th>
+				</tr>
 			</table>
 		</div>
 		<div class="modal-footer">
@@ -194,7 +198,24 @@
 
 			{block script}
 			<script>
-				$('#messages').on('click', '.close', function(event) {
+
+				function pathToFile(str)
+				{
+					var nOffset = Math.max(0, Math.max(str.lastIndexOf('\\'), str.lastIndexOf('/')));
+					var eOffset = str.lastIndexOf('.');
+					if (eOffset < 0)
+					{
+						eOffset = str.length;
+					}
+					return {
+						isDirectory: eOffset === str.length,
+						path: str.substring(0, nOffset),
+						name: str.substring(nOffset > 0 ? nOffset + 1 : nOffset, eOffset),
+						extension: str.substring(eOffset > 0 ? eOffset + 1 : eOffset, str.length)
+					};
+				}
+
+				$('#messages').on('click', '.close', function (event) {
 					event.preventDefault();
 					var modal = $('#deleteMessage');
 					var form = modal.find('form').first();
@@ -203,12 +224,43 @@
 					form.find('input[name="id"]').val(id);
 					modal.modal('show');
 				});
-				$('#messages').on('blur', '.message textarea', function(event) {
+				$('#messages').on('blur', '.message textarea', function (event) {
 					if (this.value !== '') {
 						var message = $(this).parent().parent().parent().parent().parent();
 						var btnSubmit = message.find('input[name="btnSubmit"]');
 						btnSubmit.click();
 					}
 				});
+
+				$('#frm-formImportTranslation-translation').on('input', function (e) {
+					console.log('on input');
+				});
+
+
+				$('#frm-formImportTranslation-translation').on('change', function (e) {
+					var fileName = e.target.value;
+					var fileInfo = pathToFile(fileName);
+
+					var $form = $(e.target).parent().parent().parent().parent().parent().parent();
+					var $submitButton = $form.find('input[type="submit"]');
+					var $contextInput = $form.find('input[name="context"]');
+
+					if (fileInfo.extension !== 'neon') {
+						alert('File must be a .neon file');
+						$submitButton.attr('disabled', true);
+						$contextInput.attr('disabled', true);
+					} else {
+						if (fileName.indexOf('.') !== -1 && fileName.indexOf(' ') === -1) {
+							var context = fileName.split('.', 2).shift();
+							$contextInput.val(context);
+						}
+						$submitButton.removeAttr('disabled');
+						$contextInput.removeAttr('disabled');
+					}
+
+
+					console.log(e.target.value);
+				});
+
 			</script>
 			{/block}

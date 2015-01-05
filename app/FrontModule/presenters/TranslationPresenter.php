@@ -12,6 +12,7 @@ use Nette\Application\UI\Multiplier;
 use Nette\Neon\Neon;
 use Responses\TextDownloadResponse;
 use Translation;
+use ZipStream;
 
 
 
@@ -95,7 +96,7 @@ class TranslationPresenter extends SecuredPresenter
 			$this->sendResponse($response);
 			$this->terminate();
 		} else {
-			$zip = new \ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
+			$zip = new ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
 			foreach ($outputFiles as $fileName => $data) {
 				$neon = Neon::encode($data, Neon::BLOCK);
 				$zip->add_file($fileName, $neon);
@@ -140,6 +141,7 @@ class TranslationPresenter extends SecuredPresenter
 		$form = new Form;
 
 		$form->addUpload('translation', 'Translation');
+		$form->addText('context', 'Context')->setRequired()->setDefaultValue('messages');
 		$form->addSubmit('btnSubmit', 'Import');
 
 		$form->onSuccess[] = callback($this, 'formImportTranslationSubmitted');
@@ -154,7 +156,7 @@ class TranslationPresenter extends SecuredPresenter
 
 		if ($values->translation->isOk()) {
 			$neon = file_get_contents($values->translation->getTemporaryFile());
-			$data = \Nette\Utils\Neon::decode($neon);
+			$data = Neon::decode($neon);
 
 			$this->translationFacade->importTranslation($data, $this->translation);
 		}

@@ -26,6 +26,7 @@ class Translation extends Base
 
 		if (!empty($search)) {
 			$regex = new \MongoRegex('/.*' . $search . '.*/i');
+			$qb->addOr($qb->expr()->field('context')->equals($regex));
 			$qb->addOr($qb->expr()->field('singular')->equals($regex));
 			$qb->addOr($qb->expr()->field('translations')->equals($regex));
 		}
@@ -131,16 +132,18 @@ class Translation extends Base
 	}
 
 
-	public function importTranslation($data, \Translation $translation)
+	public function importTranslation($data, \Translation $translation, $context = 'messages')
 	{
 		foreach ($translation->getMessages() as $message) {
+			$translations = [];
 			if (isset($data['messages'])) {
 				$translations = $data['messages'][$message->getSingular()]['translations'];
-			} else {
+			} elseif (isset($data[$message->getSingular()])) {
 				$translations = [$data[$message->getSingular()]];
 			}
 
 			if (!empty(current($translations))) {
+				$message->setContext($context);
 				$message->setTranslations($translations);
 				$this->dm->persist($message);
 			}
