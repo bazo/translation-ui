@@ -72,7 +72,7 @@ class TranslationPresenter extends SecuredPresenter
 
 		$totalCount = $messages->count();
 
-		$pagesCount = (int) round($totalCount / $this->maxItems);
+		$pagesCount = (int) ceil($totalCount / $this->maxItems);
 
 		$this->template->pagesCount = $pagesCount;
 		$this->template->page = $this->page;

@@ -2,6 +2,7 @@
 
 namespace Services;
 
+
 use Activity;
 use ActivityLog;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -20,7 +21,6 @@ class ActivityLogger
 	/** @var DocumentManager */
 	private $dm;
 
-
 	function __construct(DocumentManager $dm)
 	{
 		$this->dm = $dm;
@@ -33,12 +33,15 @@ class ActivityLogger
 
 		$message = Activity::getMessage($activity);
 
-		$args = array();
+		$args = [];
+
+		$projectName = $project->getName();
+
 		switch ($activity) {
 			case Activity::ADD_COLLABORATOR:
 			case Activity::REMOVE_COLLABORATOR:
-				$args[] = $object->getUser()->getNick();
-				$args[] = $object->getLevel();
+				$args[]	 = $object->getUser()->getNick();
+				$args[]	 = $object->getLevel();
 				break;
 
 			case Activity::REMOVE_TRANSLATION:
@@ -52,27 +55,34 @@ class ActivityLogger
 				break;
 
 			case Activity::IMPORT_TEMPLATE:
-				$args[] = $object; //count of imported messages
-				$args[] = count($project->getTemplateMessages()); //total count
+				$args[]	 = $object; //count of imported messages
+				$args[]	 = count($project->getTemplateMessages()); //total count
 				break;
 
 			case Activity::TRANSLATE_SINGULAR:
-				$args[] = $object->getSingular();
-				$translations = $object->getTranslations();
-				$args[] = array_shift($translations);
+				$args[]			 = $object->getSingular();
+				$translations	 = $object->getTranslations();
+				$args[]			 = array_shift($translations);
 				break;
 
 			case Activity::TRANSLATE_PLURAL:
-				$args[] = $object->getPlural();
-				$args[] = implode(', ', $object->getTranslations());
+				$args[]	 = $object->getPlural();
+				$args[]	 = implode(', ', $object->getTranslations());
+				break;
+
+			case \Activity::DELETE_PROJECT:
+				$project = NULL;
 				break;
 		}
 
 		$log
-			->setActorId($user->getId())
-			->setActorNick($user->getNick())
-			->setProject($project)->setActivity($activity)
-			->setMessage($message)->setArgs($args)
+				->setActorId($user->getId())
+				->setActorNick($user->getNick())
+				//->setProject($project)
+				->setProjectName($projectName)
+				->setActivity($activity)
+				->setMessage($message)
+				->setArgs($args)
 		;
 
 		$this->dm->persist($log);
@@ -81,4 +91,3 @@ class ActivityLogger
 
 
 }
-

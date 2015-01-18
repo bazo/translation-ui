@@ -12,18 +12,18 @@ class ActivityLog
 {
 
 	/**
-	 * @ODM\Id 
+	 * @ODM\Id
 	 */
 	private $id;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 * @ODM\Index
 	 */
 	private $activity;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 * @ODM\Index
 	 */
 	private $message;
@@ -32,26 +32,26 @@ class ActivityLog
 	private $project;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 * @ODM\Index
 	 */
 	private $actorNick;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 * @ODM\Index
 	 */
 	private $actorId;
 
 	/**
-	 * @ODM\String 
+	 * @ODM\String
 	 * @ODM\Index
 	 */
 	private $projectName;
 
 	/**
-	 * @ODM\Date  
-	 * @ODM\Index(order="desc") 
+	 * @ODM\Date
+	 * @ODM\Index(order="desc")
 	 */
 	private $added;
 
@@ -59,7 +59,6 @@ class ActivityLog
 	 * @ODM\Collection
 	 */
 	private $args = [];
-
 
 	public function __construct()
 	{
@@ -109,10 +108,19 @@ class ActivityLog
 	 * @param Project $project
 	 * @return \ActivityLog
 	 */
-	public function setProject(Project $project)
+	public function setProject(Project $project = NULL)
 	{
 		$this->project = $project;
-		$this->projectName = $project->getName();
+		if ($project !== NULL) {
+			$this->projectName = $project->getName();
+		}
+		return $this;
+	}
+
+
+	public function setProjectName($projectName)
+	{
+		$this->projectName = $projectName;
 		return $this;
 	}
 
@@ -163,4 +171,3 @@ class ActivityLog
 
 
 }
-

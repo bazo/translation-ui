@@ -8,6 +8,15 @@ class Translation extends Base
 
 	protected $documentClass = 'Translation';
 
+	/**
+	 *
+	 * @param type $id
+	 * @param type $filter
+	 * @param type $search
+	 * @param type $page
+	 * @param type $maxItems
+	 * @return \Doctrine\ODM\MongoDB\Cursor
+	 */
 	public function findFilteredMessages($id, $filter = 'all', $search = NULL, $page = 1, $maxItems = 5)
 	{
 		$qb = $this->dm->getRepository('Message')->createQueryBuilder()

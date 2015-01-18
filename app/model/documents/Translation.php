@@ -199,9 +199,10 @@ class Translation
 
 	public function addMessage(\Message $message)
 	{
-		if (!in_array($message->getSingular(), $this->messageIds)) {
+		$messageId = $message->getContext().'.'.$message->getSingular();
+		if (!in_array($messageId, $this->messageIds)) {
 			$this->messages->add($message);
-			$this->messageIds[Message::encodeMessageId($message->getSingular())] = $message->getSingular();
+			$this->messageIds[Message::encodeMessageId($messageId)] = $message->getSingular();
 			$this->messagesCount++;
 			return TRUE;
 		} else {

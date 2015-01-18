@@ -24,15 +24,14 @@ class Project extends Base
 	public function delete(\Project $project)
 	{
 		$user = $project->getOwner();
-		$user->removeProject($project);
 
-		$access = $this->dm->getRepository('ProjectAccess')
-				->getAccessForUserAndProject($user, $project);
+		//$access = $this->dm->getRepository('ProjectAccess')
+		//		->getAccessForUserAndProject($user, $project);
 
-		$this->dm->remove($access);
+		//$this->dm->remove($access);
 
 		$this->dm->remove($project);
-		$this->dm->persist($user);
+		//$this->dm->persist($user);
 
 		$this->dm->flush();
 	}
@@ -222,9 +221,9 @@ class Project extends Base
 		foreach ($translations as $translation) {
 			$translationData = $translationsData[$translation->getLang()];
 			foreach ($data['messages'] as $messageId => $messageData) {
-				if (!$project->hasTemplateMessage($messageId)) {
-					$project->addTemplateMessage($messageId, $messageData);
-				}
+
+				$project->addTemplateMessage($messageId, $messageData);
+
 				$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
 				$added	 = $translation->addMessage($message);
 

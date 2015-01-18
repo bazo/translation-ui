@@ -131,7 +131,7 @@ class ProjectPresenter extends SecuredPresenter
 
 	public function createComponentFormDelete()
 	{
-		if ($this->acl->isAllowed($this->me, $this->project, 'danger')) {
+		//if ($this->acl->isAllowed($this->me, $this->project, 'danger')) {
 			$form = new Form;
 
 			$form->addSubmit('btnSubmit', 'Delete');
@@ -139,18 +139,18 @@ class ProjectPresenter extends SecuredPresenter
 			$form->onSuccess[] = callback($this, 'formDeleteSubmitted');
 
 			return $form;
-		}
+		//}
 	}
 
 
 	public function formDeleteSubmitted(Form $form)
 	{
-		if ($this->me === $this->project->getOwner()) {
-			$this->context->projectFacade->delete($this->project);
+		//if ($this->me === $this->project->getOwner()) {
+			$this->projectFacade->delete($this->project);
 			$this->flash(sprintf('Project %s was successfully deleted', $this->project->getCaption()));
 
 			$this->log($this->project, Activity::DELETE_PROJECT);
-		}
+		//}
 		$this->redirect('projects:');
 	}
 
