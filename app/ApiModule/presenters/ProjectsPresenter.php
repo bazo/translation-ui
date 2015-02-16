@@ -5,6 +5,7 @@ namespace ApiModule;
 
 use KdybyTranslationBuilder;
 use Nette\Neon\Neon;
+use ZipStream\ZipStream;
 
 /**
  */
@@ -68,13 +69,13 @@ class ProjectsPresenter extends BasePresenter
 		$files = [];
 
 		foreach ($translations as $translation) {
-			$mask	 = '%s.' . $translation->getLocale() . '.neon';
+			$mask			 = '%s.' . $translation->getLocale() . '.neon';
 			$dictionaryData	 = $this->translationFacade->getDictionaryData($translation);
 			$outputFiles	 = $builder->build($mask, $dictionaryData);
 			$files			 = array_merge($files, $outputFiles);
 		}
 
-		$zip = new \ZipStream(sprintf('%s.zip', $project->getName()));
+		$zip = new ZipStream(sprintf('%s.zip', $project->getName()));
 
 		foreach ($files as $fileName => $messages) {
 			$data = Neon::encode($messages, Neon::BLOCK);
