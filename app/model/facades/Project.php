@@ -223,12 +223,10 @@ class Project extends Base
 			foreach ($data['messages'] as $messageId => $messageData) {
 
 				$project->addTemplateMessage($messageId, $messageData);
-
 				$message = $this->prepareMessage($messageData, $translationData['translations'], $singleTranslation, $translationData['pluralsCount']);
-				$added	 = $translation->addMessage($message);
+				$added	 = $translation->addMessage($messageId, $message);
 
 				if ($added) {
-					$message->setTranslation($translation);
 					$this->dm->persist($message);
 					$imported++;
 				}

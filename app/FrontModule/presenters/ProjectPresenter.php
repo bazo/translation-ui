@@ -151,7 +151,7 @@ class ProjectPresenter extends SecuredPresenter
 
 			$this->log($this->project, Activity::DELETE_PROJECT);
 		//}
-		$this->redirect('projects:');
+		$this->redirect('Projects:');
 	}
 
 

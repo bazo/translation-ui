@@ -197,13 +197,14 @@ class Translation
 	}
 
 
-	public function addMessage(\Message $message)
+	public function addMessage($messageId, \Message $message)
 	{
-		$messageId = $message->getContext().'.'.$message->getSingular();
+		$messageId = Message::encodeMessageId($messageId);
 		if (!in_array($messageId, $this->messageIds)) {
 			$this->messages->add($message);
-			$this->messageIds[Message::encodeMessageId($messageId)] = $message->getSingular();
+			$this->messageIds[$messageId] = $messageId;
 			$this->messagesCount++;
+			$message->setTranslation($this);
 			return TRUE;
 		} else {
 			return FALSE;
