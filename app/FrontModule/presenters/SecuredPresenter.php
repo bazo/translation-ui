@@ -86,7 +86,7 @@ abstract class SecuredPresenter extends BasePresenter
 			try {
 				$project = $this->projectFacade->createProject($values, $this->me);
 				$this->log($project, Activity::CREATE_PROJECT);
-				$this->redirect('project:', array('id' => $project->getId()));
+				$this->redirect('Project:', array('id' => $project->getId()));
 			} catch (ExistingProjectException $e) {
 				$this->flash($e->getMessage(), 'error');
 			}

@@ -1,12 +1,7 @@
 <div n:if="$pagesCount > 1" class="pagination">
 	<ul>
 		<li n:class="$page === 1 ? disabled"><a n:href="changePage! page => $page - 1">«</a></li>
-
-		<li n:if="$pagesCount < 20"  n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
-			<a n:href="changePage! page => $i">{$i}</a>
-		</li>
-
-		{var $maxPages = 10}
+		{var $maxPages = 20}
 		{if $pagesCount > $maxPages}
 
 			{var $toExcess = 0}
@@ -45,7 +40,10 @@
 			<li n:if="$to < $pagesCount" n:class="$page === $pagesCount ? active">
 				<a n:href="changePage! page => $pagesCount">{$pagesCount}</a>
 			</li>
-
+		{else}
+			<li   n:class="$page === $i ? active" n:for="$i = 1; $i <= $pagesCount; $i++">
+				<a n:href="changePage! page => $i">{$i}</a>
+			</li>
 		{/if}
 
 		<li n:class="$page === $pagesCount ? disabled"><a n:href="changePage! page => $page + 1">»</a></li>

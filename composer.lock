@@ -1002,12 +1002,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Redis.git",
-                "reference": "0fd42372644062b5753b51a071d22dcbb7af3ac9"
+                "reference": "d70286a829d097515d8703083c9c04a20af801d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/0fd42372644062b5753b51a071d22dcbb7af3ac9",
-                "reference": "0fd42372644062b5753b51a071d22dcbb7af3ac9",
+                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/d70286a829d097515d8703083c9c04a20af801d6",
+                "reference": "d70286a829d097515d8703083c9c04a20af801d6",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 "nette",
                 "redis"
             ],
-            "time": "2015-02-12 13:41:07"
+            "time": "2015-02-16 09:20:07"
         },
         {
             "name": "kdyby/translation",

@@ -5,7 +5,7 @@
 			Messages
 		</li>
 		<li n:foreach="$messages as $message">
-			<a href="#{$message->getId()}" data-content="{$message->getSingular()}" title="{$message->getSingular()}" >{$message->getSingular()}</a>
+			<a href="#{$message->getId()}" data-content="{$message->getSingular()}" title="{$message->getSingular()}" >{$message->getContext()}: {$message->getSingular()}</a>
 		</li>
 	</ul>
 {/snippet}
