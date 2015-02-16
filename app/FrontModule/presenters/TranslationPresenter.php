@@ -157,7 +157,7 @@ class TranslationPresenter extends SecuredPresenter
 			$neon = file_get_contents($values->translation->getTemporaryFile());
 			$data = Neon::decode($neon);
 
-			$this->translationFacade->importTranslation($data, $this->translation);
+			$this->translationFacade->importTranslation($data, $this->translation, $values->context);
 		}
 
 		$this->redirect('this');
