@@ -79,7 +79,7 @@ class ProjectsPresenter extends BasePresenter
 
 		foreach ($files as $fileName => $messages) {
 			$data = Neon::encode($messages, Neon::BLOCK);
-			$zip->add_file($fileName, $data);
+			$zip->addFile($fileName, $data);
 		}
 
 		$zip->finish();

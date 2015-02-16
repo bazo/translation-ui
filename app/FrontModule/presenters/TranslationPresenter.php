@@ -98,7 +98,7 @@ class TranslationPresenter extends SecuredPresenter
 			$zip = new ZipStream(sprintf('%s - %s.zip', $this->translation->getProject()->getName(), $this->translation->getLocale()));
 			foreach ($outputFiles as $fileName => $data) {
 				$neon = Neon::encode($data, Neon::BLOCK);
-				$zip->add_file($fileName, $neon);
+				$zip->addFile($fileName, $neon);
 			}
 			$zip->finish();
 		}
