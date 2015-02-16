@@ -12,8 +12,7 @@ use Nette\Application\UI\Multiplier;
 use Nette\Neon\Neon;
 use Responses\TextDownloadResponse;
 use Translation;
-use ZipStream;
-
+use ZipStream\ZipStream;
 
 
 class TranslationPresenter extends SecuredPresenter
