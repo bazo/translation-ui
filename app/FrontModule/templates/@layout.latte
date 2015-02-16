@@ -30,7 +30,7 @@
 						<span class="icon-bar"></span>
 					</a>
 
-					<a class="brand" href="{link dashboard:}">Translation UI</a>
+					<a class="brand" href="{link Dashboard:}">Translation UI</a>
 
 					<div n:if="$user->isLoggedIn()" class="btn-group pull-right">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -47,11 +47,11 @@
 			</div>
 
 			<div  n:if="!$user->isLoggedIn()" class="pull-right">
-				<a class="btn btn-primary" n:href="register:">
+				<a class="btn btn-primary" n:href="Register:">
 					Register
 				</a>
 
-				<a class="btn btn-primary" n:href="sign:in">
+				<a class="btn btn-primary" n:href="Sign:In">
 					Login
 				</a>
 			</div>
@@ -59,9 +59,9 @@
 			<nav  class="nav-collapse">
 				<ul id="nav" class="nav">
 					{if $user->isLoggedIn()}
-						<li {ifCurrent dashboard:}class="active"{/ifCurrent}><a n:href="dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
-						<li {ifCurrent projects:}class="active"{/ifCurrent}><a n:href="projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
-						<li {ifCurrent translations:}class="active"{/ifCurrent}><a n:href="translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
+						<li {ifCurrent Dashboard:}class="active"{/ifCurrent}><a n:href="Dashboard:"><i class="icon-home icon-white"></i>Dashboard</a></li>
+						<li {ifCurrent Projects:}class="active"{/ifCurrent}><a n:href="Projects:"><i class="icon-white icon-leaf"></i>Projects</a></li>
+						<li {ifCurrent Translations:}class="active"{/ifCurrent}><a n:href="Translations:"><i class="icon-white icon-globe"></i>Translations</a></li>
 						{/if}
 						{*<li><a n:href="downloads:"><i class="icon-white icon-download"></i>Downloads</a></li>	*}
 				</ul>

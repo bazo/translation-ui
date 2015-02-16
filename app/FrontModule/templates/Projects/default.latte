@@ -9,9 +9,9 @@
 
 	<div id="projects" n:inner-foreach="$projects as $project" class="span11">
 		<div class="project well span3">
-			<a n:href="project: id => $project->getId()"><strong>{$project->getCaption()}</strong></a> <br><br>
+			<a n:href="Project: id => $project->getId()"><strong>{$project->getCaption()}</strong></a> <br><br>
 
-			translations: <a n:href="project:translations id => $project->getId()"><span class="badge badge-info">{count($project->getTranslations())}</span></a><br>
+			translations: <a n:href="Project:Translations id => $project->getId()"><span class="badge badge-info">{count($project->getTranslations())}</span></a><br>
 			messages: <span class="badge badge-info">{count($project->getTemplateMessages())}</span>
 		</div>
 	</div>
