@@ -93,7 +93,8 @@ class Project extends Base
 
 		foreach ($project->getTemplateMessages() as $messageData) {
 			$message = $this->prepareMessage($messageData, $translations, $pluralsCount);
-			$translation->addMessage($message);
+			$messageId = $message->getContext().'.'.$message->getSingular();
+			$translation->addMessage($messageId, $message);
 			$message->setTranslation($translation);
 
 			$this->dm->persist($message);

@@ -4,9 +4,7 @@ nette:
 		mapping:
 			*: App\*Module\Presenters\*Presenter
 
-	session:
-		autoStart: smart
-		expiration: '+365 days'
+
 
 	mailer:
 		smtp: true

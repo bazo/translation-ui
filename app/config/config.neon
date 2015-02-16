@@ -29,6 +29,9 @@ php:
 
 nette:
 
+session:
+	autoStart: smart
+	expiration: '+365 days'
 
 database:
 	proxyDir: %tempDir%/proxies

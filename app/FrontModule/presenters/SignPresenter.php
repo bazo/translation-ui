@@ -23,8 +23,6 @@ class SignPresenter extends BasePresenter
 		$form->addPassword('password', 'Password:')
 				->setRequired('Please provide a password.');
 
-		$form->addCheckbox('remember', 'Remember me on this computer');
-
 		$form->addSubmit('btnSubmit', 'Sign in');
 
 		$form->onSuccess[] = callback($this, 'signInFormSubmitted');
@@ -36,11 +34,7 @@ class SignPresenter extends BasePresenter
 	{
 		try {
 			$values = $form->getValues();
-			if ($values->remember) {
 				$this->user->setExpiration('+ 365 days', FALSE);
-			} else {
-				$this->user->setExpiration('+ 60 minutes', TRUE);
-			}
 			$this->user->onLoggedIn[] = callback($this, 'userLoggedIn');
 			$this->user->login($values->email, $values->password);
 			//$this->redirect('Homepage:');
@@ -52,7 +46,7 @@ class SignPresenter extends BasePresenter
 
 	public function userLoggedIn(\Nette\Security\User $user)
 	{
-		$this->redirect('dashboard:default');
+		$this->redirect('Dashboard:Default');
 	}
 
 

@@ -38,7 +38,7 @@ abstract class SecuredPresenter extends BasePresenter
 	{
 		parent::startup();
 		if (!$this->user->isLoggedIn() or ! $this->user->isInRole('user')) {
-			$this->redirect('sign:in');
+			$this->redirect('Sign:In');
 		}
 	}
 
@@ -60,7 +60,7 @@ abstract class SecuredPresenter extends BasePresenter
 	public function handleLogout()
 	{
 		$this->user->logout(TRUE);
-		$this->redirect('sign:in');
+		$this->redirect('Sign:In');
 	}
 
 
