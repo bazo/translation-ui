@@ -16,6 +16,13 @@
 		"kdyby/redis": "@dev",
 		"kdyby/translation": "@dev",
 		"maennchen/zipstream-php": "@dev",
-		"sepia/po-parser": "@dev"
-	}
+		"sepia/po-parser": "@dev",
+		"symfony/console": "dev-master as 2.7.x-dev"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:bazo/Console.git"
+		}
+	]
 }
