@@ -114,7 +114,7 @@ class Translation extends Base
 			}
 
 			$messageArr['translations']			 = $message->getTranslations();
-			$messages[$message->getSingular()]	 = $messageArr;
+			$messages[]	 = $messageArr;
 		}
 
 		return $messages;
