@@ -4,9 +4,11 @@
 		<li class="nav-header">
 			Messages
 		</li>
+
 		<li n:foreach="$messages as $message">
 			<a href="#{$message->getId()}" data-content="{$message->getSingular()}" title="{$message->getSingular()}" >{$message->getContext()}: {$message->getSingular()}</a>
 		</li>
+
 	</ul>
 {/snippet}
 {/block}
@@ -139,9 +141,10 @@
 
 {include paging.latte}
 
-<div n:if="$messages->count(true) === 0" class="alert alert-info">
+<div n:if="count($messages) === 0" class="alert alert-info">
 	No messages.
 </div>
+
 
 <div id="messages">
 	{snippet messages}

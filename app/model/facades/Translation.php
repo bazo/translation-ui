@@ -29,11 +29,11 @@ class Translation extends Base
 
 		switch ($filter) {
 			case 'translated':
-				$qb->field('translated')->equals(true);
+				$qb->field('translated')->equals(TRUE);
 				break;
 
 			case 'untranslated':
-				$qb->field('translated')->equals(false);
+				$qb->field('translated')->equals(FALSE);
 				break;
 		}
 
@@ -47,7 +47,6 @@ class Translation extends Base
 		$offset = ($page - 1) * $maxItems;
 
 		$qb->skip($offset)->limit($maxItems);
-
 
 		return $qb->getQuery()->execute();
 	}

@@ -75,7 +75,7 @@ class TranslationPresenter extends SecuredPresenter
 
 		$this->template->pagesCount = $pagesCount;
 		$this->template->page = $this->page;
-		$this->template->messages = $messages;
+		$this->template->messages = $messages->toArray();
 	}
 
 

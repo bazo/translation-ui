@@ -1,0 +1,3 @@
+mongo:
+	autoGenerateHydratorClasses: TRUE
+	autoGenerateProxyClasses: TRUE
