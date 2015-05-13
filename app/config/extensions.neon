@@ -4,7 +4,7 @@ extensions:
 	#translation: Kdyby\Translation\DI\TranslationExtension
 	redis: Kdyby\Redis\DI\RedisExtension
 	console: Kdyby\Console\DI\ConsoleExtension
-	#monolog: Bazo\Monolog\DI\MonologExtension
+	monolog: Bazo\Monolog\DI\MonologExtension
 	#mediator: Bazo\Mediator\DI\MediatorExtension
 	#translation: \Mazagran\Translation\DI\Extension
 

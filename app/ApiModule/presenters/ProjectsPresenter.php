@@ -18,6 +18,9 @@ class ProjectsPresenter extends BasePresenter
 	/** @var \Facades\Translation @inject */
 	public $translationFacade;
 
+	/** @var \Monolog\Logger @inject */
+	public $logger;
+
 	protected function startup()
 	{
 		parent::startup();
@@ -26,14 +29,19 @@ class ProjectsPresenter extends BasePresenter
 
 	public function actionUpdate($id, $hash)
 	{
+
 		$project = $this->projectFacade->find($id);
 
 		$data = $this->getHttpRequest()->getRawBody();
 
 		$verifyHash = hash_hmac('sha256', $data, $project->getKey());
 
+		$messageData = unserialize($data);
+
+		$this->logger->addInfo('importing ', $messageData);
+
 		if ($hash === $verifyHash) {
-			$messageData = unserialize($data);
+
 			$imported	 = $this->projectFacade->importTemplate($messageData, $project);
 			$this->sendResponse(new \Nette\Application\Responses\JsonResponse(['error' => 'false', 'message' => sprintf('OK. Imported %d messages.', $imported)]));
 		} else {
