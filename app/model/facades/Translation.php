@@ -73,7 +73,7 @@ class Translation extends Base
 					->setTranslations($this->prepareTranslationsArray($pluralsCount))
 					->setTranslation($translation);
 
-			$res = $translation->addMessage($message);
+			$res = $translation->addMessage($message->singular, $message);
 			if ($res === TRUE) {
 				$this->dm->persist($message);
 				$this->dm->persist($translation);
