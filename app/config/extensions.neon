@@ -9,5 +9,5 @@ extensions:
 	#translation: \Mazagran\Translation\DI\Extension
 
 console:
-	name: Mazagran CLI
-	version: 0.1.0
+	name: Translation CLI
+	version: 0.2.0

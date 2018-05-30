@@ -5,7 +5,7 @@
 # http://nette.org/security-warning
 #
 parameters:
-	appName: mazagran
+	appName: translation
 	admin:
 		scriptFolder: %appDir%/AdminModule/scripts
 php:
@@ -27,11 +27,11 @@ mongo:
 	cachePrefix: %appName%
 	metaDataCache: @metaDataCache
 
-redis:
-	database: 15
-	storage: on
-	journal: on
-	session: on
+# redis:
+# 	database: 15
+# 	storage: on
+# 	journal: on
+# 	session: on
 
 includes:
 	- services.neon
