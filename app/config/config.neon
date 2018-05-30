@@ -5,7 +5,7 @@
 # http://nette.org/security-warning
 #
 parameters:
-	appName: translation
+	appName: translations
 	admin:
 		scriptFolder: %appDir%/AdminModule/scripts
 php:
@@ -26,12 +26,6 @@ mongo:
 	uri: mongodb://localhost/%appName%
 	cachePrefix: %appName%
 	metaDataCache: @metaDataCache
-
-# redis:
-# 	database: 15
-# 	storage: on
-# 	journal: on
-# 	session: on
 
 includes:
 	- services.neon
